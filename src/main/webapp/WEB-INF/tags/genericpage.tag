@@ -111,7 +111,7 @@
 
 <jsp:invoke fragment="footer"/>
 <!-- LOGO -->
-<img class="img-logo" src="${pageContext.request.contextPath}/images/logo.png">
+<img class="img-logo" src="${pageContext.request.contextPath}/images/foglogo.png">
 
 <div class="white-small-container">
     <div class="row-1-grid">
