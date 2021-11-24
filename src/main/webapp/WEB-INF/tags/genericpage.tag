@@ -10,69 +10,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><jsp:invoke fragment="header"/></title>
+    <title>
+        <jsp:invoke fragment="header"/>
+    </title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/styles.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style1.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="theme-color" content="#7952b3">
 </head>
 <body>
-    <!--
-        This header is inspired by this bootstrap
-        example: https://getbootstrap.com/docs/5.0/examples/pricing/
-    -->
-<header class="d-flex flex-column flex-md-row align-items-center p-3 pb-0 px-md-4 mb-4 bg-white border-bottom shadow-sm">
-    <div class="h5 my-0 me-md-auto fw-normal">
-        <p>Demo Project for DAT 2. semester</p>
-        <p style="font-size: larger">
-            <jsp:invoke fragment="header"/>
-        </p>
-    </div>
-    <nav class="my-2 my-md-0 me-md-3">
-        <c:if test="${addHomeLink == null }">
-            <a class="p-2 text-dark" href="<%=request.getContextPath()%>">Home</a>
-        </c:if>
-        <a class="p-2 text-dark" href="#">Orders</a>
-        <a class="p-2 text-dark" href="#">Profile</a>
-        <a class="p-2 text-dark" href="#">About</a>
-    </nav>
+<!--
+    This header is inspired by this bootstrap
+    example: https://getbootstrap.com/docs/5.0/examples/pricing/
+-->
+<header>
 
-    <div>
+    <!-- NAVIGATION BAR -->
+    <div class="topnav">
 
-        <c:if test="${sessionScope.user != null }">
-            ${sessionScope.user.email}
-        </c:if>
+        <ul>
+            <li>
+                <c:set var="thisPage" value="${pageContext.request.servletPath}"/>
+                <c:set var="isNotLoginPage" value="${!fn:endsWith(thisPage,'loginpage.jsp')}"/>
+                <c:set var="isNotRegisterPage" value="${!fn:endsWith(thisPage,'registerpage.jsp')}"/>
 
-        <c:set var="thisPage" value="${pageContext.request.servletPath}"/>
-        <c:set var="isNotLoginPage" value="${!fn:endsWith(thisPage,'loginpage.jsp')}"/>
-        <c:set var="isNotRegisterPage" value="${!fn:endsWith(thisPage,'registerpage.jsp')}"/>
+                <c:if test="${isNotLoginPage && isNotRegisterPage}">
+                    <c:if test="${sessionScope.user == null }">
+                        <a class="purple-button"
+                           href="${pageContext.request.contextPath}/fc/loginpage"><h4>
+                            Login</h4></a>
 
-        <c:if test="${isNotLoginPage && isNotRegisterPage}">
-            <c:if test="${sessionScope.user != null }">
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
-                href="${pageContext.request.contextPath}/fc/logoutcommand">Logout</a>
+                    </c:if>
+                    <c:if test="${sessionScope.user != null}">
+                        <div class="dropdown">
+                            <a class="purple-button"
+                               href="${pageContext.request.contextPath}/fc/profilepage">
+                                <h4>My profile</h4></a>
+                            <div class="dropdown-content">
+                                <a href="${pageContext.request.contextPath}/fc/profilepage">Profile</a>
+                                <c:if test="${sessionScope.user.role.equals('customer')}">
+                                    <a href="${pageContext.request.contextPath}/fc/orderpage">Order</a>
+                                </c:if>
+                                <a href="${pageContext.request.contextPath}/fc/logoutcommand">Sign out</a>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:if>
+
+            </li>
+
+            <!--TODO: lav kun synlig for customer bruger-->
+            <c:if test="${sessionScope.user.role != 'employee'}">
+                <li>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/shoppingcartpage"><i
+                            class="fas fa-shopping-cart"></i></a>
+                </li>
+                <li>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/finduspage"><h4>Find us</h4></a>
+                </li>
+                <li>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/cupcakecommand"><h4>Shop</h4>
+                    </a>
+                </li>
             </c:if>
-            <c:if test="${sessionScope.user == null }">
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
-                   href="${pageContext.request.contextPath}/fc/loginpage">Login</a>
-                <a type="button" class="btn btn-sm  btn-outline-secondary"
-                   href="${pageContext.request.contextPath}/fc/registerpage">Sign up</a>
+
+            <!--TODO: Lav kun synlig for admin bruger-->
+            <c:if test="${sessionScope.user.role.equals('employee')}">
+                <li>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/productpage"><i
+                            class="fas fa-store"></i></a>
+                </li>
+                <li>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/customerpage"><h4>Customers</h4>
+                    </a>
+                </li>
+                <li>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/allorderpage"><h4>Orders</h4>
+                    </a>
+                </li>
             </c:if>
+
+            <li>
+                <c:if test="${addHomeLink == null }">
+                    <a class="white-button" href="<%=request.getContextPath()%>"><h4>Home</h4></a>
+                </c:if>
+            </li>
+            <li style="float: left">
+                <c:if test="${sessionScope.user != null}">
+                    <label class="topnav-label"
+                           style="padding-left: 200px">Hello, ${sessionScope.user.firstname}</label>
+                </c:if>
+            </li>
+        </ul>
     </div>
-    </c:if>
 </header>
 
-<div id="body" class="container" style="min-height: 20vh;">
-    <jsp:doBody/>
-</div>
 
-<!-- Footer -->
-<div class="container">
-    <br>
-    <hr>
-    <br>
-    <jsp:invoke fragment="footer"/>
+<jsp:doBody/>
+
+<jsp:invoke fragment="footer"/>
+<!-- LOGO -->
+<img class="img-logo" src="${pageContext.request.contextPath}/images/logo.png">
+
+<div class="white-small-container">
+    <div class="row-1-grid">
+        <div class="box">
+            <div class="box-content">
+                <div class="row-3-grid">
+                    <div class="center-text">
+                        <h4 class="dark-purple">follow us</h4>
+                    </div>
+                    <div class="center-flex">
+                        <a class="media"><i style="font-size:24px" class="fab">&#xf39e;</i></a>
+                        <a class="media"><i style="font-size:24px" class="fab">&#xf0e1;</i></a>
+                        <a class="media"><i style="font-size:24px" class="fab">&#xf231;</i></a>
+                        <a class="media"><i style="font-size:24px" class="fab">&#xf2ac;</i></a>
+                        <a class="media"><i style="font-size:24px" class="fab">&#xf099;</i></a></div>
+                    <div class="m-p">
+                        <div class="center-text">
+                            <label class="small-label">Design by Christian, Leo & Mie</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
