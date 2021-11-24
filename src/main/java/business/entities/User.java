@@ -1,57 +1,120 @@
 package business.entities;
 
-public class User
-{
+public class User {
 
-    public User(String email, String password, String role)
-    {
+    public User(int id, String email, String password, String role, String firstname, String lastname, String streetname, String houseNr, String zipcode, String phoneNr) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.streetname = streetname;
+        this.houseNr = houseNr;
+        this.zipcode = zipcode;
+        this.phoneNr = phoneNr;
+    }
+
+    public User(String email, String password, String role, String firstname, String lastname, String streetname, String houseNr, String zipcode, String phoneNr) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.streetname = streetname;
+        this.houseNr = houseNr;
+        this.zipcode = zipcode;
+        this.phoneNr = phoneNr;
     }
 
     private int id; // just used to demo retrieval of autogen keys in UserMapper
     private String email;
     private String password; // Should be hashed and secured
     private String role;
+    private String firstname;
+    private String lastname;
+    private String streetname;
+    private String houseNr;
+    private String zipcode;
+    private String phoneNr;
 
-    public String getEmail()
-    {
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getStreetname() {
+        return streetname;
+    }
+
+    public void setStreetname(String streetname) {
+        this.streetname = streetname;
+    }
+
+    public String getHouseNr() {
+        return houseNr;
+    }
+
+    public void setHouseNr(String houseNr) {
+        this.houseNr = houseNr;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getPhoneNr() {
+        return phoneNr;
+    }
+
+    public void setPhoneNr(String phoneNr) {
+        this.phoneNr = phoneNr;
+    }
+
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getRole()
-    {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(String role)
-    {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 

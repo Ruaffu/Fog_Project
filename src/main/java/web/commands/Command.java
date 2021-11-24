@@ -22,10 +22,10 @@ public abstract class Command
         commands = new HashMap<>();
         commands.put("index", new CommandUnprotectedPage("index"));
         commands.put("loginpage", new CommandUnprotectedPage("loginpage"));
-        commands.put("logincommand", new LoginCommand(""));
+        commands.put("logincommand", new LoginCommand("index"));
         commands.put("logoutcommand", new LogoutCommand(""));
         commands.put("registerpage", new CommandUnprotectedPage("registerpage"));
-        commands.put("registercommand", new RegisterCommand(""));
+        commands.put("registercommand", new RegisterCommand("index"));
         commands.put("customerpage", new CommandProtectedPage("customerpage", "customer"));
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
     }
