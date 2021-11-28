@@ -28,6 +28,8 @@ public abstract class Command
         commands.put("registercommand", new RegisterCommand("index"));
         commands.put("customerpage", new CommandProtectedPage("customerpage", "customer"));
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
+        commands.put("requestpage", new CommandUnprotectedPage("requestcarportpage"));
+        commands.put("sendrequest", new CommandUnprotectedPage("requestconfirmationpage"));
     }
 
     public static Command fromPath(

@@ -70,7 +70,7 @@
                     <a class="white-button" href="${pageContext.request.contextPath}/fc/finduspage"><h4>Find us</h4></a>
                 </li>
                 <li>
-                    <a class="white-button" href="${pageContext.request.contextPath}/fc/cupcakecommand"><h4>Shop</h4>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/requestpage"><h4>Shop</h4>
                     </a>
                 </li>
             </c:if>
