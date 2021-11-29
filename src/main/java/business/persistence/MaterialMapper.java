@@ -1,11 +1,10 @@
 package business.persistence;
 
 import business.entities.Material;
+import business.exceptions.UserException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class MaterialMapper
 {
@@ -21,7 +20,7 @@ public class MaterialMapper
         try (Connection connection = database.connect()) {
 
             String sql = "INSERT INTO material (name, type, description, cost, price, length, height, width, unit) " +
-                    "VALUES(?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE price=?";
+                    "VALUES(?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE price=?, cost=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, material.getName());
@@ -33,6 +32,8 @@ public class MaterialMapper
                 ps.setInt(7, material.getHeight());
                 ps.setInt(8, material.getWidth());
                 ps.setString(9, material.getUnit());
+                ps.setFloat(10, material.getPrice());
+                ps.setFloat(11, material.getCost());
 
                 ps.executeUpdate();
             }
@@ -40,4 +41,44 @@ public class MaterialMapper
             ex.printStackTrace();
         }
     }
+
+    public Material getMaterial(int id) throws UserException
+    {
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM material WHERE id_material=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    String name = rs.getString("name");
+                    String type = rs.getString("type");
+                    String description = rs.getString("description");
+                    float cost = rs.getFloat("cost");
+                    float price = rs.getFloat("price");
+                    int length = rs.getInt("length");
+                    int height = rs.getInt("height");
+                    int width = rs.getInt("width");
+                    String unit = rs.getString("unit");
+
+                    return new Material(id,name,type,description,cost,price,length,height,width,unit);
+                } else {
+                    throw new Exception("Could not find material");
+                }
+            }
+            catch (Exception e) {
+                throw new UserException("Could not find material");
+            }
+
+        } catch (SQLException throwables) {
+            throw new UserException("Could not find material");
+        }
+
+    }
+
+//    public ArrayList<Material> getAllMaterials()
+//    {
+//
+//    }
 }
