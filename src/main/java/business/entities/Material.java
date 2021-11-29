@@ -8,10 +8,12 @@ public class Material {
     String description;
     float cost;
     float price;
-    float length;
+    int length;
+    int height;
+    int width;
     String unit;
 
-    public Material(int id, String name, String type, String description, float cost, float price, float length, String unit) {
+    public Material(int id, String name, String type, String description, float cost, float price, int length, int height, int width, String unit) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -19,7 +21,29 @@ public class Material {
         this.cost = cost;
         this.price = price;
         this.length = length;
+        this.height = height;
+        this.width = width;
         this.unit = unit;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
     }
 
     public int getId() {
@@ -70,11 +94,11 @@ public class Material {
         this.price = price;
     }
 
-    public float getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(float length) {
+    public void setLength(int length) {
         this.length = length;
     }
 

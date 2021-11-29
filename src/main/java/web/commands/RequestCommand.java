@@ -1,10 +1,13 @@
 package web.commands;
 
+import business.services.OrderFacade;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RequestCommand extends CommandProtectedPage
 {
+    OrderFacade orderFacade;
     public RequestCommand(String pageToShow, String role)
     {
         super(pageToShow, role);

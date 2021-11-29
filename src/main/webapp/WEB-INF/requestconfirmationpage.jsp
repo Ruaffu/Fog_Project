@@ -24,7 +24,7 @@
 <%--                            <c:forEach var="bmiEntry" items="${requestScope.bmiEntryList}">--%>
                                 <tr>
                                     <th>Carport bredde</th>
-                                    <td>240 cm</td>
+                                    <td>yo</td>
                                 </tr>
                             <tr>
                                 <th>Carport længde</th>
@@ -52,11 +52,12 @@
 
 
 
-                <div style="width: 200px; padding-top: 25px">
-                    <a class="purple-large-button" href="${pageContext.request.contextPath}"><i
-                            class="fas">&#xf060;</i>
-                        Go back to home</a>
-                </div>
+               <p>Din forespørgelse er blevet sendt....Good luck!</p>
+                        <div style="width: 200px; padding-top: 25px">
+                            <a class="purple-large-button" href="${pageContext.request.contextPath}"><i
+                                    class="fas">&#xf060;</i>
+                                Go back to home</a>
+                        </div>
             </div>
         </div>
 

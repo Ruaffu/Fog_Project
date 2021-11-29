@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-2-grid" style="box-sizing: border-box; gap: 50px; width: 100%">
                     <div style="box-sizing: border-box; width: 100%">
-                        <form action="${pageContext.request.contextPath}/fc/sendrequest" method="post">
+                        <form action="${pageContext.request.contextPath}/fc/requestcommand" method="post">
                             <div class="row-3-grid">
                                 <div class="left-text">
                                     <div class="row-2-grid" style="padding-bottom: 25px">
