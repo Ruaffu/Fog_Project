@@ -24,33 +24,31 @@
 <%--                            <c:forEach var="bmiEntry" items="${requestScope.bmiEntryList}">--%>
                                 <tr>
                                     <th>Carport bredde</th>
-                                    <td>yo</td>
+                                    <td>${requestScope.width} cm</td>
                                 </tr>
                             <tr>
                                 <th>Carport længde</th>
-                                <td>300 cm</td>
+                                <td>${requestScope.length} cm</td>
                             </tr>
                             <tr>
                                 <th>Tag</th>
-                                <td>Plasttrapezplader</td>
+                                <td>${requestScope.roof}</td>
                             </tr>
                             <tr>
                                 <th>Taghældning</th>
-                                <td>0 grader</td>
+                                <td>${requestScope.roofangle} grader</td>
                             </tr>
                             <tr>
                                 <th>Redskabsrum bredde</th>
-                                <td>210 cm</td>
+                                <td>${requestScope.shedwidth} cm</td>
                             </tr>
                             <tr>
                                 <th>Redskabsrum længde</th>
-                                <td>150 cm</td>
+                                <td>${requestScope.shedlength} cm</td>
                             </tr>
 
 <%--                            </c:forEach>--%>
                         </table>
-
-
 
                <p>Din forespørgelse er blevet sendt....Good luck!</p>
                         <div style="width: 200px; padding-top: 25px">
