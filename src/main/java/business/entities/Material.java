@@ -27,6 +27,30 @@ public class Material {
         this.unit = unit;
     }
 
+    public Material(int id, String name, String type, String description, float cost, float price, int length, int height, int width, String unit, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.cost = cost;
+        this.price = price;
+        this.length = length;
+        this.height = height;
+        this.width = width;
+        this.unit = unit;
+        this.quantity = quantity;
+    }
+
+    public int getQuantity()
+    {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity)
+    {
+        this.quantity = quantity;
+    }
+
     public int getHeight()
     {
         return height;

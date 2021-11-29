@@ -5,6 +5,8 @@ import business.exceptions.UserException;
 import business.persistence.Database;
 import business.persistence.MaterialMapper;
 
+import java.util.ArrayList;
+
 public class MaterialFacade
 {
     MaterialMapper materialMapper;
@@ -19,9 +21,14 @@ public class MaterialFacade
         materialMapper.saveMaterial(material);
     }
 
-    public Material getMaterial(int id) throws UserException
+    public Material getMaterialByID(int id) throws UserException
     {
-       return materialMapper.getMaterial(id);
+       return materialMapper.getMaterialByID(id);
+    }
+
+    public ArrayList<Material> getMaterialByType(String type) throws UserException
+    {
+        return materialMapper.getMaterialByType(type);
     }
 
 }
