@@ -12,6 +12,7 @@ public class Material {
     int height;
     int width;
     String unit;
+    int quantity;
 
     public Material(int id, String name, String type, String description, float cost, float price, int length, int height, int width, String unit) {
         this.id = id;
