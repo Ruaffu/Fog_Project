@@ -13,17 +13,16 @@ public class Order {
     boolean isPaid;
     Timestamp orderDate;
     String status;
-    float carportLength;
-    float carportWidth;
+    int carportLength;
+    int carportWidth;
     String roofType;
     int roofAngle;
-    boolean hasShed;
-    float shedLength;
-    float shedWidth;
+    int shedLength;
+    int shedWidth;
 
-    ArrayList<Material> BOM = new ArrayList<>();
+    ArrayList<Material> BOM;
 
-    public Order(int id, int userId, int adminId, float totalCost, float totalPrice, boolean isPaid, Timestamp orderDate, String status, float carportLength, float carportWidth, String roofType, int roofAngle, boolean hasShed, float shedLength, float shedWidth, ArrayList<Material> BOM) {
+    public Order(int id, int userId, int adminId, float totalCost, float totalPrice, boolean isPaid, Timestamp orderDate, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
         this.id = id;
         this.userId = userId;
         this.adminId = adminId;
@@ -36,7 +35,6 @@ public class Order {
         this.carportWidth = carportWidth;
         this.roofType = roofType;
         this.roofAngle = roofAngle;
-        this.hasShed = hasShed;
         this.shedLength = shedLength;
         this.shedWidth = shedWidth;
         this.BOM = BOM;
@@ -106,19 +104,19 @@ public class Order {
         this.status = status;
     }
 
-    public float getCarportLength() {
+    public int getCarportLength() {
         return carportLength;
     }
 
-    public void setCarportLength(float carportLength) {
+    public void setCarportLength(int carportLength) {
         this.carportLength = carportLength;
     }
 
-    public float getCarportWidth() {
+    public int getCarportWidth() {
         return carportWidth;
     }
 
-    public void setCarportWidth(float carportWidth) {
+    public void setCarportWidth(int carportWidth) {
         this.carportWidth = carportWidth;
     }
 
@@ -138,27 +136,19 @@ public class Order {
         this.roofAngle = roofAngle;
     }
 
-    public boolean isHasShed() {
-        return hasShed;
-    }
-
-    public void setHasShed(boolean hasShed) {
-        this.hasShed = hasShed;
-    }
-
-    public float getShedLength() {
+    public int getShedLength() {
         return shedLength;
     }
 
-    public void setShedLength(float shedLength) {
+    public void setShedLength(int shedLength) {
         this.shedLength = shedLength;
     }
 
-    public float getShedWidth() {
+    public int getShedWidth() {
         return shedWidth;
     }
 
-    public void setShedWidth(float shedWidth) {
+    public void setShedWidth(int shedWidth) {
         this.shedWidth = shedWidth;
     }
 

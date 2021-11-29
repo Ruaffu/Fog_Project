@@ -20,8 +20,6 @@
                     <div style="box-sizing: border-box; width: 100%">
 
                         <table class="table table-striped">
-
-<%--                            <c:forEach var="bmiEntry" items="${requestScope.bmiEntryList}">--%>
                                 <tr>
                                     <th>Carport bredde</th>
                                     <td>${requestScope.width} cm</td>
@@ -46,8 +44,6 @@
                                 <th>Redskabsrum længde</th>
                                 <td>${requestScope.shedlength} cm</td>
                             </tr>
-
-<%--                            </c:forEach>--%>
                         </table>
 
                <p>Din forespørgelse er blevet sendt....Good luck!</p>

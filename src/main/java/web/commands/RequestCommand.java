@@ -29,6 +29,11 @@ public class RequestCommand extends CommandProtectedPage
         request.setAttribute("roofangle",roofAngle);
         request.setAttribute("shedwidth",shedWidth);
         request.setAttribute("shedlength",shedLength);
+
+
+
+
+
         return pageToShow;
     }
 }
