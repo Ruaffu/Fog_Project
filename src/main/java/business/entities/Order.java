@@ -40,6 +40,37 @@ public class Order {
         this.BOM = BOM;
     }
 
+    public Order(int userId, int adminId, boolean isPaid,  String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
+        this.userId = userId;
+        this.adminId = adminId;
+        this.isPaid = isPaid;
+        this.orderDate = null; // TODO: fix date
+        this.status = status;
+        this.carportLength = carportLength;
+        this.carportWidth = carportWidth;
+        this.roofType = roofType;
+        this.roofAngle = roofAngle;
+        this.shedLength = shedLength;
+        this.shedWidth = shedWidth;
+        this.BOM = BOM;
+        this.totalCost = costCalc();
+        this.totalPrice = priceCalc();
+    }
+
+    private float costCalc(){
+        float cost = 0;
+        for (Material m: BOM) {
+            cost += m.getCost();
+        }
+        return cost;
+    }
+
+    private float priceCalc(){
+        float cost = costCalc();
+        return cost * 1.6f;
+    }
+
+
     public int getId() {
         return id;
     }

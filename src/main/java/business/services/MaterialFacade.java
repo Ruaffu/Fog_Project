@@ -30,5 +30,9 @@ public class MaterialFacade
     {
         return materialMapper.getMaterialByType(type);
     }
+    public ArrayList<Material> getMaterialByName(String name) throws UserException
+    {
+        return materialMapper.getMaterialByName(name);
+    }
 
 }

@@ -18,8 +18,7 @@ public class MaterialCalculator {
         materialFacade = new MaterialFacade(database);
     }
 
-    public ArrayList<Material> BOMCalculator(int carportWidth, int carportLength) throws UserException
-    {
+    public ArrayList<Material> BOMCalculator(int carportWidth, int carportLength) throws UserException {
         //#magic :)
         calcPost(carportWidth, carportLength);
         calcBeam(carportWidth, carportLength);
@@ -36,11 +35,11 @@ public class MaterialCalculator {
     }
 
     //<editor-fold desc="New Material">
-    public Material newItem(int quantity, int materialID, Material material) {
+    public Material newItem(int quantity, int materialID, String description, Material material) {
         return new Material(materialID,
                 material.getName(),
                 material.getType(),
-                material.getDescription(),
+                description,
                 material.getCost(),
                 material.getPrice(),
                 material.getLength(),
@@ -56,8 +55,9 @@ public class MaterialCalculator {
     private void calcPost(int carportWidth, int carportLength) throws UserException {
 
         // Get material
-        int materialID = 1601;
-        Material material = materialFacade.getMaterialByID(1601); //TODO: fix id
+        String description = "Stolper nedgraves 90 cm. i jord";
+        String name = "97x97 mm. trykimp. Stolpe";
+        List<Material> materialList = materialFacade.getMaterialByName(name);
 
         // Calculate
         int offsetW1 = 350;
@@ -72,15 +72,16 @@ public class MaterialCalculator {
 
         int quantity = quantityByWidth * quantityByLength;
 
-        bom.add(newItem(quantity, materialID, material));
+        bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
     }
 
     // Remme
     private void calcBeam(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
-        String type = "Remme i sider, sadles ned i stolper";
-        List<Material> materialList = materialFacade.getMaterialByType(type); //TODO: fix type
+        String description = "Remme i sider, sadles ned i stolper";
+        String name = "45x195 mm. spærtræ ubh.";
+        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();
@@ -98,14 +99,14 @@ public class MaterialCalculator {
         int length = carportLength;
         for (int i = availableLengths.size() - 1; i > 0; i--) {
             if ((length) >= availableLengths.get(i)) {
-                bom.add(newItem(quantity, materialList.get(i).getId(), materialList.get(i))); //TODO: fix calculation
+                bom.add(newItem(quantity, materialList.get(i).getId(), description, materialList.get(i))); //TODO: fix calculation
                 length -= availableLengths.get(i);
             }
         }
 
         // Minimum length
         if (length > 0) {
-            bom.add(newItem(quantity, materialList.get(0).getId(), materialList.get(0)));
+            bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
         }
 
     }
@@ -114,8 +115,9 @@ public class MaterialCalculator {
     private void calcRafter(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
-        String type = "Spær, monteres på rem";
-        List<Material> materialList = materialFacade.getMaterialByType(type); //TODO: fix type
+        String description = "Spær, monteres på rem";
+        String name = "45x195 mm. spærtræ ubh.";
+        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();
@@ -131,23 +133,23 @@ public class MaterialCalculator {
         int length = carportWidth;
         for (int i = availableLengths.size() - 1; i > 0; i--) {
             if ((length) >= availableLengths.get(i)) {
-                bom.add(newItem(quantity, materialList.get(i).getId(), materialList.get(i))); //TODO: fix calculation
+                bom.add(newItem(quantity, materialList.get(i).getId(), description, materialList.get(i))); //TODO: fix calculation
                 length -= availableLengths.get(i);
             }
         }
 
         // Minimum length
         if (length > 0) {
-            bom.add(newItem(quantity, materialList.get(0).getId(), materialList.get(0)));
+            bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
         }
 
     }
 
     // Stern
-    private void calcStern(int quantity, int length, String type) throws UserException {
+    private void calcStern(int quantity, int length, String description, String name) throws UserException {
 
         // Get materials from database
-        List<Material> materialList = materialFacade.getMaterialByType(type); //TODO: fix type
+        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();
@@ -163,7 +165,7 @@ public class MaterialCalculator {
             if ((length) >= availableLengths.get(i)) {
 
                 if (availableLengths.get(i) != prevLength) {
-                    bom.add(newItem(quantity, materialList.get(i).getId(), materialList.get(i)));
+                    bom.add(newItem(quantity, materialList.get(i).getId(), description, materialList.get(i)));
                     prevLength = availableLengths.get(i);
                 } else {
                     int prevAmount = bom.get(bom.size() - 1).getQuantity();
@@ -180,45 +182,51 @@ public class MaterialCalculator {
 
         // Minimum length size
         if (length > 0) {
-            bom.add(newItem(quantity, materialList.get(0).getId(), materialList.get(0)));
+            bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
         }
 
     }
 
     private void calcSternUnderFrontAndBack(int carportWidth) throws UserException {
-        String type = "Understernbrædder til for- & bagende";
+        String description = "Understernbrædder til for- & bagende";
+        String name = "25x200 mm. trykimp. Brædt";
         int surfaceAmount = 2;
-        calcStern(surfaceAmount, carportWidth, type);
+        calcStern(surfaceAmount, carportWidth, description, name);
     }
 
     private void calcSternUnderSides(int carportLength) throws UserException {
-        String type = "Understernbrædder til siderne";
+        String description = "Understernbrædder til siderne";
+        String name = "25x200 mm. trykimp. Brædt";
         int surfaceAmount = 2;
-        calcStern(surfaceAmount, carportLength, type);
+        calcStern(surfaceAmount, carportLength, description, name);
     }
 
     private void calcSternOverFront(int carportWidth) throws UserException {
-        String type = "Oversternbrædder til forende";
+        String description = "Oversternbrædder til forende";
+        String name = "25x125 mm. trykimp. Brædt";
         int surfaceAmount = 1;
-        calcStern(surfaceAmount, carportWidth, type);
+        calcStern(surfaceAmount, carportWidth, description, name);
     }
 
     private void calcSternOverSides(int carportLength) throws UserException {
-        String type = "Oversternbrædder til siderne";
+        String description = "Oversternbrædder til siderne";
+        String name = "25x125 mm. trykimp. Brædt";
         int surfaceAmount = 2;
-        calcStern(surfaceAmount, carportLength, type);
+        calcStern(surfaceAmount, carportLength, description, name);
     }
 
     private void calcSternWaterFront(int carportWidth) throws UserException {
-        String type = "Oversternbrædder til siderne";
+        String description = "Oversternbrædder til siderne";
+        String name = "19x100 mm. trykimp. Brædt";
         int surfaceAmount = 1;
-        calcStern(surfaceAmount, carportWidth, type);
+        calcStern(surfaceAmount, carportWidth, description, name);
     }
 
     private void calcSternWaterSides(int carportLength) throws UserException {
-        String type = "Oversternbrædder til siderne";
+        String description = "Oversternbrædder til siderne";
+        String name = "19x100 mm. trykimp. Brædt";
         int surfaceAmount = 2;
-        calcStern(surfaceAmount, carportLength, type);
+        calcStern(surfaceAmount, carportLength, description, name);
     }
     //</editor-fold>
 
@@ -227,8 +235,9 @@ public class MaterialCalculator {
     private void calcRoofing(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
-        String type = "Tagplader monteres på spær";
-        List<Material> materialList = materialFacade.getMaterialByType(type); //TODO: fix type
+        String description = "Tagplader monteres på spær";
+        String name = "Plastmo Ecolite blåtonet";
+        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();
@@ -250,7 +259,7 @@ public class MaterialCalculator {
                 int itemWidth = materialList.get(i).getWidth() - overlapWidth;
                 quantity = (int) ceil((double) carportWidth / (double) itemWidth);
 
-                bom.add(newItem(quantity, materialList.get(i).getId(), materialList.get(i)));
+                bom.add(newItem(quantity, materialList.get(i).getId(), description, materialList.get(i)));
                 length -= availableLengths.get(i) - overlapLength;
             }
         }
@@ -262,7 +271,7 @@ public class MaterialCalculator {
             int itemWidth = materialList.get(0).getWidth() - overlapWidth;
             quantity = (int) ceil((double) carportWidth / (double) itemWidth);
 
-            bom.add(newItem(quantity, materialList.get(0).getId(), materialList.get(0)));
+            bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
         }
 
     }

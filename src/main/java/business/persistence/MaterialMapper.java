@@ -54,7 +54,6 @@ public class MaterialMapper
                 if (rs.next()) {
                     String name = rs.getString("name");
                     String type = rs.getString("type");
-                    String description = rs.getString("description");
                     float cost = rs.getFloat("cost");
                     float price = rs.getFloat("price");
                     int length = rs.getInt("length");
@@ -62,7 +61,7 @@ public class MaterialMapper
                     int width = rs.getInt("width");
                     String unit = rs.getString("unit");
 
-                    return new Material(id,name,type,description,cost,price,length,height,width,unit);
+                    return new Material(id,name,type,cost,price,length,height,width,unit);
                 } else {
                     throw new Exception("Could not find material");
                 }
@@ -90,14 +89,47 @@ public class MaterialMapper
                 while (rs.next()) {
                     int id = rs.getInt("id_material");
                     String name = rs.getString("name");
-                    String description = rs.getString("description");
                     float cost = rs.getFloat("cost");
                     float price = rs.getFloat("price");
                     int length = rs.getInt("length");
                     int height = rs.getInt("height");
                     int width = rs.getInt("width");
                     String unit = rs.getString("unit");
-                    materials.add(new Material(id,name,type,description,cost,price,length,height,width,unit));
+                    materials.add(new Material(id,name,type,cost,price,length,height,width,unit));
+
+                }
+                return materials;
+            }
+            catch (Exception e) {
+                throw new UserException("Could not find material");
+            }
+
+        } catch (SQLException throwables) {
+            throw new UserException("Could not find material");
+        }
+
+    }
+
+    public ArrayList<Material> getMaterialByName(String name) throws UserException
+    {
+        ArrayList<Material> materials = new ArrayList<>();
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM material WHERE name=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, name);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id_material");
+                    String type = rs.getString("type");
+                    float cost = rs.getFloat("cost");
+                    float price = rs.getFloat("price");
+                    int length = rs.getInt("length");
+                    int height = rs.getInt("height");
+                    int width = rs.getInt("width");
+                    String unit = rs.getString("unit");
+                    materials.add(new Material(id,name,type,cost,price,length,height,width,unit));
 
                 }
                 return materials;

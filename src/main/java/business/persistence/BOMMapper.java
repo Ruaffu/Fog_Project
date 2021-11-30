@@ -21,7 +21,7 @@ public class BOMMapper {
         try (Connection connection = database.connect()) {
 
             for (Material material : order.getBOM()) {
-                String sql = "INSERT INTO user_orders (order_id, material_id, quantity) " +
+                String sql = "INSERT INTO bom (order_id, material_id, quantity) " +
                         "VALUES(?,?,?)";
 
                 try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
