@@ -20,6 +20,10 @@ public class MaterialCalculator {
 
     public ArrayList<Material> BOMCalculator(int carportWidth, int carportLength) throws UserException {
         //#magic :)
+
+        carportLength *= 10;
+        carportWidth *= 10;
+
         calcPost(carportWidth, carportLength);
         calcBeam(carportWidth, carportLength);
         calcRafter(carportWidth, carportLength);

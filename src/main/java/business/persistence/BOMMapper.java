@@ -21,13 +21,14 @@ public class BOMMapper {
         try (Connection connection = database.connect()) {
 
             for (Material material : order.getBOM()) {
-                String sql = "INSERT INTO bom (order_id, material_id, quantity) " +
-                        "VALUES(?,?,?)";
+                String sql = "INSERT INTO bom (order_id, material_id, quantity, description) " +
+                        "VALUES(?,?,?,?)";
 
                 try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                     ps.setInt(1, order.getId());
                     ps.setInt(2, material.getId());
                     ps.setInt(3, material.getQuantity());
+                    ps.setString(4, material.getDescription());
                     ps.executeUpdate();
                 }
             }
