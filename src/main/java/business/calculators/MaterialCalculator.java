@@ -18,10 +18,22 @@ public class MaterialCalculator {
         materialFacade = new MaterialFacade(database);
     }
 
-//    public ArrayList<Material> BOMCalculator()
-//    {
-//
-//    }
+    public ArrayList<Material> BOMCalculator(int carportWidth, int carportLength) throws UserException
+    {
+        //#magic :)
+        calcPost(carportWidth, carportLength);
+        calcBeam(carportWidth, carportLength);
+        calcRafter(carportWidth, carportLength);
+        calcSternUnderFrontAndBack(carportWidth);
+        calcSternUnderSides(carportLength);
+        calcSternOverFront(carportWidth);
+        calcSternOverSides(carportLength);
+        calcSternWaterFront(carportWidth);
+        calcSternWaterSides(carportLength);
+        calcRoofing(carportWidth, carportLength);
+
+        return bom;
+    }
 
     //<editor-fold desc="New Material">
     public Material newItem(int quantity, int materialID, Material material) {
