@@ -41,7 +41,7 @@ public class Order {
     public Order(User user, int adminId,  String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
         this.user = user;
         this.adminId = adminId;
-        this.orderDate = null; // TODO: fix date
+        this.orderDate = new Timestamp(System.currentTimeMillis());
         this.status = status;
         this.carportLength = carportLength;
         this.carportWidth = carportWidth;
