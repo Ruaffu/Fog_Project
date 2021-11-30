@@ -4,6 +4,7 @@ import business.exceptions.UserException;
 import business.entities.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserMapper {
     private Database database;
@@ -66,6 +67,38 @@ public class UserMapper {
             }
         } catch (SQLException ex) {
             throw new UserException("Connection to database could not be established");
+        }
+    }
+
+    public ArrayList<User> getAllUsers() throws UserException {
+        ArrayList<User> users = new ArrayList<>();
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM users ";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id_user");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String role = rs.getString("role");
+                    String firstname = rs.getString("firstname");
+                    String lastname = rs.getString("lastname");
+                    String phoneNr = rs.getString("phonenr");
+                    String streetName = rs.getString("streetname");
+                    String houseNr = rs.getString("housenr");
+                    String zipcode = rs.getString("zipcode");
+                    User user = new User(id, email, password, role, firstname, lastname, streetName, houseNr, zipcode, phoneNr);
+
+                    users.add(user);
+                }
+                return users;
+            } catch (Exception e) {
+                throw new UserException("Could not find users");
+            }
+        } catch (SQLException throwables) {
+            throw new UserException("Could not find users");
         }
     }
 

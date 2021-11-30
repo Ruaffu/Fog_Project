@@ -5,6 +5,8 @@ import business.persistence.Database;
 import business.persistence.UserMapper;
 import business.exceptions.UserException;
 
+import java.util.ArrayList;
+
 public class UserFacade
 {
     UserMapper userMapper;
@@ -25,5 +27,15 @@ public class UserFacade
         userMapper.createUser(user);
         return user;
     }
+
+    public ArrayList<User> getAllUsers() throws UserException
+    {
+        ArrayList<User> users = userMapper.getAllUsers();
+//        for (User user : users) {
+//            user.setTotalOrders(getTotalUserOrderCount(user));
+//        }
+        return users;
+    }
+
 
 }

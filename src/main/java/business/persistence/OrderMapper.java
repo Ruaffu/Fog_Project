@@ -2,8 +2,10 @@ package business.persistence;
 
 import business.entities.Material;
 import business.entities.Order;
+import business.entities.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class OrderMapper {
 
@@ -21,7 +23,7 @@ public class OrderMapper {
                     "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setInt(1, order.getUserId());
+                ps.setInt(1, order.getUser().getId());
                 ps.setInt(2, order.getAdminId());
                 ps.setFloat(3, order.getTotalPrice());
                 ps.setFloat(4, order.getTotalCost());
@@ -42,6 +44,60 @@ public class OrderMapper {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<Integer> getOrderId(int user_id) throws Exception {
+        ArrayList<Integer> orders = new ArrayList<>();
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT id_order FROM user_orders WHERE user_id = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, user_id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id_order");
+                    orders.add(id);
+                }
+                return orders;
+            } catch (Exception e) {
+                throw new Exception("Could not find order id");
+            }
+        } catch (SQLException throwables) {
+            throw new Exception("Could not find order id");
+        }
+    }
+
+    public Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM) throws Exception {
+        Order order = null;
+
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT * FROM user_orders WHERE id_order = ?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, order_id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int admin_id = rs.getInt("admin_id");
+                    float totalCost = rs.getFloat("totalcost");
+                    float totalPrice = rs.getFloat("totalprice");
+                    Timestamp orderDate = rs.getTimestamp("orderdate");
+                    String status = rs.getString("status");
+                    int carportLength = rs.getInt("carport_length");
+                    int carportWidth = rs.getInt("carport_width");
+                    String roofType = rs.getString("roof_Type");
+                    int roofAngle = rs.getInt("roof_angle");
+                    int shedLength = rs.getInt("shed_length");
+                    int shedWidth = rs.getInt("shed_width");
+
+                    order = new Order(order_id, user, admin_id, totalCost, totalPrice, orderDate, status, carportLength, carportWidth, roofType, roofAngle, shedLength, shedWidth, BOM);
+                }
+                return order;
+            } catch (Exception e) {
+                throw new Exception("failed to find order");
+            }
+        } catch (SQLException throwables) {
+            throw new Exception("failed to find order");
         }
     }
 

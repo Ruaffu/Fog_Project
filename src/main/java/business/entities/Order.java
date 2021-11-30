@@ -6,11 +6,10 @@ import java.util.ArrayList;
 public class Order {
 
     int id;
-    int userId;
+    User user;
     int adminId;
     float totalCost;
     float totalPrice;
-    boolean isPaid;
     Timestamp orderDate;
     String status;
     int carportLength;
@@ -22,13 +21,12 @@ public class Order {
 
     ArrayList<Material> BOM;
 
-    public Order(int id, int userId, int adminId, float totalCost, float totalPrice, boolean isPaid, Timestamp orderDate, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
+    public Order(int id, User user, int adminId, float totalCost, float totalPrice, Timestamp orderDate, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.adminId = adminId;
         this.totalCost = totalCost;
         this.totalPrice = totalPrice;
-        this.isPaid = isPaid;
         this.orderDate = orderDate;
         this.status = status;
         this.carportLength = carportLength;
@@ -40,10 +38,9 @@ public class Order {
         this.BOM = BOM;
     }
 
-    public Order(int userId, int adminId, boolean isPaid,  String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
-        this.userId = userId;
+    public Order(User user, int adminId,  String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
+        this.user = user;
         this.adminId = adminId;
-        this.isPaid = isPaid;
         this.orderDate = null; // TODO: fix date
         this.status = status;
         this.carportLength = carportLength;
@@ -79,12 +76,12 @@ public class Order {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getAdminId() {
@@ -109,14 +106,6 @@ public class Order {
 
     public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public boolean isPaid() {
-        return isPaid;
-    }
-
-    public void setPaid(boolean paid) {
-        isPaid = paid;
     }
 
     public Timestamp getOrderDate() {

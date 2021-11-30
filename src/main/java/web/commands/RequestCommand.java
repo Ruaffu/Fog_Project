@@ -49,14 +49,8 @@ public class RequestCommand extends CommandProtectedPage
         try {
             ArrayList<Material> BOM = MC.BOMCalculator(width, length);
 
-            Order order = new Order(user.getId(), 0, false, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
+            Order order = new Order(user, 0, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
             orderFacade.saveOrder(order);
-
-            for (Material material : BOM) {
-                System.out.println(material.getName());
-            }
-
-
 
         } catch (UserException e) {
             e.printStackTrace();
