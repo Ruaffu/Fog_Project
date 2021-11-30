@@ -33,5 +33,12 @@ INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES 
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('19x100 mm. trykimp. Brædt','trykimp. Brædt','44.06','110.16','4800','19','100','stk');
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('19x100 mm. trykimp. Brædt','trykimp. Brædt','49.57','123.93','5400','19','100','stk');
 
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet ','TRAPEZPLADE','45.6','114','2400','0','109','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet ','TRAPEZPLADE','59.2','148','3000','0','109','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet ','TRAPEZPLADE','67.6','169','3600','0','109','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet ','TRAPEZPLADE','81.6','204','4200','0','109','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet ','TRAPEZPLADE','91.2','228','4800','0','109','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet ','TRAPEZPLADE','113.6','284','6000','0','109','stk');
+
 
 
