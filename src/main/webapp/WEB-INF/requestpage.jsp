@@ -40,19 +40,18 @@
                                 <th></th>
                             </tr>
                             <c:set var="index" value="-1"></c:set>
-                            <c:forEach var="order" items="${sessionScope.allrequests}">
+                            <c:forEach var="request" items="${sessionScope.allrequests}">
                                 <tr>
-                                    <th class="left-text"><h3>${order.id}</h3></th>
-                                    <th><h3>${order.user.email}</h3></th>
-                                    <th><h3>${order.user.phoneNr}</h3></th>
-                                    <th><h3>${order.BOM.size()}</h3></th>
-                                    <th><h3>${order.totalPrice} kr</h3></th>
-                                    <th><h3>${order.orderDate}</h3></th>
-                                    <th><h3>${order.status}</h3></th>
+                                    <th class="left-text"><h3>${request.id}</h3></th>
+                                    <th><h3>${request.user.email}</h3></th>
+                                    <th><h3>${request.user.phoneNr}</h3></th>
+                                    <th><h3>${request.BOM.size()}</h3></th>
+                                    <th><h3>${request.totalPrice} kr</h3></th>
+                                    <th><h3>${request.orderDate}</h3></th>
+                                    <th><h3>${request.status}</h3></th>
                                     <form action="${pageContext.request.contextPath}/fc/makeoffercommand"
                                           method="post">
-                                        <input type="hidden" name="order" value="${index = index + 1}">
-                                        <input type="hidden" name="customerorderlist" value="false">
+                                        <input type="hidden" name="request" value="${index = index + 1}">
                                         <th><input type="submit" value="make offer" class="purple-button"
                                                    style="padding: 10px 10px; width: 85px"></th>
                                     </form>
