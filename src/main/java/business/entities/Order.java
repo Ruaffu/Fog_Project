@@ -10,6 +10,7 @@ public class Order {
     int adminId;
     float totalCost;
     float totalPrice;
+    float coverageRatio;
     Timestamp orderDate;
     String status;
     int carportLength;
@@ -36,6 +37,7 @@ public class Order {
         this.shedLength = shedLength;
         this.shedWidth = shedWidth;
         this.BOM = BOM;
+        this.coverageRatio = coverageRatio();
     }
 
     public Order(User user, int adminId,  String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
@@ -52,6 +54,14 @@ public class Order {
         this.BOM = BOM;
         this.totalCost = costCalc();
         this.totalPrice = priceCalc();
+        this.coverageRatio = coverageRatio();
+    }
+
+    private float coverageRatio()
+    {
+        float margin = totalPrice - totalCost;
+
+        return (margin / totalPrice) * 100;
     }
 
     private float costCalc(){
@@ -67,6 +77,10 @@ public class Order {
         return cost * 1.6f;
     }
 
+    public float getCoverageRatio()
+    {
+        return coverageRatio;
+    }
 
     public int getId() {
         return id;

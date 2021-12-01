@@ -115,8 +115,8 @@
                                     <p>Redskabsrum</p>
                                     <div class="col-2-grid" style="gap: 20px">
                                         <div>
-                                            <label for="shedlength">Redskabsrum bredde</label>
-                                            <select name="shedlength" id="shedlength">
+                                            <label for="shedwidth">Redskabsrum bredde</label>
+                                            <select name="shedwidth" id="shedwidth">
                                                 <option value="initial">Ønsker ikke redskabsrum</option>
                                                 <option value="210">210 cm</option>
                                                 <option value="240">240 cm</option>
@@ -141,8 +141,8 @@
                                     </div>
                                     <div class="col-2-grid" style="gap: 20px">
                                         <div>
-                                            <label for="shedwidth">Redskabsrum længde</label>
-                                            <select name="shedwidth" id="shedwidth">
+                                            <label for="shedlength">Redskabsrum længde</label>
+                                            <select name="shedlength" id="shedlength">
                                                 <option value="initial">Ønsker ikke redskabsrum</option>
                                                 <option value="150">210 cm</option>
                                                 <option value="180">210 cm</option>
