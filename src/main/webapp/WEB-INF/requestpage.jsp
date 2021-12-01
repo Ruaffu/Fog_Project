@@ -52,8 +52,10 @@
                                     <form action="${pageContext.request.contextPath}/fc/makeoffercommand"
                                           method="post">
                                         <input type="hidden" name="request" value="${index = index + 1}">
+                                        <c:if test="${request.status.equals('request')}">
                                         <th><input type="submit" value="make offer" class="purple-button"
                                                    style="padding: 10px 10px; width: 85px"></th>
+                                        </c:if>
                                     </form>
                                 </tr>
 

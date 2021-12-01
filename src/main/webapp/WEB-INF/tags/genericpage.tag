@@ -50,6 +50,7 @@
                             <div class="dropdown-content">
                                 <a href="${pageContext.request.contextPath}/fc/profilepage">Profile</a>
                                 <c:if test="${sessionScope.user.role.equals('customer')}">
+                                    <a href="${pageContext.request.contextPath}/fc/offerpage">Offer</a>
                                     <a href="${pageContext.request.contextPath}/fc/orderpage">Order</a>
                                 </c:if>
                                 <a href="${pageContext.request.contextPath}/fc/logoutcommand">Sign out</a>

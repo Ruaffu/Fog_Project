@@ -1,5 +1,6 @@
 package web.commands;
 
+import business.entities.Order;
 import business.entities.User;
 import business.persistence.Database;
 import business.services.UserFacade;
@@ -8,6 +9,7 @@ import business.exceptions.UserException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 public class RegisterCommand extends CommandUnprotectedPage {
     private UserFacade userFacade;
@@ -42,7 +44,8 @@ public class RegisterCommand extends CommandUnprotectedPage {
             session.setAttribute("lastname", user.getLastname());
             session.setAttribute("streetname", user.getHouseNr());
 
-
+            ArrayList<Order> customerRequests = new ArrayList<>();
+            session.setAttribute("customerrequests", customerRequests);
 
             return REDIRECT_INDICATOR + pageToShow;
 

@@ -21,19 +21,27 @@ public abstract class Command
     {
         commands = new HashMap<>();
         commands.put("index", new CommandUnprotectedPage("index"));
+
         commands.put("loginpage", new CommandUnprotectedPage("loginpage"));
         commands.put("logincommand", new LoginCommand("index"));
         commands.put("logoutcommand", new LogoutCommand(""));
+
         commands.put("registerpage", new CommandUnprotectedPage("registerpage"));
         commands.put("registercommand", new RegisterCommand("index"));
-        commands.put("customerpage", new CommandProtectedPage("customerpage", "customer"));
-        commands.put("allorderpage", new OrderListCommand("allorderpage", "employee"));
-        commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
-        commands.put("requestpage", new CommandUnprotectedPage("requestcarportpage"));
+
         commands.put("requestcommand", new RequestCommand("requestconfirmationpage", "customer"));
         commands.put("makeoffercommand", new MakeOfferCommand("makeofferpage", "employee"));
         commands.put("sendoffercommand", new SendOfferCommand("retrieverequestcommand", "employee"));
+        commands.put("acceptoffercommand", new acceptOfferCommand("offerpage", "customer"));
+
+
         commands.put("retrieverequestcommand", new RetrieveRequestCommand("requestpage", "employee"));
+
+        commands.put("allorderpage", new OrderListCommand("allorderpage", "employee"));
+        commands.put("requestpage", new CommandUnprotectedPage("requestcarportpage"));
+
+        commands.put("orderpage", new CommandProtectedPage("orderpage", "customer"));
+        commands.put("offerpage", new CommandProtectedPage("offerpage", "customer"));
     }
 
     public static Command fromPath(

@@ -52,6 +52,11 @@ public class RequestCommand extends CommandProtectedPage
             Order order = new Order(user, 0, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
             orderFacade.saveOrder(order);
 
+            ArrayList<Order> orders = (ArrayList<Order>) session.getAttribute("customerrequests");
+            orders.add(order);
+            session.setAttribute("customerrequests", orders);
+
+
         } catch (UserException e) {
             e.printStackTrace();
         }
