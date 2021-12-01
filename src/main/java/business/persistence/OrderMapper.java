@@ -15,10 +15,10 @@ public class OrderMapper {
         this.database = database;
     }
 
+    /** insert and update in database **/
+
     public void saveOrder(Order order) {
-
         try (Connection connection = database.connect()) {
-
             String sql = "INSERT INTO user_orders (user_id, admin_id, totalprice, totalcost, orderdate, status, carport_length, carport_width, roof_type, roof_angle, shed_length, shed_width) " +
                     "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -47,8 +47,37 @@ public class OrderMapper {
         }
     }
 
-    public ArrayList<Integer> getOrderId(int user_id) throws Exception {
+    public void updateOrder(Order order) {
+        try (Connection connection = database.connect()) {
+
+            String sql = "UPDATE user_orders SET totalprice=?, totalcost=?, orderdate=?, status=?, carport_length=?, carport_width=?, roof_type=?, roof_angle=?, shed_length=?, shed_width=? " +
+                    "WHERE id_order=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setFloat(1, order.getTotalPrice());
+                ps.setFloat(2, order.getTotalCost());
+                ps.setTimestamp(3, order.getOrderDate());
+                ps.setString(4, order.getStatus());
+                ps.setInt(5, order.getCarportLength());
+                ps.setInt(6, order.getCarportWidth());
+                ps.setString(7, order.getRoofType());
+                ps.setInt(8, order.getRoofAngle());
+                ps.setInt(9, order.getShedLength());
+                ps.setInt(10, order.getShedWidth());
+                ps.setInt(11, order.getId());
+
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /** Select from database **/
+
+    public ArrayList<Integer> getOrderId(int user_id) {
         ArrayList<Integer> orders = new ArrayList<>();
+
         try (Connection connection = database.connect()) {
             String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status != ? AND status != ?";
 
@@ -65,13 +94,19 @@ public class OrderMapper {
             } catch (Exception e) {
                 throw new Exception("Could not find order id");
             }
-        } catch (SQLException throwables) {
-            throw new Exception("Could not find order id");
+        } catch (Exception throwables) {
+            try {
+                throw new Exception("Could not find order id");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return orders;
     }
 
-    public ArrayList<Integer> getRequestId(int user_id) throws Exception {
+    public ArrayList<Integer> getOfferAndRequestId(int user_id) {
         ArrayList<Integer> orders = new ArrayList<>();
+
         try (Connection connection = database.connect()) {
             String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status = ? OR user_id = ? AND status = ?";
 
@@ -89,36 +124,17 @@ public class OrderMapper {
             } catch (Exception e) {
                 throw new Exception("Could not find order id");
             }
-        } catch (SQLException throwables) {
-            throw new Exception("Could not find order id");
-        }
-    }
-
-    public ArrayList<Integer> getOfferAndRequestId(int user_id) throws Exception {
-        ArrayList<Integer> orders = new ArrayList<>();
-        try (Connection connection = database.connect()) {
-            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status=? OR user_id = ? AND status=?";
-
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1, user_id);
-                ps.setString(2, "offer");
-                ps.setInt(3, user_id);
-                ps.setString(4, "request");
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    int id = rs.getInt("id_order");
-                    orders.add(id);
-                }
-                return orders;
-            } catch (Exception e) {
+        } catch (Exception throwables) {
+            try {
                 throw new Exception("Could not find order id");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throw new Exception("Could not find order id");
         }
+        return orders;
     }
 
-    public Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM) throws Exception {
+    public Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM)  {
         Order order = null;
 
         try (Connection connection = database.connect()) {
@@ -144,36 +160,15 @@ public class OrderMapper {
                 }
                 return order;
             } catch (Exception e) {
-                throw new Exception("failed to find order");
+                throw new Exception("Could not find order");
             }
-        } catch (SQLException throwables) {
-            throw new Exception("failed to find order");
-        }
-    }
-
-    public void updateOrder(Order order) {
-        try (Connection connection = database.connect()) {
-
-            String sql = "UPDATE user_orders SET totalprice=?, totalcost=?, orderdate=?, status=?, carport_length=?, carport_width=?, roof_type=?, roof_angle=?, shed_length=?, shed_width=? " +
-                    "WHERE id_order=?";
-
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setFloat(1, order.getTotalPrice());
-                ps.setFloat(2, order.getTotalCost());
-                ps.setTimestamp(3, order.getOrderDate());
-                ps.setString(4, order.getStatus());
-                ps.setInt(5, order.getCarportLength());
-                ps.setInt(6, order.getCarportWidth());
-                ps.setString(7, order.getRoofType());
-                ps.setInt(8, order.getRoofAngle());
-                ps.setInt(9, order.getShedLength());
-                ps.setInt(10, order.getShedWidth());
-                ps.setInt(11, order.getId());
-
-                ps.executeUpdate();
+        } catch (Exception throwables) {
+            try {
+                throw new Exception("Could not find order");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
+        return order;
     }
 }

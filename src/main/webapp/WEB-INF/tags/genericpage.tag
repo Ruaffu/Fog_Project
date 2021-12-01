@@ -61,7 +61,6 @@
 
             </li>
 
-            <!--TODO: lav kun synlig for customer bruger-->
             <c:if test="${sessionScope.user.role != 'employee'}">
                 <li>
                     <a class="white-button" href="${pageContext.request.contextPath}/fc/shoppingcartpage"><i
@@ -76,7 +75,6 @@
                 </li>
             </c:if>
 
-            <!--TODO: Lav kun synlig for admin bruger-->
             <c:if test="${sessionScope.user.role.equals('employee')}">
                 <li>
                     <a class="white-button" href="${pageContext.request.contextPath}/fc/productpage"><i

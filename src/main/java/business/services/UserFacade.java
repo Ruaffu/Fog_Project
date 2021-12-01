@@ -30,11 +30,7 @@ public class UserFacade
 
     public ArrayList<User> getAllUsers() throws UserException
     {
-        ArrayList<User> users = userMapper.getAllUsers();
-//        for (User user : users) {
-//            user.setTotalOrders(getTotalUserOrderCount(user));
-//        }
-        return users;
+        return userMapper.getAllUsers();
     }
 
 

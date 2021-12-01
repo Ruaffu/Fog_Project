@@ -35,7 +35,7 @@ public class BOMMapper {
         }
     }
 
-    public ArrayList<Material> getAllMaterials(int order_id) throws Exception {
+    public ArrayList<Material> getAllMaterials(int order_id) {
         ArrayList<Material> BOM = new ArrayList<>();
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM billofmaterial WHERE order_id = ?";
@@ -59,11 +59,16 @@ public class BOMMapper {
                 }
                 return BOM;
             } catch (Exception e) {
-                throw new Exception("Could not find materials");
+                throw new Exception("Could not find Material");
             }
-        } catch (SQLException throwables) {
-            throw new Exception("Could not find materials");
+        } catch (Exception throwables) {
+            try {
+                throw new Exception("Could not find Material");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return BOM;
     }
 }
 

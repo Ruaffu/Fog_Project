@@ -85,7 +85,7 @@ public class MaterialCalculator {
         // Get materials from database
         String description = "Remme i sider, sadles ned i stolper";
         String name = "45x195 mm. spærtræ ubh.";
-        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
+        List<Material> materialList = materialFacade.getMaterialByName(name);
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();
@@ -121,7 +121,7 @@ public class MaterialCalculator {
         // Get materials from database
         String description = "Spær, monteres på rem";
         String name = "45x195 mm. spærtræ ubh.";
-        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
+        List<Material> materialList = materialFacade.getMaterialByName(name);
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();
@@ -153,7 +153,7 @@ public class MaterialCalculator {
     private void calcStern(int quantity, int length, String description, String name) throws UserException {
 
         // Get materials from database
-        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
+        List<Material> materialList = materialFacade.getMaterialByName(name);
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();
@@ -241,7 +241,7 @@ public class MaterialCalculator {
         // Get materials from database
         String description = "Tagplader monteres på spær";
         String name = "Plastmo Ecolite blåtonet";
-        List<Material> materialList = materialFacade.getMaterialByName(name); //TODO: fix name
+        List<Material> materialList = materialFacade.getMaterialByName(name);
 
         // Create list with available lengths
         List<Integer> availableLengths = new ArrayList<>();

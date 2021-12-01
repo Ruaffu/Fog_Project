@@ -19,27 +19,18 @@ public class OrderFacade {
         bomMapper = new BOMMapper(database);
     }
 
+    /** save and update **/
+
     public void saveOrder(Order order){
         orderMapper.saveOrder(order);
         bomMapper.saveBOM(order);
     }
 
-    public ArrayList<Order> getAllUserOrders(User user) {
-        ArrayList<Order> orders = new ArrayList<>();
-        ArrayList<Integer> idOrders;
-        try {
-            idOrders = orderMapper.getOrderId(user.getId());
-            for (int id : idOrders) {
-                ArrayList<Material> BOM = bomMapper.getAllMaterials(id);
-                Order order = orderMapper.getAllOrdersUser(id, user, BOM);
-                orders.add(order);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return orders;
+    public void updateOrder(Order order) {
+        orderMapper.updateOrder(order);
     }
+
+    /** load data **/
 
     public ArrayList<Order> getAllOrders(ArrayList<User> users) throws UserException {
         ArrayList<Order> orders = new ArrayList<>();
@@ -49,49 +40,31 @@ public class OrderFacade {
         return orders;
     }
 
-    public ArrayList<Order> getAllUserOffersAndRequests(User user) {
-        ArrayList<Order> requests = new ArrayList<>();
-        ArrayList<Integer> idOrders;
-        try {
-            idOrders = orderMapper.getOfferAndRequestId(user.getId());
-            for (int id : idOrders) {
-                ArrayList<Material> BOM = bomMapper.getAllMaterials(id);
-                Order order = orderMapper.getAllOrdersUser(id, user, BOM);
-                requests.add(order);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return requests;
-    }
-
-    public ArrayList<Order> getAllUserRequests(User user) {
-        ArrayList<Order> requests = new ArrayList<>();
-        ArrayList<Integer> idOrders;
-        try {
-            idOrders = orderMapper.getRequestId(user.getId());
-            for (int id : idOrders) {
-                ArrayList<Material> BOM = bomMapper.getAllMaterials(id);
-                Order order = orderMapper.getAllOrdersUser(id, user, BOM);
-                requests.add(order);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return requests;
-    }
-
     public ArrayList<Order> getAllRequests(ArrayList<User> users) throws UserException {
         ArrayList<Order> requests = new ArrayList<>();
         for (User user : users) {
-            requests.addAll(getAllUserRequests(user));
+            requests.addAll(getAllUserOffersAndRequests(user));
         }
         return requests;
     }
 
-    public void updateOrder(Order order) {
-        orderMapper.updateOrder(order);
+    public ArrayList<Order> getAllUserOrders(User user) {
+        return getOrdersByID(orderMapper.getOrderId(user.getId()),user);
     }
+
+    public ArrayList<Order> getAllUserOffersAndRequests(User user) {
+            return getOrdersByID(orderMapper.getOfferAndRequestId(user.getId()), user);
+    }
+
+    private ArrayList<Order> getOrdersByID(ArrayList<Integer> ID, User user){
+        ArrayList<Order> orders = new ArrayList<>();
+
+        for (int id : ID) {
+            ArrayList<Material> BOM = bomMapper.getAllMaterials(id);
+            Order order = orderMapper.getAllOrdersUser(id, user, BOM);
+            orders.add(order);
+        }
+        return orders;
+    }
+
 }
