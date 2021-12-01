@@ -117,7 +117,7 @@
                                         <div>
                                             <label for="shedwidth">Redskabsrum bredde</label>
                                             <select name="shedwidth" id="shedwidth">
-                                                <option value="initial">Ønsker ikke redskabsrum</option>
+                                                <option value="0">Ønsker ikke redskabsrum</option>
                                                 <option value="210">210 cm</option>
                                                 <option value="240">240 cm</option>
                                                 <option value="270">270 cm</option>
@@ -143,9 +143,9 @@
                                         <div>
                                             <label for="shedlength">Redskabsrum længde</label>
                                             <select name="shedlength" id="shedlength">
-                                                <option value="initial">Ønsker ikke redskabsrum</option>
-                                                <option value="150">210 cm</option>
-                                                <option value="180">210 cm</option>
+                                                <option value="0">Ønsker ikke redskabsrum</option>
+                                                <option value="150">150 cm</option>
+                                                <option value="180">180 cm</option>
                                                 <option value="210">210 cm</option>
                                                 <option value="240">240 cm</option>
                                                 <option value="270">270 cm</option>

@@ -74,4 +74,7 @@ public class OrderFacade {
         return requests;
     }
 
+    public void updateOrder(Order order) {
+        orderMapper.updateOrder(order);
+    }
 }

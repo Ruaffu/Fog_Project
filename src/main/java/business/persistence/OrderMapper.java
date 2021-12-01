@@ -123,4 +123,29 @@ public class OrderMapper {
         }
     }
 
+    public void updateOrder(Order order) {
+        try (Connection connection = database.connect()) {
+
+            String sql = "UPDATE user_orders SET totalprice=?, totalcost=?, orderdate=?, status=?, carport_length=?, carport_width=?, roof_type=?, roof_angle=?, shed_length=?, shed_width=? " +
+                    "WHERE id_order=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setFloat(1, order.getTotalPrice());
+                ps.setFloat(2, order.getTotalCost());
+                ps.setTimestamp(3, order.getOrderDate());
+                ps.setString(4, order.getStatus());
+                ps.setInt(5, order.getCarportLength());
+                ps.setInt(6, order.getCarportWidth());
+                ps.setString(7, order.getRoofType());
+                ps.setInt(8, order.getRoofAngle());
+                ps.setInt(9, order.getShedLength());
+                ps.setInt(10, order.getShedWidth());
+                ps.setInt(11, order.getId());
+
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

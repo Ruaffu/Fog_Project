@@ -74,7 +74,7 @@ public class Order {
 
     private float priceCalc(){
         float cost = costCalc();
-        return cost * 1.6f;
+        return cost * 2.5f;
     }
 
     public float getCoverageRatio()

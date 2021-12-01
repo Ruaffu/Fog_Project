@@ -32,6 +32,7 @@ public abstract class Command
         commands.put("requestpage", new CommandUnprotectedPage("requestcarportpage"));
         commands.put("requestcommand", new RequestCommand("requestconfirmationpage", "customer"));
         commands.put("makeoffercommand", new MakeOfferCommand("makeofferpage", "employee"));
+        commands.put("sendoffercommand", new SendOfferCommand("retrieverequestcommand", "employee"));
         commands.put("retrieverequestcommand", new RetrieveRequestCommand("requestpage", "employee"));
     }
 
