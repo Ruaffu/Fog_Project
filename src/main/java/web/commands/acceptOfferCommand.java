@@ -6,6 +6,7 @@ import business.services.OrderFacade;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class acceptOfferCommand extends CommandProtectedPage {
@@ -29,6 +30,7 @@ public class acceptOfferCommand extends CommandProtectedPage {
 
         Order acceptOrder = offers.get(index);
         acceptOrder.setStatus("accepted"); // TODO: better word??
+        acceptOrder.setOrderDate(new Timestamp(System.currentTimeMillis()));
 
         orderFacade.updateOrder(acceptOrder);
 
