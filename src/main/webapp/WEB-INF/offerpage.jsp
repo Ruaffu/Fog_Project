@@ -24,7 +24,7 @@
                             <h2>Orders</h2>
                         </div>
                         <div class="right-grid">
-                            <h3>${sessionScope.customerrequests.size()} Total</h3> <%-- TODO: fix order count  --%>
+                            <h3>${sessionScope.customerrequests.size()} Total</h3>
                         </div>
                     </div>
                     <div>
