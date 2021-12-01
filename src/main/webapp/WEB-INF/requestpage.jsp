@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Orders
+         Requests
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
@@ -15,22 +15,22 @@
                 <div class="row-3-grid" style="gap: 20px">
                     <div class="large-title-grid-element">
                         <div class="left-text">
-                            <h1>Orders</h1>
+                            <h1>Requests</h1>
                         </div>
                     </div>
 
                     <div class="col-3-grid">
                         <div class="left-grid">
-                            <h2>Orders</h2>
+                            <h2>Requests</h2>
                         </div>
                         <div class="right-grid">
-                            <h3>${sessionScope.allorders.size()} Total</h3>
+                            <h3>${sessionScope.allrequests.size()} Total</h3>
                         </div>
                     </div>
                     <div>
                         <table class="collapse-table">
                             <tr class="table-labels">
-                                <th class="left-text">ORDER</th>
+                                <th class="left-text">REQUEST</th>
                                 <th>CUSTOMER</th>
                                 <th>PHONE</th>
                                 <th>ITEMS</th>
@@ -40,7 +40,7 @@
                                 <th></th>
                             </tr>
                             <c:set var="index" value="-1"></c:set>
-                            <c:forEach var="order" items="${sessionScope.allorders}">
+                            <c:forEach var="order" items="${sessionScope.allrequests}">
                                 <tr>
                                     <th class="left-text"><h3>${order.id}</h3></th>
                                     <th><h3>${order.user.email}</h3></th>
@@ -53,7 +53,7 @@
                                           method="post">
                                         <input type="hidden" name="order" value="${index = index + 1}">
                                         <input type="hidden" name="customerorderlist" value="false">
-                                        <th><input type="submit" value="see more" class="purple-button"
+                                        <th><input type="submit" value="make offer" class="purple-button"
                                                    style="padding: 10px 10px; width: 85px"></th>
                                     </form>
                                 </tr>

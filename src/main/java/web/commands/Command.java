@@ -31,6 +31,7 @@ public abstract class Command
         commands.put("employeepage", new CommandProtectedPage("employeepage", "employee"));
         commands.put("requestpage", new CommandUnprotectedPage("requestcarportpage"));
         commands.put("requestcommand", new RequestCommand("requestconfirmationpage", "customer"));
+        commands.put("retrieverequestcommand", new RetrieveRequestCommand("requestpage", "employee"));
     }
 
     public static Command fromPath(

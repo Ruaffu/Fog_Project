@@ -68,6 +68,28 @@ public class OrderMapper {
         }
     }
 
+    public ArrayList<Integer> getRequestId(int user_id) throws Exception {
+        ArrayList<Integer> orders = new ArrayList<>();
+        try (Connection connection = database.connect()) {
+            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, user_id);
+                ps.setString(2, "request");
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id_order");
+                    orders.add(id);
+                }
+                return orders;
+            } catch (Exception e) {
+                throw new Exception("Could not find order id");
+            }
+        } catch (SQLException throwables) {
+            throw new Exception("Could not find order id");
+        }
+    }
+
     public Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM) throws Exception {
         Order order = null;
 

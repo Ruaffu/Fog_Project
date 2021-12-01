@@ -89,6 +89,10 @@
                     <a class="white-button" href="${pageContext.request.contextPath}/fc/allorderpage"><h4>Orders</h4>
                     </a>
                 </li>
+                <li>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/retrieverequestcommand"><h4>Requests</h4>
+                    </a>
+                </li>
             </c:if>
 
             <li>

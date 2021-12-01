@@ -49,5 +49,29 @@ public class OrderFacade {
         return orders;
     }
 
+    public ArrayList<Order> getAllUserRequests(User user) {
+        ArrayList<Order> requests = new ArrayList<>();
+        ArrayList<Integer> idOrders;
+        try {
+            idOrders = orderMapper.getRequestId(user.getId());
+            for (int id : idOrders) {
+                ArrayList<Material> BOM = bomMapper.getAllMaterials(id);
+                Order order = orderMapper.getAllOrdersUser(id, user, BOM);
+                requests.add(order);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return requests;
+    }
+
+    public ArrayList<Order> getAllRequests(ArrayList<User> users) throws UserException {
+        ArrayList<Order> requests = new ArrayList<>();
+        for (User user : users) {
+            requests.addAll(getAllUserRequests(user));
+        }
+        return requests;
+    }
 
 }
