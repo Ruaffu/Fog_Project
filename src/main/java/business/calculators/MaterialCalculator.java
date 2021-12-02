@@ -16,14 +16,15 @@ public class MaterialCalculator {
     MaterialFacade materialFacade;
     ArrayList<Material> bom = new ArrayList<>();
 
-    int offsetW1 = 350;
-    int offsetW2 = 350;
-    int maxWidth = 6000 - (offsetW1 + offsetW2);
-    int offsetL1 = 1000;
-    int offsetL2 = 200;
-    int maxLength = 3300;
 
+    private final int OFFSET_L1 = 1000;
+    private final int OFFSET_L2 = 200;
+    private final int MAX_LENGTH = 3300;
 
+    private final int OFFSET_W1 = 350;
+    private final int OFFSET_W2 = 350;
+    private final int MAX_WIDTH = 6000 - (OFFSET_W1 + OFFSET_W2);
+    
     public MaterialCalculator(Database database) {
         materialFacade = new MaterialFacade(database);
     }
@@ -70,36 +71,13 @@ public class MaterialCalculator {
         List<Material> materialList = materialFacade.getMaterialByName(name);
 
         // Calculate
-        int quantityByWidth = amountOfPostsWidth(carportWidth);
-        int quantityByLength = amountOfPostsLength(carportLength);
+        int quantityByWidth = amountOfPosts(carportWidth, OFFSET_W1, OFFSET_W2, MAX_WIDTH);
+        int quantityByLength = amountOfPosts(carportLength, OFFSET_L1, OFFSET_L2, MAX_LENGTH);
 
         // amount of Posts Width multiplied by amount of Posts Length
         int quantity = quantityByWidth * quantityByLength;
 
         bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
-    }
-
-    private int amountOfPostsLength(int carportLength) {
-        int offsetL1 = 1000;
-        int offsetL2 = 200;
-        int maxLength = 3300;
-        return (int) ceil((double) (carportLength - (offsetL1 + offsetL2)) / (double) maxLength) + 1;
-    }
-
-    private int amountOfPostsWidth(int carportWidth) {
-        int offsetW1 = 350;
-        int offsetW2 = 350;
-        int maxWidth = 6000 - (offsetW1 + offsetW2);
-        return (int) ceil((double) (carportWidth - (offsetW1 + offsetW2)) / (double) maxWidth) + 1;
-    }
-
-    private int spaceBetweenPostLength(int carportLength) {
-        int offsetL1 = 1000;
-        int offsetL2 = 200;
-        int innerCarportLength = (carportLength - (offsetL1 + offsetL2));
-        int innerPosts = amountOfPostsLength(carportLength) - 1;
-
-        return innerCarportLength / innerPosts;
     }
 
     // Remme
@@ -112,64 +90,14 @@ public class MaterialCalculator {
 
         // Calculate
         // amount of beams
-        int offsetW1 = 350;
-        int offsetW2 = 350;
-        int maxWidth = 6000 - (offsetW1 + offsetW2);
-        int quantity = (int) ceil((double) (carportWidth - (offsetW1 + offsetW2)) / (double) maxWidth) + 1;
+        int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
 
         // sort list by length... from short to long
         materialList.sort(Comparator.comparing(Material::getLength));
         Collections.reverse(materialList);
 
         // amount of materials pr beam
-        materialsPrBeam(carportLength, quantity, description, materialList);
-    }
-
-    // helper function
-    private void materialsPrBeam(int carportLength, int quantity, String description, List<Material> materialList) {
-        int materialIDX = 0;
-        while (true) {
-            // checks for perfect fit beam
-            for (Material material : materialList) {
-                if (material.getLength() == carportLength) {
-                    bom.add(newItem(quantity, material.getId(), description, material));
-                    return;
-                }
-            }
-            // checks if longest beam fits
-            if (carportLength > materialList.get(materialIDX).getLength()) {
-                // if not then it splits it in to 2;
-                ArrayList<Integer> offsets = new ArrayList<>();
-
-                int spaceBetweenPostLength = spaceBetweenPostLength(carportLength);
-                offsets.add(spaceBetweenPostLength + offsetL1);
-                offsets.add(spaceBetweenPostLength + offsetL2); // TODO: problem if there is only 2 posts
-
-                // then it looks for best fit of materials
-                for (Integer offset : offsets) {
-                    Material material = materialList.get(0);
-                    int bestFit = material.getLength() - offset;
-
-                    // runs through materials to find the one with the lowest waste of wood
-                    for (Material m : materialList) {
-                        int wastedWood = m.getLength() - offset;
-
-                        if (bestFit > wastedWood && wastedWood >= 0) {
-                            bestFit = wastedWood;
-                            material = m;
-                        }
-                    }
-                    bom.add(newItem(quantity, material.getId(), description, material));
-                    return;
-                }
-            } else {
-                materialIDX += 1;
-                if (materialIDX == materialList.size() - 1) {
-                    bom.add(newItem(quantity, materialList.get(materialIDX).getId(), description, materialList.get(materialIDX)));
-                    return;
-                }
-            }
-        }
+        useOfMaterials(carportLength, quantity, description, materialList, "length");
     }
 
     // Spær
@@ -184,43 +112,8 @@ public class MaterialCalculator {
         int maxWidth = 550;
         int quantity = (int) ceil((double) carportLength / (double) maxWidth);
 
-//        // Add the right lengths
-//        for (Material material : materialList) {
-//            if (material.getLength() == carportWidth) {
-//                bom.add(newItem(quantity, material.getId(), description, material));
-//                return;
-//            }
-//        }
-//
-//        Material material = materialList.get(0);
-//        int bestFit = material.getLength() - carportWidth;
-//
-//        // runs through materials to find the one with the lowest waste of wood
-//        for (Material m : materialList) {
-//            int wastedWood = m.getLength() - carportWidth;
-//
-//            if (bestFit > wastedWood && wastedWood >= 0) {
-//                bestFit = wastedWood;
-//                material = m;
-//            }
-//        }
-//        bom.add(newItem(quantity, material.getId(), description, material));
-
-
-
-//        int length = carportWidth;
-//        for (int i = materialList.size() - 1; i > 0; i--) {
-//            if ((length) >= materialList.get(i).getLength()) {
-//                bom.add(newItem(quantity, materialList.get(i).getId(), description, materialList.get(i))); //TODO: fix calculation
-//                length -= materialList.get(i).getLength();
-//            }
-//        }
-//
-//        // Minimum length
-//        if (length > 0) {
-//            bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
-//        }
-
+        // amount of materials pr beam
+        useOfMaterials(carportWidth, quantity, description, materialList, "Rafter");
     }
 
     // Stern
@@ -256,7 +149,6 @@ public class MaterialCalculator {
         }
 
     }
-
     private void calcSternUnderFrontAndBack(int carportWidth) throws UserException {
         String description = "Understernbrædder til for- & bagende";
         String name = "25x200 mm. trykimp. Brædt";
@@ -299,7 +191,9 @@ public class MaterialCalculator {
         calcStern(surfaceAmount, carportLength, description, name);
     }
 
+
     // Tag
+
     private void calcRoofing(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
@@ -342,5 +236,79 @@ public class MaterialCalculator {
             bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
         }
 
+    }
+
+    /**
+     * helper functions
+     **/
+
+    private void useOfMaterials(int carportLengthOrWidth, int quantity, String description, List<Material> materialList, String MaterialType) {
+
+        // checks for perfect fit material
+        for (Material material : materialList) {
+            if (material.getLength() == carportLengthOrWidth) {
+                bom.add(newItem(quantity, material.getId(), description, material));
+                return;
+            }
+        }
+
+        // if not... checks if carport is longer than the longest material
+        Material material;
+        if (carportLengthOrWidth > materialList.get(0).getLength()) {
+            // if longer... then it splits it in to 2;
+            ArrayList<Integer> offsets = new ArrayList<>();
+
+            // offset MaterialType
+            if (MaterialType.equals("Beam")) {
+                int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, OFFSET_L1, OFFSET_L2, MAX_LENGTH);
+
+                offsets.add(spaceBetweenPostLength + OFFSET_L1);
+                offsets.add(spaceBetweenPostLength + OFFSET_L2);
+
+            } else if (MaterialType.equals("Rafter")) {
+                int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, 0, 0, MAX_WIDTH);
+
+                offsets.add(spaceBetweenPostLength);
+                offsets.add(spaceBetweenPostLength);
+            }
+
+            // then it looks for best fit of materials
+            for (Integer offset : offsets) {
+                material = bestFitMaterial(materialList, offset);
+                bom.add(newItem(quantity, material.getId(), description, material));
+                return;
+            }
+        } else {
+            //if not longer... then it checks for the best fit
+            material = bestFitMaterial(materialList, carportLengthOrWidth);
+            bom.add(newItem(quantity, material.getId(), description, material));
+        }
+    }
+
+    public Material bestFitMaterial(List<Material> materialList, int length) {
+        Material material = materialList.get(0);
+        int bestFit = material.getLength() - length;
+
+        // runs through materials to find the one with the lowest waste of wood
+        for (Material m : materialList) {
+            int wastedWood = m.getLength() - length;
+
+            if (bestFit > wastedWood && wastedWood >= 0) {
+                bestFit = wastedWood;
+                material = m;
+            }
+        }
+        return material;
+    }
+
+    private int amountOfPosts(int carportLengthOrWidth, int maxLengthOrWidth, int offset1, int offset2) {
+        return (int) ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth) + 1;
+    }
+
+    private int spaceBetweenPostLength(int carportLength, int offset1, int offset2, int maxLengthOrWidth) {
+        int innerCarportLengthOrWidth = (carportLength - (offset1 + offset2));
+        int innerPosts = amountOfPosts(carportLength, offset1, offset2, maxLengthOrWidth) - 1;
+
+        return innerCarportLengthOrWidth / innerPosts;
     }
 }
