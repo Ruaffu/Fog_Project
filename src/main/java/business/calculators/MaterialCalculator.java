@@ -98,7 +98,7 @@ public class MaterialCalculator {
         Collections.reverse(materialList);
 
         // amount of materials pr beam
-        useOfMaterials(carportLength, quantity, description, materialList, "length");
+        useOfMaterials(carportLength, quantity, description, materialList, "Beam");
     }
 
     // Spær
@@ -132,40 +132,32 @@ public class MaterialCalculator {
         Collections.reverse(materialList);
 
         // Calculate
+        useOfMaterials(length, quantity, description, materialList, "Stern");
 
-//        for (Material material : materialList) {
-//            if (material.getLength() == carportLengthOrWidth) {
-//                bom.add(newItem(quantity, material.getId(), description, material));
-//                return;
+//        int prevLength = 0;
+//        for (int i = materialList.size() - 1; i > 0; i--) {
+//            if (length >= materialList.get(i).getLength()) {
+//
+//                if (materialList.get(i).getLength() != prevLength) {
+//                    bom.add(newItem(quantity, materialList.get(i).getId(), description, materialList.get(i)));
+//                    prevLength = materialList.get(i).getLength();
+//                } else {
+//                    int prevAmount = bom.get(bom.size() - 1).getQuantity();
+//                    bom.get(bom.size() - 1).setQuantity(prevAmount + quantity);
+//                }
+//                length -= materialList.get(i).getLength();
+//
+//                // Compare lengths to repeat current index
+//                if (length > materialList.get(i).getLength()) {
+//                    i++;
+//                }
 //            }
 //        }
-
-
-
-        int prevLength = 0;
-        for (int i = materialList.size() - 1; i > 0; i--) {
-            if (length >= materialList.get(i).getLength()) {
-
-                if (materialList.get(i).getLength() != prevLength) {
-                    bom.add(newItem(quantity, materialList.get(i).getId(), description, materialList.get(i)));
-                    prevLength = materialList.get(i).getLength();
-                } else {
-                    int prevAmount = bom.get(bom.size() - 1).getQuantity();
-                    bom.get(bom.size() - 1).setQuantity(prevAmount + quantity);
-                }
-                length -= materialList.get(i).getLength();
-
-                // Compare lengths to repeat current index
-                if (length > materialList.get(i).getLength()) {
-                    i++;
-                }
-            }
-        }
-
-        // Minimum length size
-        if (length > 0) {
-            bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
-        }
+//
+//        // Minimum length size
+//        if (length > 0) {
+//            bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
+//        }
 
     }
     private void calcSternUnderFrontAndBack(int carportWidth) throws UserException {
@@ -197,14 +189,14 @@ public class MaterialCalculator {
     }
 
     private void calcSternWaterFront(int carportWidth) throws UserException {
-        String description = "Oversternbrædder til siderne";
+        String description = "Vandbrædder til forende";
         String name = "19x100 mm. trykimp. Brædt";
         int surfaceAmount = 1;
         calcStern(surfaceAmount, carportWidth, description, name);
     }
 
     private void calcSternWaterSides(int carportLength) throws UserException {
-        String description = "Oversternbrædder til siderne";
+        String description = "Vandbrædder til siderne";
         String name = "19x100 mm. trykimp. Brædt";
         int surfaceAmount = 2;
         calcStern(surfaceAmount, carportLength, description, name);
@@ -274,17 +266,26 @@ public class MaterialCalculator {
             ArrayList<Integer> offsets = new ArrayList<>();
 
             // offset MaterialType
-            if (MaterialType.equals("Beam")) {
-                int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, OFFSET_L1, OFFSET_L2, MAX_LENGTH);
+            switch (MaterialType) {
+                case "Beam": {
+                    int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, OFFSET_L1, OFFSET_L2, MAX_LENGTH);
 
-                offsets.add(spaceBetweenPostLength + OFFSET_L1);
-                offsets.add(spaceBetweenPostLength + OFFSET_L2);
+                    offsets.add(spaceBetweenPostLength + OFFSET_L1);
+                    offsets.add(spaceBetweenPostLength + OFFSET_L2);
 
-            } else if (MaterialType.equals("Rafter")) {
-                int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, 0, 0, MAX_WIDTH);
+                    break;
+                }
+                case "Rafter": {
+                    int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, 0, 0, MAX_WIDTH);
 
-                offsets.add(spaceBetweenPostLength);
-                offsets.add(spaceBetweenPostLength);
+                    offsets.add(spaceBetweenPostLength);
+                    offsets.add(spaceBetweenPostLength);
+                    break;
+                }
+                case "Stern":
+                    quantity *= 2;
+                    offsets.add(carportLengthOrWidth / 2);
+                    break;
             }
 
             // then it looks for best fit of materials
