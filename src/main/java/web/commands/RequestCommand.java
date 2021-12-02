@@ -1,5 +1,7 @@
 package web.commands;
 
+import business.calculators.FlatRoofCalc;
+import business.calculators.FlatRoofWithShedCalc;
 import business.calculators.MaterialCalculator;
 import business.entities.Material;
 import business.entities.Order;
@@ -22,7 +24,6 @@ public class RequestCommand extends CommandProtectedPage
     {
         super(pageToShow, role);
         orderFacade = new OrderFacade(database);
-        MC = new MaterialCalculator(database);
     }
 
     @Override
@@ -39,6 +40,12 @@ public class RequestCommand extends CommandProtectedPage
         int shedLength = Integer.parseInt(request.getParameter("shedlength"));
         int shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
 
+        if (shedLength > 0){
+            MC = new FlatRoofWithShedCalc(database, width, length, shedWidth, shedLength);
+        } else {
+            MC = new FlatRoofCalc(database, width, length);
+        }
+
         request.setAttribute("length",length);
         request.setAttribute("width",width);
         request.setAttribute("roof",roof);
@@ -47,7 +54,7 @@ public class RequestCommand extends CommandProtectedPage
         request.setAttribute("shedlength",shedLength);
 
         try {
-            ArrayList<Material> BOM = MC.BOMCalculator(width, length, shedLength, shedWidth);
+            ArrayList<Material> BOM = MC.BOMCalculator();
 
             Order order = new Order(user, 0, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
             orderFacade.saveOrder(order);
