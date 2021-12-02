@@ -33,17 +33,27 @@ public class MaterialCalculator {
 
         carportLength *= 10;
         carportWidth *= 10;
+        shedLength *= 10;
+        shedWidth *= 10;
 
         if (shedLength <= 0) {
             OFFSET_L1 = 1000;
             OFFSET_L2 = 1000;
+
+            calcBeam(carportWidth, carportLength);
+
         } else {
             OFFSET_L1 = 1000;
             OFFSET_L2 = 200;
+
+            int shedWithOffset = shedLength + OFFSET_L2;
+            int baseCarport = carportLength - shedWithOffset;
+
+            calcBeam(carportWidth, shedWithOffset);
+            calcBeam(carportWidth, baseCarport);
         }
 
         calcPost(carportWidth, carportLength);
-        calcBeam(carportWidth, carportLength);
         calcRafter(carportWidth, carportLength);
         calcSternUnderFrontAndBack(carportWidth);
         calcSternUnderSides(carportLength);
@@ -91,20 +101,24 @@ public class MaterialCalculator {
     }
 
     // Remme
-    private void calcBeamWithShed(int carportWidth, int carportLength, int shedLength, int shedWidth) throws UserException {
-
-        // Get materials from database
-        String description = "Remme i sider, sadles ned i stolper";
-        String name = "45x195 mm. spærtræ ubh.";
-        List<Material> materialList = makeMaterialList(name);
-
-        // Calculate
-        // amount of beams
-        int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
-
-        // amount of materials pr beam
-        useOfMaterials(carportLength, quantity, description, materialList, "Shed");
-    }
+//    private void calcBeamWithShed(int carportWidth, int carportLength, int shedWidth, int shedLength) throws UserException {
+//
+//        // Get materials from database
+//        String description = "Remme i sider, sadles ned i stolper";
+//        String name = "45x195 mm. spærtræ ubh.";
+//        List<Material> materialList = makeMaterialList(name);
+//
+//        // Calculate
+//        // amount of beams
+//        int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
+//
+//        // amount of materials pr beam
+//        int baseCarport = carportLength - (shedLength + OFFSET_L2);
+//        useOfMaterials(baseCarport, quantity, description, materialList, "BaseCarport");
+//
+//
+//        useOfMaterials((shedLength + OFFSET_L2), quantity, description, materialList,"Shed");
+//    }
     private void calcBeam(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
@@ -231,17 +245,13 @@ public class MaterialCalculator {
             // offset MaterialType
             switch (MaterialType) {
                 case "Beam": {
-                    int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, OFFSET_L1, OFFSET_L2, MAX_LENGTH);
-
-                    offsets.add(spaceBetweenPostLength + OFFSET_L1);
-                    offsets.add(spaceBetweenPostLength + OFFSET_L2);
+                    quantity *= 2;
+                    offsets.add(carportLengthOrWidth / 2);
                     break;
                 }
                 case "Rafter": {
-                    int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, 0, 0, MAX_WIDTH);
-
-                    offsets.add(spaceBetweenPostLength);
-                    offsets.add(spaceBetweenPostLength);
+                    quantity *= 2;
+                    offsets.add(carportLengthOrWidth / 2);
                     break;
                 }
                 case "Stern": {
@@ -256,6 +266,16 @@ public class MaterialCalculator {
 
                     break;
                 }
+//                case  "BaseCarport": {
+//                    int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, OFFSET_L1, OFFSET_L2, MAX_LENGTH);
+//                    offsets.add(spaceBetweenPostLength + OFFSET_L1);
+//                    offsets.add(spaceBetweenPostLength);
+//                }
+//                case "Shed": {
+//                    quantity *= 2;
+//                    offsets.add(carportLengthOrWidth / 2);
+//                    break;
+//                }
             }
 
             // then it looks for best fit of materials
@@ -264,6 +284,9 @@ public class MaterialCalculator {
                 bom.add(newItem(quantity, material.getId(), description, material));
             }
         } else {
+
+            //TODO: hvis længden er under halvt så kort af en brædde, skal man kun have en brædde og ikke 2...
+
             //if not longer... then it checks for the best fit
             material = bestFitMaterial(materialList, carportLengthOrWidth);
             bom.add(newItem(quantity, material.getId(), description, material));
@@ -290,6 +313,7 @@ public class MaterialCalculator {
         return ((int) (ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth))) + 1;
     }
 
+    // todo: only posts for baseCarport
     private int spaceBetweenPostLength(int carportLength, int offset1, int offset2, int maxLengthOrWidth) {
         int innerCarportLengthOrWidth = (carportLength - (offset1 + offset2));
         int innerPosts = amountOfPosts(carportLength, maxLengthOrWidth, offset1, offset2) - 1;
