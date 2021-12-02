@@ -7,6 +7,8 @@ import business.persistence.Database;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.ceil;
+
 public class FlatRoofWithShedCalc extends MaterialCalculator{
 
     private final int OFFSET_L1 = 1000;
@@ -47,6 +49,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator{
         calcSternWaterSides(carportLength);
 
         calcShedWood();
+        calcCladding();
 
         return bom;
     }
@@ -129,5 +132,34 @@ public class FlatRoofWithShedCalc extends MaterialCalculator{
         int quantityOfBothSides = quantityOfShedWoodLength * 3 * numbersOfSides;
 
         useOfMaterials(materialSizeLength, quantityOfBothSides, description, materialList, null);
+    }
+
+    private void calcCladding() throws UserException {
+
+        // Get material
+        String description = "til beklædning af skur 1 på 2";
+        String name = "19x100 mm. trykimp. Brædt";
+        List<Material> materialList = makeMaterialList(name);
+
+        int materialLength = 2100;
+        Material material = null;
+
+        for (Material m : materialList) {
+            if (m.getLength() == materialLength){
+                material = m;
+            }
+        }
+
+        if (material == null){
+            material = materialList.get(0);
+        }
+        int materialWidth = material.getWidth();
+        int overlap = 25;
+        int shedCircuit = (shedLength + shedWidth) * 2;
+
+        int quantityOfCladding = (int) ceil((double) shedCircuit / (double)(materialWidth-overlap));
+
+        bom.add(newItem(quantityOfCladding,material.getId(),description,material));
+
     }
 }
