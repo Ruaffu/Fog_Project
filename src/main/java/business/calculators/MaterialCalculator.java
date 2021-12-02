@@ -24,6 +24,8 @@ public class MaterialCalculator {
     private final int OFFSET_W2 = 350;
     private final int MAX_WIDTH = 6000 - (OFFSET_W1 + OFFSET_W2);
 
+    private final int MAX_WIDTH_SHED = 3000;
+
     public MaterialCalculator(Database database) {
         materialFacade = new MaterialFacade(database);
     }
@@ -40,20 +42,23 @@ public class MaterialCalculator {
             OFFSET_L1 = 1000;
             OFFSET_L2 = 1000;
 
+            calcPost(carportWidth, carportLength);
             calcBeam(carportWidth, carportLength);
 
         } else {
             OFFSET_L1 = 1000;
             OFFSET_L2 = 200;
 
+
             int shedWithOffset = shedLength + OFFSET_L2;
             int baseCarport = carportLength - shedWithOffset;
+
+            calcPostShed(carportWidth, baseCarport, shedWidth, shedLength);
 
             calcBeam(carportWidth, shedWithOffset);
             calcBeam(carportWidth, baseCarport);
         }
 
-        calcPost(carportWidth, carportLength);
         calcRafter(carportWidth, carportLength);
         calcSternUnderFrontAndBack(carportWidth);
         calcSternUnderSides(carportLength);
@@ -89,8 +94,6 @@ public class MaterialCalculator {
         List<Material> materialList = makeMaterialList(name);
 
         // Calculate
-        System.out.println("carportWidth:" + carportWidth);
-        System.out.println("carportLength:" + carportLength);
         int quantityByWidth = amountOfPosts(carportWidth, MAX_WIDTH, OFFSET_W1, OFFSET_W2);
         int quantityByLength = amountOfPosts(carportLength, MAX_LENGTH, OFFSET_L1, OFFSET_L2);
 
@@ -100,25 +103,33 @@ public class MaterialCalculator {
         bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
     }
 
+    private void calcPostShed(int carportWidth, int carportLength, int shedWidth, int shedLength) throws UserException {
+
+        // Get material
+        String description = "Stolper nedgraves 90 cm. i jord";
+        String name = "97x97 mm. trykimp. Stolpe";
+        List<Material> materialList = makeMaterialList(name);
+
+        // Calculate
+        int quantityByWidth = amountOfPosts(carportWidth, MAX_WIDTH, OFFSET_W1, OFFSET_W2);
+        int quantityByLength = amountOfPosts(carportLength, MAX_LENGTH, OFFSET_L1, 0);
+
+        int quantityByWidthShed = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0);
+        int quantityByLengthShed = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2);
+
+        // amount of Posts Width multiplied by amount of Posts Length
+        int sharedPosts = 2;
+        int quantityBase = quantityByWidth * quantityByLength;
+        int quantityShed = quantityByWidthShed * quantityByLengthShed;
+
+        int doorPost = 1;
+
+        int quantity = (quantityBase + quantityShed + doorPost) - sharedPosts;
+
+        bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
+    }
+
     // Remme
-//    private void calcBeamWithShed(int carportWidth, int carportLength, int shedWidth, int shedLength) throws UserException {
-//
-//        // Get materials from database
-//        String description = "Remme i sider, sadles ned i stolper";
-//        String name = "45x195 mm. spærtræ ubh.";
-//        List<Material> materialList = makeMaterialList(name);
-//
-//        // Calculate
-//        // amount of beams
-//        int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
-//
-//        // amount of materials pr beam
-//        int baseCarport = carportLength - (shedLength + OFFSET_L2);
-//        useOfMaterials(baseCarport, quantity, description, materialList, "BaseCarport");
-//
-//
-//        useOfMaterials((shedLength + OFFSET_L2), quantity, description, materialList,"Shed");
-//    }
     private void calcBeam(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
@@ -266,16 +277,6 @@ public class MaterialCalculator {
 
                     break;
                 }
-//                case  "BaseCarport": {
-//                    int spaceBetweenPostLength = spaceBetweenPostLength(carportLengthOrWidth, OFFSET_L1, OFFSET_L2, MAX_LENGTH);
-//                    offsets.add(spaceBetweenPostLength + OFFSET_L1);
-//                    offsets.add(spaceBetweenPostLength);
-//                }
-//                case "Shed": {
-//                    quantity *= 2;
-//                    offsets.add(carportLengthOrWidth / 2);
-//                    break;
-//                }
             }
 
             // then it looks for best fit of materials
@@ -313,13 +314,13 @@ public class MaterialCalculator {
         return ((int) (ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth))) + 1;
     }
 
-    // todo: only posts for baseCarport
-    private int spaceBetweenPostLength(int carportLength, int offset1, int offset2, int maxLengthOrWidth) {
-        int innerCarportLengthOrWidth = (carportLength - (offset1 + offset2));
-        int innerPosts = amountOfPosts(carportLength, maxLengthOrWidth, offset1, offset2) - 1;
-
-        return innerCarportLengthOrWidth / innerPosts;
-    }
+//    // todo: only posts for baseCarport
+//    private int spaceBetweenPostLength(int carportLength, int offset1, int offset2, int maxLengthOrWidth) {
+//        int innerCarportLengthOrWidth = (carportLength - (offset1 + offset2));
+//        int innerPosts = amountOfPosts(carportLength, maxLengthOrWidth, offset1, offset2) - 1;
+//
+//        return innerCarportLengthOrWidth / innerPosts;
+//    }
 
     private ArrayList<Material> makeMaterialList(String name) throws UserException {
         ArrayList<Material> materialList = materialFacade.getMaterialByName(name);
