@@ -39,3 +39,19 @@ INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES 
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet','TRAPEZPLADE','81.6','204','4200','0','1090','stk');
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet','TRAPEZPLADE','91.2','228','4800','0','1090','stk');
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('Plastmo Ecolite blåtonet','TRAPEZPLADE','113.6','284','6000','0','1090','stk');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('38x73 mm. Lægte ubh.','Lægte ubh.','53.68','134.19','4200','38','73','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('stalddørsgreb 50x75','stalddørsgreb','99.6','249.00','0','50','75','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('t hængsel 390 mm','hængsel','51.6','129.00','390','0','0','stk');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','36.43','91.08','2400','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','40.98','102.46','2700','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','45.54','113.85','3000','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','50.10','125.24','3300','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','54.65','136.63','3600','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','59.2','148.00','3900','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','63.76','159.39','4200','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','68.31','170.78','4500','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','72.86','182.16','4800','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','77.42','193.55','5100','45','95','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','81.97','204.93','5400','45','95','stk');
