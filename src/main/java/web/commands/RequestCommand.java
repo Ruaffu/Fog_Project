@@ -47,7 +47,7 @@ public class RequestCommand extends CommandProtectedPage
         request.setAttribute("shedlength",shedLength);
 
         try {
-            ArrayList<Material> BOM = MC.BOMCalculator(width, length);
+            ArrayList<Material> BOM = MC.BOMCalculator(width, length, shedLength, shedWidth);
 
             Order order = new Order(user, 0, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
             orderFacade.saveOrder(order);

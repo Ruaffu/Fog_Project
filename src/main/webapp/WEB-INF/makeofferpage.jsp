@@ -1,202 +1,71 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <t:genericpage>
     <jsp:attribute name="header">
-         Find us
+         Requests
     </jsp:attribute>
-
     <jsp:attribute name="footer">
     </jsp:attribute>
+
     <jsp:body>
         <div class="grey-large-container">
-            <div class="white-large-box" style="width: 70%">
-                <div class="title-grid-element">
-                    <div class="center-text">
-                        <h1>Carport</h1>
+            <div class="white-large-box">
+                <div class="row-3-grid" style="gap: 20px">
+                    <div class="large-title-grid-element">
+                        <div class="left-text">
+                            <h1>Requests</h1>
+                        </div>
                     </div>
-                </div>
-                <div class="col-2-grid" style="box-sizing: border-box; gap: 50px; width: 100%">
-                    <form action="${pageContext.request.contextPath}/fc/sendoffercommand" method="post">
-                        <div class="row-3-grid">
-                            <div class="left-text">
-                                <div class="row-2-grid" style="padding-bottom: 25px">
 
-                                </div>
-                            </div>
-
-                            <div class="row-2-grid" style="gap: 20px">
-
-
-                                <div class="col-2-grid" style="gap: 20px">
-                                    <div>
-                                        <br>
-                                        <label for="width">Carport bredde</label>
-                                        <select name="width" id="width">
-                                            <option value="${sessionScope.makeoffer.carportWidth}" selected>${sessionScope.makeoffer.carportWidth} cm</option>
-                                            <option value="240">240 cm</option>
-                                            <option value="270">270 cm</option>
-                                            <option value="300">300 cm</option>
-                                            <option value="330">330 cm</option>
-                                            <option value="360">360 cm</option>
-                                            <option value="390">390 cm</option>
-                                            <option value="420">420 cm</option>
-                                            <option value="450">450 cm</option>
-                                            <option value="480">480 cm</option>
-                                            <option value="510">510 cm</option>
-                                            <option value="540">540 cm</option>
-                                            <option value="570">570 cm</option>
-                                            <option value="600">600 cm</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-2-grid" style="gap: 20px">
-                                    <div>
-                                        <label for="length">Carport længde</label>
-                                        <select name="length" id="length">
-                                            <option value="${sessionScope.makeoffer.carportLength}" selected>${sessionScope.makeoffer.carportLength} cm</option>
-                                            <option value="240">240 cm</option>
-                                            <option value="270">270 cm</option>
-                                            <option value="300">300 cm</option>
-                                            <option value="330">330 cm</option>
-                                            <option value="360">360 cm</option>
-                                            <option value="390">390 cm</option>
-                                            <option value="420">420 cm</option>
-                                            <option value="450">450 cm</option>
-                                            <option value="480">480 cm</option>
-                                            <option value="510">510 cm</option>
-                                            <option value="540">540 cm</option>
-                                            <option value="570">570 cm</option>
-                                            <option value="600">600 cm</option>
-                                            <option value="630">630 cm</option>
-                                            <option value="660">660 cm</option>
-                                            <option value="690">690 cm</option>
-                                            <option value="720">720 cm</option>
-                                            <option value="750">750 cm</option>
-                                            <option value="780">780 cm</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-2-grid" style="gap: 20px">
-                                    <div>
-                                        <label for="roof">Tag</label>
-                                        <select name="roof" id="roof">
-                                            <option value="${sessionScope.makeoffer.roofType}" selected>${sessionScope.makeoffer.roofType}</option>
-                                            <option value="plasttrapezplader">plasttrapezplader</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-2-grid" style="gap: 20px">
-                                    <div>
-                                        <label for="roofangle">Taghældning</label>
-                                        <select name="roofangle" id="roofangle">
-                                            <option value="${sessionScope.makeoffer.roofAngle}" selected>${sessionScope.makeoffer.roofAngle} grader</option>
-                                            <option value="0">0 grader</option>
-                                            <option value="15">15 grader</option>
-                                            <option value="20">20 grader</option>
-                                            <option value="25">25 grader</option>
-                                            <option value="30">30 grader</option>
-                                            <option value="35">35 grader</option>
-                                            <option value="40">40 grader</option>
-                                            <option value="45">45 grader</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br>
-
-                                <p>Redskabsrum</p>
-                                <div class="col-2-grid" style="gap: 20px">
-                                    <div>
-                                        <label for="shedwidth">Redskabsrum bredde</label>
-                                        <select name="shedwidth" id="shedwidth">
-                                            <option value="${sessionScope.makeoffer.shedWidth}" selected>${sessionScope.makeoffer.shedWidth} cm</option>
-                                            <option value="0">Ønsker ikke redskabsrum</option>
-                                            <option value="210">210 cm</option>
-                                            <option value="240">240 cm</option>
-                                            <option value="270">270 cm</option>
-                                            <option value="300">300 cm</option>
-                                            <option value="330">330 cm</option>
-                                            <option value="360">360 cm</option>
-                                            <option value="390">390 cm</option>
-                                            <option value="420">420 cm</option>
-                                            <option value="450">450 cm</option>
-                                            <option value="480">480 cm</option>
-                                            <option value="510">510 cm</option>
-                                            <option value="540">540 cm</option>
-                                            <option value="570">570 cm</option>
-                                            <option value="600">600 cm</option>
-                                            <option value="630">630 cm</option>
-                                            <option value="660">660 cm</option>
-                                            <option value="690">690 cm</option>
-                                            <option value="720">720 cm</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-2-grid" style="gap: 20px">
-                                    <div>
-                                        <label for="shedlength">Redskabsrum længde</label>
-                                        <select name="shedlength" id="shedlength">
-                                            <option value="${sessionScope.makeoffer.shedLength}" selected>${sessionScope.makeoffer.shedLength} cm</option>
-                                            <option value="0">Ønsker ikke redskabsrum</option>
-                                            <option value="150">150 cm</option>
-                                            <option value="180">180 cm</option>
-                                            <option value="210">210 cm</option>
-                                            <option value="240">240 cm</option>
-                                            <option value="270">270 cm</option>
-                                            <option value="300">300 cm</option>
-                                            <option value="330">330 cm</option>
-                                            <option value="360">360 cm</option>
-                                            <option value="390">390 cm</option>
-                                            <option value="420">420 cm</option>
-                                            <option value="450">450 cm</option>
-                                            <option value="480">480 cm</option>
-                                            <option value="510">510 cm</option>
-                                            <option value="540">540 cm</option>
-                                            <option value="570">570 cm</option>
-                                            <option value="600">600 cm</option>
-                                            <option value="630">630 cm</option>
-                                            <option value="660">660 cm</option>
-                                            <option value="690">690 cm</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-2-grid" style="gap: 20px">
-
-                                    <div>
-                                        <label for="misc">Evt. bemærkninger</label><br> <%--todo: fix textbox--%>
-                                        <textarea id="misc" name="misc" rows="4" cols="50">
-                                            </textarea>
-                                    </div>
-                                </div>
-                                <div>
-                                    <input type="text" name="price" value="${sessionScope.makeoffer.totalPrice}">
-                                    <input type="text" name="cost" value="${sessionScope.makeoffer.totalCost}">
-                                    <input type="text" name="coverageratio" value="${sessionScope.makeoffer.coverageRatio}">  <%--todo: update in realtime aka javascript--%>
-                                </div>
-
-                            </div>
-
-
+                    <div class="col-3-grid">
+                        <div class="left-grid">
+                            <h2>Requests</h2>
                         </div>
-                        <div style="padding-top: 50px">
-                            <div class="row-2-grid" style="gap: 10px">
-                                <input class="purple-large-button" type="submit" value="Lav Tilbud">
-                            </div>
-
+                        <div class="right-grid">
+                            <h3>${sessionScope.allrequests.size()} Total</h3>
                         </div>
+                    </div>
+                    <div>
+                        <table class="collapse-table">
+                            <tr class="table-labels">
+                                <th class="left-text">REQUEST</th>
+                                <th>CUSTOMER</th>
+                                <th>PHONE</th>
+                                <th>ITEMS</th>
+                                <th>TOTAL</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                                <th></th>
+                            </tr>
+                            <c:set var="index" value="-1"></c:set>
+                            <c:forEach var="request" items="${sessionScope.allrequests}">
+                                <tr>
+                                    <th class="left-text"><h3>${request.id}</h3></th>
+                                    <th><h3>${request.user.email}</h3></th>
+                                    <th><h3>${request.user.phoneNr}</h3></th>
+                                    <th><h3>${request.BOM.size()}</h3></th>
+                                    <th><h3>${request.totalPrice} kr</h3></th>
+                                    <th><h3>${request.orderDate}</h3></th>
+                                    <th><h3>${request.status}</h3></th>
+                                    <form action="${pageContext.request.contextPath}/fc/makeoffercommand"
+                                          method="post">
+                                        <input type="hidden" name="request" value="${index = index + 1}">
+                                        <c:if test="${request.status.equals('request')}">
+                                        <th><input type="submit" value="make offer" class="purple-button"
+                                                   style="padding: 10px 10px; width: 85px"></th>
+                                        </c:if>
+                                    </form>
+                                </tr>
 
-                    </form>
-
-
-                </div>
-                <div style="width: 200px; padding-top: 25px">
-                    <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i
-                            class="fas">&#xf060;</i>
-                        Go back to home</a>
+                            </c:forEach>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-
     </jsp:body>
+
 </t:genericpage>
+
