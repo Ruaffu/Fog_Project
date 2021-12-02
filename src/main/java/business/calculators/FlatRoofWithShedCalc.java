@@ -46,6 +46,8 @@ public class FlatRoofWithShedCalc extends MaterialCalculator{
         calcSternWaterFront(carportWidth);
         calcSternWaterSides(carportLength);
 
+        calcShedWood();
+
         return bom;
     }
 
@@ -108,12 +110,24 @@ public class FlatRoofWithShedCalc extends MaterialCalculator{
         String name = "45x95 mm. Reglar ubh.";
         List<Material> materialList = makeMaterialList(name);
 
-        int quantityByWidthShed = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0);
-        int quantityByLengthShed = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2);
+        // calculates Wood for both Gables
+        int quantityOfShedWoodWidth = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0) - 1;
+        int materialSizeWidth = shedWidth / quantityOfShedWoodWidth;
 
+        int numbersOfGables = 2;
+        int quantityOfBothGables = quantityOfShedWoodWidth * 3 * numbersOfGables;
 
+        useOfMaterials(materialSizeWidth, quantityOfBothGables, description, materialList,null);
 
+        // calculates Wood for both sides;
+        description = "løsholter til skur sider";
+
+        int quantityOfShedWoodLength = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2) - 1;
+        int materialSizeLength = shedLength / quantityOfShedWoodWidth;
+
+        int numbersOfSides = 2;
+        int quantityOfBothSides = quantityOfShedWoodLength * 3 * numbersOfSides;
+
+        useOfMaterials(materialSizeLength, quantityOfBothSides, description, materialList, null);
     }
-
-
 }
