@@ -44,11 +44,11 @@ public class MaterialCalculator {
 
             calcPost(carportWidth, carportLength);
             calcBeam(carportWidth, carportLength);
+            calcFlatRoofing(carportWidth, carportLength);
 
         } else {
             OFFSET_L1 = 1000;
             OFFSET_L2 = 200;
-
 
             int shedWithOffset = shedLength + OFFSET_L2;
             int baseCarport = carportLength - shedWithOffset;
@@ -57,6 +57,10 @@ public class MaterialCalculator {
 
             calcBeam(carportWidth, shedWithOffset);
             calcBeam(carportWidth, baseCarport);
+
+            int roofOverlap = 200;
+            calcFlatRoofing(carportWidth, shedWithOffset + roofOverlap);
+            calcFlatRoofing(carportWidth, baseCarport);
         }
 
         calcRafter(carportWidth, carportLength);
@@ -66,7 +70,6 @@ public class MaterialCalculator {
         calcSternOverSides(carportLength);
         calcSternWaterFront(carportWidth);
         calcSternWaterSides(carportLength);
-        calcFlatRoofing(carportWidth, carportLength);
 
         return bom;
     }
