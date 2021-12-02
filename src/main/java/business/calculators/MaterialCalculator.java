@@ -33,12 +33,14 @@ public class MaterialCalculator {
     public ArrayList<Material> BOMCalculator(int carportWidth, int carportLength, int shedLength, int shedWidth) throws UserException {
         bom = new ArrayList<>();
 
+        // cm to mm
         carportLength *= 10;
         carportWidth *= 10;
         shedLength *= 10;
         shedWidth *= 10;
 
-        if (shedLength <= 0) {
+        //checks if there is a shed
+        if (shedLength <= 0) { // without shed
             OFFSET_L1 = 1000;
             OFFSET_L2 = 1000;
 
@@ -46,11 +48,13 @@ public class MaterialCalculator {
             calcBeam(carportWidth, carportLength);
             calcFlatRoofing(carportWidth, carportLength);
 
-        } else {
+        } else { // with shed
             OFFSET_L1 = 1000;
             OFFSET_L2 = 200;
 
+            // shed with the offset at the back of the carport
             int shedWithOffset = shedLength + OFFSET_L2;
+            // the carport length without shed
             int baseCarport = carportLength - shedWithOffset;
 
             calcPostShed(carportWidth, baseCarport, shedWidth, shedLength);
@@ -58,11 +62,13 @@ public class MaterialCalculator {
             calcBeam(carportWidth, shedWithOffset);
             calcBeam(carportWidth, baseCarport);
 
+            // adds roof overlap
             int roofOverlap = 200;
             calcFlatRoofing(carportWidth, shedWithOffset + roofOverlap);
             calcFlatRoofing(carportWidth, baseCarport);
         }
 
+        // calculates general carport
         calcRafter(carportWidth, carportLength);
         calcSternUnderFrontAndBack(carportWidth);
         calcSternUnderSides(carportLength);
@@ -74,6 +80,7 @@ public class MaterialCalculator {
         return bom;
     }
 
+    // methode to create material, with quantity and description
     public Material newItem(int quantity, int materialID, String description, Material material) {
         return new Material(materialID,
                 material.getName(),
@@ -106,7 +113,7 @@ public class MaterialCalculator {
         bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
     }
 
-    private void calcPostShed(int carportWidth, int carportLength, int shedWidth, int shedLength) throws UserException {
+    private void calcPostShed(int carportWidth, int baseCarportLength, int shedWidth, int shedLength) throws UserException {
 
         // Get material
         String description = "Stolper nedgraves 90 cm. i jord";
@@ -114,19 +121,24 @@ public class MaterialCalculator {
         List<Material> materialList = makeMaterialList(name);
 
         // Calculate
+        // quantity for base carport
         int quantityByWidth = amountOfPosts(carportWidth, MAX_WIDTH, OFFSET_W1, OFFSET_W2);
-        int quantityByLength = amountOfPosts(carportLength, MAX_LENGTH, OFFSET_L1, 0);
+        int quantityByLength = amountOfPosts(baseCarportLength, MAX_LENGTH, OFFSET_L1, 0);
 
+        // quantity for shed
         int quantityByWidthShed = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0);
         int quantityByLengthShed = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2);
 
         // amount of Posts Width multiplied by amount of Posts Length
-        int sharedPosts = 2;
         int quantityBase = quantityByWidth * quantityByLength;
         int quantityShed = quantityByWidthShed * quantityByLengthShed;
 
+        int sharedPosts = 2;
+
+        // post for the shed door
         int doorPost = 1;
 
+        // total quantity
         int quantity = (quantityBase + quantityShed + doorPost) - sharedPosts;
 
         bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
@@ -160,16 +172,40 @@ public class MaterialCalculator {
         int maxWidth = 550;
         int quantity = (int) ceil((double) carportLength / (double) maxWidth);
 
-        // amount of materials pr beam
+        //
         useOfMaterials(carportWidth, quantity, description, materialList, "Rafter");
     }
+
+    // Tag
+    private void calcFlatRoofing(int carportWidth, int carportLength) throws UserException {
+
+        // Get materials from database
+        String description = "Tagplader monteres på spær";
+        String name = "Plastmo Ecolite blåtonet";
+        List<Material> materialList = makeMaterialList(name);
+
+        // Calculate
+        int overlapWidth = 70;
+
+        int roofTileWidth = materialList.get(0).getWidth();
+
+        int quantityWidth;
+
+        //calc quantity
+        quantityWidth = (int) ceil((double) carportWidth / (double) (roofTileWidth - overlapWidth));
+
+        //calculate
+        useOfMaterials(carportLength, quantityWidth, description, materialList, "FlatRoof");
+    }
+
+    /** all stern methods **/
 
     // Stern
     private void calcStern(int quantity, int length, String description, String name) throws UserException {
         // Get materials from database
         List<Material> materialList = makeMaterialList(name);
 
-        // Calculate
+        // amount of materials pr beam
         useOfMaterials(length, quantity, description, materialList, "Stern");
     }
 
@@ -215,69 +251,39 @@ public class MaterialCalculator {
         calcStern(surfaceAmount, carportLength, description, name);
     }
 
-    // Tag
-    private void calcFlatRoofing(int carportWidth, int carportLength) throws UserException {
-
-        // Get materials from database
-        String description = "Tagplader monteres på spær";
-        String name = "Plastmo Ecolite blåtonet";
-        List<Material> materialList = makeMaterialList(name);
-
-        // Calculate
-        int overlapWidth = 70;
-
-        int roofTileWidth = materialList.get(0).getWidth();
-
-        int quantityWidth;
-
-        //calc quantity
-        quantityWidth = (int) ceil((double) carportWidth / (double) (roofTileWidth - overlapWidth));
-
-        //calculate
-        useOfMaterials(carportLength, quantityWidth, description, materialList, "FlatRoof");
-    }
-
-    /**
-     * helper functions
-     **/
+    /** helper functions **/
 
     private void useOfMaterials(int carportLengthOrWidth, int quantity, String description, List<Material> materialList, String MaterialType) {
+        Material material;
+
         // checks for perfect fit material
-        for (Material material : materialList) {
-            if (material.getLength() == carportLengthOrWidth) {
-                bom.add(newItem(quantity, material.getId(), description, material));
+        for (Material m : materialList) {
+            if (m.getLength() == carportLengthOrWidth) {
+                bom.add(newItem(quantity, m.getId(), description, m));
                 return;
             }
         }
 
         // if not... checks if carport is longer than the longest material
-        Material material;
         if (carportLengthOrWidth > materialList.get(0).getLength()) {
             // if longer... then it splits it in to 2;
             ArrayList<Integer> offsets = new ArrayList<>();
 
-            // offset MaterialType
+            // MaterialType, for multiple use of method
             switch (MaterialType) {
-                case "Beam": {
+                case "Beam":
+                case "Rafter":
+                case "Stern":
+                {
                     quantity *= 2;
                     offsets.add(carportLengthOrWidth / 2);
                     break;
                 }
-                case "Rafter": {
-                    quantity *= 2;
-                    offsets.add(carportLengthOrWidth / 2);
-                    break;
-                }
-                case "Stern": {
-                    quantity *= 2;
-                    offsets.add(carportLengthOrWidth / 2);
-                    break;
-                }
+                //todo: figure out to add overlap in previous method... then we can remove switch...
                 case "FlatRoof": {
                     int overlapLength = 200;
                     quantity *= 2;
                     offsets.add((carportLengthOrWidth + overlapLength) / 2);
-
                     break;
                 }
             }
@@ -291,25 +297,30 @@ public class MaterialCalculator {
 
             //TODO: hvis længden er under halvt så kort af en brædde, skal man kun have en brædde og ikke 2...
 
-            //if not longer... then it checks for the best fit
+            //if not longer then longest material... then it checks for the best fit
             material = bestFitMaterial(materialList, carportLengthOrWidth);
             bom.add(newItem(quantity, material.getId(), description, material));
         }
     }
 
     public Material bestFitMaterial(List<Material> materialList, int length) {
+        // sets default material
         Material material = materialList.get(0);
+        // wasted wood
         int bestFit = material.getLength() - length;
 
         // runs through materials to find the one with the lowest waste of wood
         for (Material m : materialList) {
+            // find wood waste
             int wastedWood = m.getLength() - length;
 
+            // if wasted wood is lower, but still longer then the length... then it's a better fit
             if (bestFit > wastedWood && wastedWood >= 0) {
                 bestFit = wastedWood;
                 material = m;
             }
         }
+        // return best fit material
         return material;
     }
 
@@ -317,15 +328,8 @@ public class MaterialCalculator {
         return ((int) (ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth))) + 1;
     }
 
-//    // todo: only posts for baseCarport
-//    private int spaceBetweenPostLength(int carportLength, int offset1, int offset2, int maxLengthOrWidth) {
-//        int innerCarportLengthOrWidth = (carportLength - (offset1 + offset2));
-//        int innerPosts = amountOfPosts(carportLength, maxLengthOrWidth, offset1, offset2) - 1;
-//
-//        return innerCarportLengthOrWidth / innerPosts;
-//    }
-
     private ArrayList<Material> makeMaterialList(String name) throws UserException {
+        // create list
         ArrayList<Material> materialList = materialFacade.getMaterialByName(name);
 
         // sort list by length... from short to long
@@ -334,5 +338,4 @@ public class MaterialCalculator {
 
         return materialList;
     }
-
 }
