@@ -129,7 +129,6 @@ public class MaterialCalculator {
     private void materialsPrBeam(int carportLength, int quantity, String description, List<Material> materialList) {
         int materialIDX = 0;
         while (true) {
-
             // checks for perfect fit beam
             for (Material material : materialList) {
                 if (material.getLength() == carportLength) {
@@ -144,7 +143,7 @@ public class MaterialCalculator {
 
                 int spaceBetweenPostLength = spaceBetweenPostLength(carportLength);
                 offsets.add(spaceBetweenPostLength + offsetL1);
-                offsets.add(spaceBetweenPostLength + offsetL2);
+                offsets.add(spaceBetweenPostLength + offsetL2); // TODO: problem if there is only 2 posts
 
                 // then it looks for best fit of materials
                 for (Integer offset : offsets) {
@@ -185,14 +184,28 @@ public class MaterialCalculator {
         int maxWidth = 550;
         int quantity = (int) ceil((double) carportLength / (double) maxWidth);
 
-        // Add the right lengths
+//        // Add the right lengths
+//        for (Material material : materialList) {
+//            if (material.getLength() == carportWidth) {
+//                bom.add(newItem(quantity, material.getId(), description, material));
+//                return;
+//            }
+//        }
+//
+//        Material material = materialList.get(0);
+//        int bestFit = material.getLength() - carportWidth;
+//
+//        // runs through materials to find the one with the lowest waste of wood
+//        for (Material m : materialList) {
+//            int wastedWood = m.getLength() - carportWidth;
+//
+//            if (bestFit > wastedWood && wastedWood >= 0) {
+//                bestFit = wastedWood;
+//                material = m;
+//            }
+//        }
+//        bom.add(newItem(quantity, material.getId(), description, material));
 
-        for (Material material : materialList) {
-            if (material.getLength() == carportLength) {
-                bom.add(newItem(quantity, material.getId(), description, material));
-                return;
-            }
-        }
 
 
 //        int length = carportWidth;
