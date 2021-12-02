@@ -26,9 +26,9 @@ public class MaterialFacade
        return materialMapper.getMaterialByID(id);
     }
 
-    public ArrayList<Material> getMaterialByType(String type) throws UserException
+    public Material getMaterial(String name) throws UserException
     {
-        return materialMapper.getMaterialByType(type);
+        return materialMapper.getMaterial(name);
     }
 
     public ArrayList<Material> getMaterialByName(String name) throws UserException

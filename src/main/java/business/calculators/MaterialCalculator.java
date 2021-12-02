@@ -66,6 +66,11 @@ public class MaterialCalculator {
             int roofOverlap = 200;
             calcFlatRoofing(carportWidth, shedWithOffset + roofOverlap);
             calcFlatRoofing(carportWidth, baseCarport);
+
+            addDoorMaterials();
+
+
+
         }
 
         // calculates general carport
@@ -196,6 +201,22 @@ public class MaterialCalculator {
 
         //calculate
         useOfMaterials(carportLength, quantityWidth, description, materialList, "FlatRoof");
+    }
+
+    private void addDoorMaterials() throws UserException {
+        Material material;
+
+        // batten for the backside of the door;
+        material = materialFacade.getMaterial("38x73 mm. Lægte ubh.");
+        bom.add(newItem(1, material.getId(), "til z på bagside af dør", material));
+
+        // door handle
+        material = materialFacade.getMaterial("stalddørsgreb 50x75");
+        bom.add(newItem(1, material.getId(), "Til lås på dør i skur", material));
+
+        // hinges
+        material = materialFacade.getMaterial("t hængsel 390 mm");
+        bom.add(newItem(2, material.getId(), "Til skurdør", material));
     }
 
     /** all stern methods **/

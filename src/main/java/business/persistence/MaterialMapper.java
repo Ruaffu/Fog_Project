@@ -76,29 +76,29 @@ public class MaterialMapper
 
     }
 
-    public ArrayList<Material> getMaterialByType(String type) throws UserException
+    public Material getMaterial(String name) throws UserException
     {
-        ArrayList<Material> materials = new ArrayList<>();
         try (Connection connection = database.connect())
         {
-            String sql = "SELECT * FROM material WHERE type=?";
+            String sql = "SELECT * FROM material WHERE name=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setString(1, type);
+                ps.setString(1, name);
                 ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
+
+                if (rs.next()) {
                     int id = rs.getInt("id_material");
-                    String name = rs.getString("name");
+                    String type = rs.getString("type");
                     float cost = rs.getFloat("cost");
                     float price = rs.getFloat("price");
                     int length = rs.getInt("length");
                     int height = rs.getInt("height");
                     int width = rs.getInt("width");
                     String unit = rs.getString("unit");
-                    materials.add(new Material(id,name,type,cost,price,length,height,width,unit));
-
+                    return new Material(id, name, type, cost, price, length, height, width, unit);
+                }else {
+                    throw new Exception("Could not find material");
                 }
-                return materials;
             }
             catch (Exception e) {
                 throw new UserException("Could not find material");
@@ -107,7 +107,6 @@ public class MaterialMapper
         } catch (SQLException throwables) {
             throw new UserException("Could not find material");
         }
-
     }
 
     public ArrayList<Material> getMaterialByName(String name) throws UserException
