@@ -67,7 +67,7 @@ public class MaterialCalculator {
         // Get material
         String description = "Stolper nedgraves 90 cm. i jord";
         String name = "97x97 mm. trykimp. Stolpe";
-        List<Material> materialList = materialFacade.getMaterialByName(name);
+        List<Material> materialList = makeMaterialList(name);
 
         // Calculate
         System.out.println("carportWidth:" + carportWidth);
@@ -87,15 +87,11 @@ public class MaterialCalculator {
         // Get materials from database
         String description = "Remme i sider, sadles ned i stolper";
         String name = "45x195 mm. spærtræ ubh.";
-        List<Material> materialList = materialFacade.getMaterialByName(name);
+        List<Material> materialList = makeMaterialList(name);
 
         // Calculate
         // amount of beams
         int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
-
-        // sort list by length... from short to long
-        materialList.sort(Comparator.comparing(Material::getLength));
-        Collections.reverse(materialList);
 
         // amount of materials pr beam
         useOfMaterials(carportLength, quantity, description, materialList, "Beam");
@@ -107,15 +103,11 @@ public class MaterialCalculator {
         // Get materials from database
         String description = "Spær, monteres på rem";
         String name = "45x195 mm. spærtræ ubh.";
-        List<Material> materialList = materialFacade.getMaterialByName(name);
+        List<Material> materialList = makeMaterialList(name);
 
         // Calculate
         int maxWidth = 550;
         int quantity = (int) ceil((double) carportLength / (double) maxWidth);
-
-        // sort list by length... from short to long
-        materialList.sort(Comparator.comparing(Material::getLength));
-        Collections.reverse(materialList);
 
         // amount of materials pr beam
         useOfMaterials(carportWidth, quantity, description, materialList, "Rafter");
@@ -123,13 +115,8 @@ public class MaterialCalculator {
 
     // Stern
     private void calcStern(int quantity, int length, String description, String name) throws UserException {
-
         // Get materials from database
-        List<Material> materialList = materialFacade.getMaterialByName(name);
-
-        // sort list by length... from short to long
-        materialList.sort(Comparator.comparing(Material::getLength));
-        Collections.reverse(materialList);
+        List<Material> materialList = makeMaterialList(name);
 
         // Calculate
         useOfMaterials(length, quantity, description, materialList, "Stern");
@@ -183,11 +170,7 @@ public class MaterialCalculator {
         // Get materials from database
         String description = "Tagplader monteres på spær";
         String name = "Plastmo Ecolite blåtonet";
-        List<Material> materialList = materialFacade.getMaterialByName(name);
-
-        // sort list by length... from short to long
-        materialList.sort(Comparator.comparing(Material::getLength));
-        Collections.reverse(materialList);
+        List<Material> materialList = makeMaterialList(name);
 
         // Calculate
         int overlapWidth = 70;
@@ -208,7 +191,6 @@ public class MaterialCalculator {
      **/
 
     private void useOfMaterials(int carportLengthOrWidth, int quantity, String description, List<Material> materialList, String MaterialType) {
-
         // checks for perfect fit material
         for (Material material : materialList) {
             if (material.getLength() == carportLengthOrWidth) {
@@ -282,12 +264,6 @@ public class MaterialCalculator {
     }
 
     private int amountOfPosts(int carportLengthOrWidth, int maxLengthOrWidth, int offset1, int offset2) {
-
-        System.out.println("length/width - offset: " + (carportLengthOrWidth - (offset1 + offset2)));
-        System.out.println("length/width - offset / max length/width: " + (ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth)));
-
-        System.out.println("amount of post: " + ((int) (ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth))) + 1);
-
         return ((int) (ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth))) + 1;
     }
 
@@ -297,4 +273,15 @@ public class MaterialCalculator {
 
         return innerCarportLengthOrWidth / innerPosts;
     }
+
+    private ArrayList<Material> makeMaterialList(String name) throws UserException {
+        ArrayList<Material> materialList = materialFacade.getMaterialByName(name);
+
+        // sort list by length... from short to long
+        materialList.sort(Comparator.comparing(Material::getLength));
+        Collections.reverse(materialList);
+
+        return materialList;
+    }
+
 }
