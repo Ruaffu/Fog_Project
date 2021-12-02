@@ -13,11 +13,11 @@ import java.util.List;
 import static java.lang.Math.ceil;
 
 public class MaterialCalculator {
-    MaterialFacade materialFacade;
-    ArrayList<Material> bom = new ArrayList<>();
+    private final MaterialFacade materialFacade;
+    private ArrayList<Material> bom;
 
-    private final int OFFSET_L1 = 1000;
-    private final int OFFSET_L2 = 200;
+    private int OFFSET_L1;
+    private int OFFSET_L2;
     private final int MAX_LENGTH = 3300;
 
     private final int OFFSET_W1 = 350;
@@ -29,9 +29,18 @@ public class MaterialCalculator {
     }
 
     public ArrayList<Material> BOMCalculator(int carportWidth, int carportLength, int shedLength, int shedWidth) throws UserException {
+        bom = new ArrayList<>();
 
         carportLength *= 10;
         carportWidth *= 10;
+
+        if (shedLength <= 0) {
+            OFFSET_L1 = 1000;
+            OFFSET_L2 = 1000;
+        } else {
+            OFFSET_L1 = 1000;
+            OFFSET_L2 = 200;
+        }
 
         calcPost(carportWidth, carportLength);
         calcBeam(carportWidth, carportLength);
@@ -82,6 +91,20 @@ public class MaterialCalculator {
     }
 
     // Remme
+    private void calcBeamWithShed(int carportWidth, int carportLength, int shedLength, int shedWidth) throws UserException {
+
+        // Get materials from database
+        String description = "Remme i sider, sadles ned i stolper";
+        String name = "45x195 mm. spærtræ ubh.";
+        List<Material> materialList = makeMaterialList(name);
+
+        // Calculate
+        // amount of beams
+        int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
+
+        // amount of materials pr beam
+        useOfMaterials(carportLength, quantity, description, materialList, "Shed");
+    }
     private void calcBeam(int carportWidth, int carportLength) throws UserException {
 
         // Get materials from database
