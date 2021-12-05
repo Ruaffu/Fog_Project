@@ -56,8 +56,8 @@ INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES 
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','77.42','193.55','5100','45','95','stk');
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','81.97','204.93','5400','45','95','stk');
 
-INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('PASLODE UNIVERSALBESLAG 190MM HØJRE','PASLODE UNIVERSALBESLAG','17.18','42.95','190','0','0','stk');
-INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('PASLODE UNIVERSALBESLAG 190MM Venstre','PASLODE UNIVERSALBESLAG','17.18','42.95','190','0','0','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('UNIVERSALBESLAG 190MM Højre','UNIVERSALBESLAG','17.18','42.95','190','0','0','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('UNIVERSALBESLAG 190MM Venstre','UNIVERSALBESLAG','17.18','42.95','190','0','0','stk');
 
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('hulbånd 1x20 mm. 10 mtr.','hulbånd','151.6','379.00','10000','1','20','rulle');
 

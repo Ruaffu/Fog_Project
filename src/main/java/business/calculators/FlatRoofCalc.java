@@ -27,16 +27,16 @@ public class FlatRoofCalc extends MaterialCalculator{
     public ArrayList<Material> BOMCalculator() throws UserException {
         calcPost();
 
-        calcBeam(carportWidth, carportLength);
-        calcFlatRoofing(carportWidth, carportLength);
+        calcBeam(carportLength);
+        calcFlatRoofing(carportLength);
 
-        calcRafter(carportWidth, carportLength);
-        calcSternUnderFrontAndBack(carportWidth);
-        calcSternUnderSides(carportLength);
-        calcSternOverFront(carportWidth);
-        calcSternOverSides(carportLength);
-        calcSternWaterFront(carportWidth);
-        calcSternWaterSides(carportLength);
+        calcRafter();
+        calcSternUnderFrontAndBack();
+        calcSternUnderSides();
+        calcSternOverFront();
+        calcSternOverSides();
+        calcSternWaterFront();
+        calcSternWaterSides();
 
         return bom;
     }

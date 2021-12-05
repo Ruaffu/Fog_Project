@@ -30,23 +30,23 @@ public class FlatRoofWithShedCalc extends MaterialCalculator{
 
         calcPost();
 
-        calcBeam(carportWidth, shedWithOffset);
-        calcBeam(carportWidth, baseCarport);
+        calcBeam(shedWithOffset);
+        calcBeam(baseCarport);
 
         // adds roof overlap
         int roofOverlap = 200;
-        calcFlatRoofing(carportWidth, shedWithOffset + roofOverlap);
-        calcFlatRoofing(carportWidth, baseCarport);
+        calcFlatRoofing(shedWithOffset + roofOverlap);
+        calcFlatRoofing(baseCarport);
 
         addDoorMaterials();
 
-        calcRafter(carportWidth, carportLength);
-        calcSternUnderFrontAndBack(carportWidth);
-        calcSternUnderSides(carportLength);
-        calcSternOverFront(carportWidth);
-        calcSternOverSides(carportLength);
-        calcSternWaterFront(carportWidth);
-        calcSternWaterSides(carportLength);
+        calcRafter();
+        calcSternUnderFrontAndBack();
+        calcSternUnderSides();
+        calcSternOverFront();
+        calcSternOverSides();
+        calcSternWaterFront();
+        calcSternWaterSides();
 
         calcShedWood();
         calcCladding();

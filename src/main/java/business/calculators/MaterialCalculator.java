@@ -25,7 +25,7 @@ public abstract class MaterialCalculator {
     protected int shedWidth;
     protected int shedLength;
 
-    public MaterialCalculator(Database database ,int carportWidth, int carportLength, int shedWidth, int shedLength) {
+    public MaterialCalculator(Database database, int carportWidth, int carportLength, int shedWidth, int shedLength) {
         materialFacade = new MaterialFacade(database);
         bom = new ArrayList<>();
         this.carportWidth = carportWidth * 10;
@@ -36,7 +36,7 @@ public abstract class MaterialCalculator {
 
     public MaterialCalculator(Database database, int carportWidth, int carportLength) {
         materialFacade = new MaterialFacade(database);
-       bom = new ArrayList<>();
+        bom = new ArrayList<>();
         this.carportWidth = carportWidth * 10;
         this.carportLength = carportLength * 10;
     }
@@ -61,7 +61,7 @@ public abstract class MaterialCalculator {
     }
 
     // Remme
-    protected void calcBeam(int carportWidth, int carportLength) throws UserException {
+    protected void calcBeam(int carLength) throws UserException {
 
         // Get materials from database
         String description = "Remme i sider, sadles ned i stolper";
@@ -73,11 +73,11 @@ public abstract class MaterialCalculator {
         int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
 
         // amount of materials pr beam
-        useOfMaterials(carportLength, quantity, description, materialList, "Beam");
+        useOfMaterials(carLength, quantity, description, materialList, "Beam");
     }
 
     // Spær
-    protected void calcRafter(int carportWidth, int carportLength) throws UserException {
+    protected void calcRafter() throws UserException {
 
         // Get materials from database
         String description = "Spær, monteres på rem";
@@ -93,7 +93,7 @@ public abstract class MaterialCalculator {
     }
 
     // Tag
-    protected void calcFlatRoofing(int carportWidth, int carportLength) throws UserException {
+    protected void calcFlatRoofing(int carportLength) throws UserException {
 
         // Get materials from database
         String description = "Tagplader monteres på spær";
@@ -114,6 +114,47 @@ public abstract class MaterialCalculator {
         useOfMaterials(carportLength, quantityWidth, description, materialList, "FlatRoof");
     }
 
+    /** mount and screw **/
+
+    // screws for the roof
+    public void bottomScrews() throws UserException {
+        // Get materials from database
+        Material material = materialFacade.getMaterial("plastmo bundskruer 200 stk.");
+        String description = "Skruer til tagplader";
+
+
+        int screwPrSQM = 12;
+        int carportSQM = (carportLength * carportWidth) / 1000;
+        int quantityOfScrews = (int) ceil((double) carportSQM * (double) screwPrSQM);
+        int screwPrPack = 200;
+
+        quantityOfScrews = (int) ceil((double) quantityOfScrews * (double) screwPrPack);
+
+        bom.add(newItem(quantityOfScrews, material.getId(), description, material));
+
+    }
+
+    public void perforatedTape(int carportLength) throws UserException {
+        // Get materials from database
+        Material material = materialFacade.getMaterial("hulbånd 1x20 mm. 10 mtr.");
+        String description = "Til vindkryds på spær";
+
+        int tapeRollLength = material.getLength();
+        int quantityOfTapeRolls = (int) ceil((Math.sqrt(Math.pow((double) carportLength,2) + Math.pow((double) carportWidth, 2))) / tapeRollLength) * 2;
+
+        bom.add(newItem(quantityOfTapeRolls, material.getId(), description, material));
+    }
+
+    public void rafterMount() throws UserException {
+        // Get materials from database
+        Material materialH = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Højre");
+        Material materialV = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Ventre");
+        String description = "Til montering af spær på rem";
+        //todo: countinue
+
+
+    }
+
     /** all stern methods **/
 
     // Stern
@@ -125,49 +166,51 @@ public abstract class MaterialCalculator {
         useOfMaterials(length, quantity, description, materialList, "Stern");
     }
 
-    protected void calcSternUnderFrontAndBack(int carportWidth) throws UserException {
+    protected void calcSternUnderFrontAndBack() throws UserException {
         String description = "Understernbrædder til for- & bagende";
         String name = "25x200 mm. trykimp. Brædt";
         int surfaceAmount = 2;
         calcStern(surfaceAmount, carportWidth, description, name);
     }
 
-    protected void calcSternUnderSides(int carportLength) throws UserException {
+    protected void calcSternUnderSides() throws UserException {
         String description = "Understernbrædder til siderne";
         String name = "25x200 mm. trykimp. Brædt";
         int surfaceAmount = 2;
         calcStern(surfaceAmount, carportLength, description, name);
     }
 
-    protected void calcSternOverFront(int carportWidth) throws UserException {
+    protected void calcSternOverFront() throws UserException {
         String description = "Oversternbrædder til forende";
         String name = "25x125 mm. trykimp. Brædt";
         int surfaceAmount = 1;
         calcStern(surfaceAmount, carportWidth, description, name);
     }
 
-    protected void calcSternOverSides(int carportLength) throws UserException {
+    protected void calcSternOverSides() throws UserException {
         String description = "Oversternbrædder til siderne";
         String name = "25x125 mm. trykimp. Brædt";
         int surfaceAmount = 2;
         calcStern(surfaceAmount, carportLength, description, name);
     }
 
-    protected void calcSternWaterFront(int carportWidth) throws UserException {
+    protected void calcSternWaterFront() throws UserException {
         String description = "Vandbrædder til forende";
         String name = "19x100 mm. trykimp. Brædt";
         int surfaceAmount = 1;
         calcStern(surfaceAmount, carportWidth, description, name);
     }
 
-    protected void calcSternWaterSides(int carportLength) throws UserException {
+    protected void calcSternWaterSides() throws UserException {
         String description = "Vandbrædder til siderne";
         String name = "19x100 mm. trykimp. Brædt";
         int surfaceAmount = 2;
         calcStern(surfaceAmount, carportLength, description, name);
     }
 
-    /** helper functions **/
+    /**
+     * helper functions
+     **/
 
     protected void useOfMaterials(int carportLengthOrWidth, int quantity, String description, List<Material> materialList, String MaterialType) {
         Material material;
@@ -189,8 +232,7 @@ public abstract class MaterialCalculator {
             switch (MaterialType) {
                 case "Beam":
                 case "Rafter":
-                case "Stern":
-                {
+                case "Stern": {
                     quantity *= 2;
                     offsets.add(carportLengthOrWidth / 2);
                     break;
