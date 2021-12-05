@@ -55,3 +55,20 @@ INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES 
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','72.86','182.16','4800','45','95','stk');
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','77.42','193.55','5100','45','95','stk');
 INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('45x95 mm. Reglar ubh.','Reglar ubh.','81.97','204.93','5400','45','95','stk');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('PASLODE UNIVERSALBESLAG 190MM HØJRE','PASLODE UNIVERSALBESLAG','17.18','42.95','190','0','0','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('PASLODE UNIVERSALBESLAG 190MM Venstre','PASLODE UNIVERSALBESLAG','17.18','42.95','190','0','0','stk');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('hulbånd 1x20 mm. 10 mtr.','hulbånd','151.6','379.00','10000','1','20','rulle');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('4,5 x 50 mm. skruer 200 stk.','skruer','63.6','159.00','50','0','0','pakke');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('4,5 x 60 mm. skruer 200 stk.','skruer','75.6','189.00','60','0','0','pakke');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('4,5 x 70 mm. skruer 200 stk.','skruer','99.6','249.00','70','0','0','pakke');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('bræddebolt 10 x 120 mm. 25 stk.','bolt','9.21','23.03','120','0','0','stk');
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('firkantskiver 40x40x11mm','firkantskiver','4.75','11.86','120','0','0','stk');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('4,0 x 50 mm. beslagskruer 250 stk.','skruer','131.6','329.00','50','0','0','pakke');
+
+INSERT INTO fog.material (name,type,cost,price,length,height,width,unit) VALUES ('plastmo bundskruer 200 stk.','plastmo bundskruer','143.6','359.00','0','0','0','pakke');
+
