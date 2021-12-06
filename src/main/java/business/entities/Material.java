@@ -14,10 +14,9 @@ public class Material {
     String unit;
     int quantity;
 
-    public Material(int id, String name, String type, float cost, float price, int length, int height, int width, String unit) {
+    public Material(int id, String name, float cost, float price, int length, int height, int width, String unit) {
         this.id = id;
         this.name = name;
-        this.type = type;
         this.cost = cost;
         this.price = price;
         this.length = length;

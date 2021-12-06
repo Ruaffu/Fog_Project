@@ -19,21 +19,20 @@ public class MaterialMapper
 
         try (Connection connection = database.connect()) {
 
-            String sql = "INSERT INTO material (name, type, description, cost, price, length, height, width, unit) " +
-                    "VALUES(?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE price=?, cost=?";
+            String sql = "INSERT INTO material (name, description, cost, price, length, height, width, unit) " +
+                    "VALUES(?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE price=?, cost=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, material.getName());
-                ps.setString(2, material.getType());
-                ps.setString(3, material.getDescription());
-                ps.setFloat(4, material.getCost());
-                ps.setFloat(5, material.getPrice());
-                ps.setInt(6, material.getLength());
-                ps.setInt(7, material.getHeight());
-                ps.setInt(8, material.getWidth());
-                ps.setString(9, material.getUnit());
-                ps.setFloat(10, material.getPrice());
-                ps.setFloat(11, material.getCost());
+                ps.setString(2, material.getDescription());
+                ps.setFloat(3, material.getCost());
+                ps.setFloat(4, material.getPrice());
+                ps.setInt(5, material.getLength());
+                ps.setInt(6, material.getHeight());
+                ps.setInt(7, material.getWidth());
+                ps.setString(8, material.getUnit());
+                ps.setFloat(9, material.getPrice());
+                ps.setFloat(10, material.getCost());
 
                 ps.executeUpdate();
             }
@@ -53,7 +52,6 @@ public class MaterialMapper
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     String name = rs.getString("name");
-                    String type = rs.getString("type");
                     float cost = rs.getFloat("cost");
                     float price = rs.getFloat("price");
                     int length = rs.getInt("length");
@@ -61,7 +59,7 @@ public class MaterialMapper
                     int width = rs.getInt("width");
                     String unit = rs.getString("unit");
 
-                    return new Material(id,name,type,cost,price,length,height,width,unit);
+                    return new Material(id,name,cost,price,length,height,width,unit);
                 } else {
                     throw new Exception("Could not find material");
                 }
@@ -88,20 +86,19 @@ public class MaterialMapper
 
                 if (rs.next()) {
                     int id = rs.getInt("id_material");
-                    String type = rs.getString("type");
                     float cost = rs.getFloat("cost");
                     float price = rs.getFloat("price");
                     int length = rs.getInt("length");
                     int height = rs.getInt("height");
                     int width = rs.getInt("width");
                     String unit = rs.getString("unit");
-                    return new Material(id, name, type, cost, price, length, height, width, unit);
+                    return new Material(id, name, cost, price, length, height, width, unit);
                 }else {
                     throw new Exception("Could not find material");
                 }
             }
             catch (Exception e) {
-                throw new UserException("Could not find material");
+                throw new UserException("Could not find material " + name);
             }
 
         } catch (SQLException throwables) {
@@ -121,14 +118,13 @@ public class MaterialMapper
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id_material");
-                    String type = rs.getString("type");
                     float cost = rs.getFloat("cost");
                     float price = rs.getFloat("price");
                     int length = rs.getInt("length");
                     int height = rs.getInt("height");
                     int width = rs.getInt("width");
                     String unit = rs.getString("unit");
-                    materials.add(new Material(id,name,type,cost,price,length,height,width,unit));
+                    materials.add(new Material(id,name,cost,price,length,height,width,unit));
 
                 }
                 return materials;
