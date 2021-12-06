@@ -125,98 +125,6 @@ public abstract class MaterialCalculator {
         useOfMaterials(carportLength, quantityWidth, description, type, materialList, "FlatRoof");
     }
 
-    /** mount and screw **/
-
-    // screws for the roof
-    protected void bottomScrews() throws UserException {
-        // Get materials from database
-        Material material = materialFacade.getMaterial("plastmo bundskruer 200 stk.");
-        String type = "bundskruer";
-        String description = "Skruer til tagplader";
-
-
-        int screwPrSQM = 12;
-        double carportSQM = (((double) carportLength /1000) * ((double) carportWidth / 1000));
-        int quantityOfScrews = (int) ceil(carportSQM * (double) screwPrSQM);
-
-        int screwPrPack = 200;
-        quantityOfScrews = (int) ceil((double) quantityOfScrews / (double) screwPrPack);;
-
-        bom.add(newItem(quantityOfScrews, material.getId(), type, description, material));
-    }
-
-    protected void perforatedTape(int carportLength) throws UserException {
-        // Get materials from database
-        Material material = materialFacade.getMaterial("hulbånd 1x20 mm. 10 mtr.");
-        String description = "Til vindkryds på spær";
-        String type = "hulbånd";
-
-        int tapeRollLength = material.getLength();
-        int quantityOfTapeRolls = (int) ceil((Math.sqrt(Math.pow((double) carportLength,2) + Math.pow((double) carportWidth, 2))) / tapeRollLength) * 2;
-
-        bom.add(newItem(quantityOfTapeRolls, material.getId(), description, type, material));
-    }
-
-    protected void mountScrews() throws UserException {
-        // Get material
-        Material material = materialFacade.getMaterial("4,5 x 50 mm. skruer 200 stk.");
-        String type = "skrue";
-        String description = "Til montering af universalbeslag + hulbånd";
-
-        int amountOfScrewsPrMount = 21;
-        int amountOfScrewsPrRafter = 4;
-
-        int quantity = 0;
-        for (Material m : bom) {
-            if (m.getType().equals("universalbeslag")) {
-                quantity += m.getQuantity() * amountOfScrewsPrMount;
-            }
-            if (m.getType().equals("spær")) {
-                quantity += m.getQuantity() * amountOfScrewsPrRafter;
-            }
-        }
-
-        int amountOfScrewPrPack = 200;
-        quantity /= amountOfScrewPrPack;
-
-        bom.add(newItem(quantity, material.getId(), description, type, material));
-    }
-
-    protected void rafterMount() throws UserException {
-        // Get materials from database
-        Material materialH = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Højre");
-        Material materialV = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Venstre");
-        String type = "universalbeslag";
-        String description = "Til montering af spær på rem";
-
-        int quantity = 0;
-        for (Material m : bom) {
-            if (m.getType().equals("spær")){
-                quantity += m.getQuantity();
-            }
-        }
-
-        bom.add(newItem(quantity,materialH.getId(),description,type,materialH));
-        bom.add(newItem(quantity,materialV.getId(),description,type,materialV));
-    }
-
-    protected void sternScrew() throws UserException {
-        // Get materials from database
-        Material material = materialFacade.getMaterial("4,5 x 60 mm. skruer 200 stk.");
-        String type = "skrue";
-        String description = "Til montering af stern & vandbrædt";
-
-        int carportCircuit = (carportLength + carportWidth) * 2;
-        int maxWidthRafter = 550;
-        int screwsPrPack = 200;
-
-        int quantity = (int) ceil((((double) carportCircuit / (double) maxWidthRafter) * 2) / screwsPrPack);
-
-        bom.add(newItem(quantity, material.getId(), description, type, material));
-    }
-
-    protected abstract void bolt() throws UserException;
-
     /** all stern methods **/
 
     // Stern
@@ -273,9 +181,110 @@ public abstract class MaterialCalculator {
         calcStern(surfaceAmount, carportLength, description, name);
     }
 
-    /**
-     * helper functions
-     **/
+    /** mount and screw **/
+
+    // bundskruer
+    protected void bottomScrews() throws UserException {
+        // Get materials from database
+        Material material = materialFacade.getMaterial("plastmo bundskruer 200 stk.");
+        String type = "bundskruer";
+        String description = "Skruer til tagplader";
+
+        // finds the carport SQM
+        int screwPrSQM = 12;
+        double carportSQM = (((double) carportLength /1000) * ((double) carportWidth / 1000));
+        int quantityOfScrews = (int) ceil(carportSQM * (double) screwPrSQM);
+
+        // calculates amount of packs
+        int screwPrPack = 200;
+        quantityOfScrews = (int) ceil((double) quantityOfScrews / (double) screwPrPack);
+
+        bom.add(newItem(quantityOfScrews, material.getId(), type, description, material));
+    }
+
+    //hulbånd
+    protected void perforatedTape(int carportLength) throws UserException {
+        // Get materials from database
+        Material material = materialFacade.getMaterial("hulbånd 1x20 mm. 10 mtr.");
+        String description = "Til vindkryds på spær";
+        String type = "hulbånd";
+
+        // uses Pythagoras to find the needed distance
+        int tapeRollLength = material.getLength();
+        int quantityOfTapeRolls = (int) ceil((Math.sqrt(Math.pow(carportLength,2) + Math.pow(carportWidth, 2))) / tapeRollLength) * 2;
+
+        bom.add(newItem(quantityOfTapeRolls, material.getId(), description, type, material));
+    }
+
+    // beslag til spær
+    protected void rafterMount() throws UserException {
+        // Get materials from database
+        Material materialH = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Højre");
+        Material materialV = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Venstre");
+        String type = "universalbeslag";
+        String description = "Til montering af spær på rem";
+
+        // finds quantity of rafter
+        int quantity = 0;
+        for (Material m : bom) {
+            if (m.getType().equals("spær")){
+                quantity += m.getQuantity();
+            }
+        }
+
+        // adds same amount for left and right
+        bom.add(newItem(quantity,materialH.getId(),description,type,materialH));
+        bom.add(newItem(quantity,materialV.getId(),description,type,materialV));
+    }
+
+    // skruer til sterne
+    protected void sternScrew() throws UserException {
+        // Get materials from database
+        Material material = materialFacade.getMaterial("4,5 x 60 mm. skruer 200 stk.");
+        String type = "skrue";
+        String description = "Til montering af stern & vandbrædt";
+
+        // finds circuit
+        int carportCircuit = (carportLength + carportWidth) * 2;
+        int maxWidthRafter = 550;
+        int screwsPrPack = 200;
+
+        int quantity = (int) ceil((((double) carportCircuit / (double) maxWidthRafter) * 2) / screwsPrPack);
+
+        bom.add(newItem(quantity, material.getId(), description, type, material));
+    }
+
+    // beslag skruer
+    protected void mountScrews() throws UserException {
+        // Get material
+        Material material = materialFacade.getMaterial("4,5 x 50 mm. skruer 200 stk.");
+        String type = "skrue";
+        String description = "Til montering af universalbeslag + hulbånd";
+
+        int amountOfScrewsPrMount = 21;
+        int amountOfScrewsPrRafter = 4;
+
+        // find quantity of mounts and screws needed for perforated Tape 'hulbånd'
+        int quantity = 0;
+        for (Material m : bom) {
+            if (m.getType().equals("universalbeslag")) {
+                quantity += m.getQuantity() * amountOfScrewsPrMount;
+            }
+            if (m.getType().equals("spær")) {
+                quantity += m.getQuantity() * amountOfScrewsPrRafter;
+            }
+        }
+
+        // calculates amount of packs
+        int amountOfScrewPrPack = 200;
+        quantity /= amountOfScrewPrPack;
+
+        bom.add(newItem(quantity, material.getId(), description, type, material));
+    }
+
+    protected abstract void bolt() throws UserException;
+
+    /** helper functions **/
 
     protected void useOfMaterials(int carportLengthOrWidth, int quantity, String description, String type, List<Material> materialList, String MaterialType) {
         Material material;

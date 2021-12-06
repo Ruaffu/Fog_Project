@@ -4,13 +4,12 @@ import business.entities.Material;
 import business.exceptions.UserException;
 import business.persistence.Database;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FlatRoofCalc extends MaterialCalculator{
 
-    private int OFFSET_L1 = 1000;
-    private int OFFSET_L2 = 1000;
+    private final int OFFSET_L1 = 1000;
+    private final int OFFSET_L2 = 1000;
     private final int MAX_LENGTH = 3300;
 
     private final int OFFSET_W1 = 350;
@@ -24,13 +23,12 @@ public class FlatRoofCalc extends MaterialCalculator{
 
     }
 
+    // calculates all the wood
     @Override
     protected void woodCalculator() throws UserException {
         calcPost();
-
         calcBeam(carportLength);
         calcFlatRoofing(carportLength);
-
         calcRafter();
         calcSternUnderFrontAndBack();
         calcSternUnderSides();
@@ -40,6 +38,7 @@ public class FlatRoofCalc extends MaterialCalculator{
         calcSternWaterSides();
     }
 
+    // calculates all mount and screws
     @Override
     protected void mountCalculator() throws UserException {
         bottomScrews();
@@ -50,8 +49,8 @@ public class FlatRoofCalc extends MaterialCalculator{
         bolt();
     }
 
-    protected void calcPost() throws UserException {
 
+    protected void calcPost() throws UserException {
         // Get material
         String description = "Stolper nedgraves 90 cm. i jord";
         String type = "stolpe";
@@ -75,7 +74,7 @@ public class FlatRoofCalc extends MaterialCalculator{
         String type = "bolt";
         String description = "Til montering af rem på stolper";
 
-
+        // find the posts and get the quantity
         int quantity = 0;
         for (Material m : bom) {
             if(m.getType().equals("stolpe")){
@@ -88,7 +87,8 @@ public class FlatRoofCalc extends MaterialCalculator{
 
         bom.add(newItem(quantity, material.getId(), description, type, material));
 
-        //firkantskiver
+        // firkantskiver
+        // add the same amount of ...
         material = materialFacade.getMaterial("firkantskiver 40x40x11mm");
         type = "firkantskriver";
 

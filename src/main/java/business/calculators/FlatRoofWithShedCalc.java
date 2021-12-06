@@ -4,7 +4,6 @@ import business.entities.Material;
 import business.exceptions.UserException;
 import business.persistence.Database;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.ceil;
@@ -18,18 +17,18 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
     private final int MAX_WIDTH_SHED = 3000;
 
     // shed with the offset at the back of the carport
-    private int shedWithOffset = shedLength + OFFSET_L2;
+    private final int shedWithOffset = shedLength + OFFSET_L2;
     // the carport length without shed
-    private int baseCarport = carportLength - shedWithOffset;
+    private final int baseCarport = carportLength - shedWithOffset;
 
     public FlatRoofWithShedCalc(Database database, int carportWidth, int carportLength, int shedWidth, int shedLength) {
         super(database, carportWidth, carportLength, shedWidth, shedLength);
     }
 
+    // calculates all the wood
     @Override
     protected void woodCalculator() throws UserException {
         calcPost();
-
         calcBeam(shedWithOffset);
         calcBeam(baseCarport);
 
@@ -45,11 +44,11 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         calcSternOverSides();
         calcSternWaterFront();
         calcSternWaterSides();
-
         calcShedWood();
         calcCladding();
     }
 
+    // calculates all mount and screws
     @Override
     protected void mountCalculator() throws UserException {
         bottomScrews();
@@ -100,6 +99,70 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         bom.add(newItem(quantity, materialList.get(0).getId(), description, type, materialList.get(0)));
     }
 
+    // løsholter
+    private void calcShedWood() throws UserException {
+        // Get material
+        String description = "løsholter til skur gavle";
+        String type = "løsholter";
+        String name = "45x95 mm. Reglar ubh.";
+        List<Material> materialList = makeMaterialList(name);
+
+        // calculates Wood for both Gables
+        int quantityOfShedWoodWidth = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0) - 1;
+        int materialSizeWidth = shedWidth / quantityOfShedWoodWidth;
+
+        int amountOfWoodPrSurface = 3;
+
+        int numbersOfGables = 2;
+        int quantityOfBothGables = quantityOfShedWoodWidth * amountOfWoodPrSurface * numbersOfGables;
+
+        useOfMaterials(materialSizeWidth, quantityOfBothGables, description, type, materialList, null);
+
+        // calculates Wood for both sides;
+        description = "løsholter til skur sider";
+
+        int quantityOfShedWoodLength = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2) - 1;
+        int materialSizeLength = shedLength / quantityOfShedWoodWidth;
+
+        int numbersOfSides = 2;
+        int quantityOfBothSides = quantityOfShedWoodLength * amountOfWoodPrSurface * numbersOfSides;
+
+        useOfMaterials(materialSizeLength, quantityOfBothSides, description, type, materialList, null);
+    }
+
+    private void calcCladding() throws UserException {
+
+        // Get material
+        String description = "til beklædning af skur 1 på 2";
+        String type = "beklædningsbrædder";
+        String name = "19x100 mm. trykimp. Brædt";
+        List<Material> materialList = makeMaterialList(name);
+
+        int materialLength = 2100;
+        Material material = null;
+
+        // tries to find the right material
+        for (Material m : materialList) {
+            if (m.getLength() == materialLength) {
+                material = m;
+            }
+        }
+
+        // if not fount, then it picks up the first material in list
+        if (material == null) {
+            material = materialList.get(0);
+        }
+
+        // calculates quantity
+        int materialWidth = material.getWidth();
+        int overlap = 25;
+        int shedCircuit = (shedLength + shedWidth) * 2;
+
+        int quantityOfCladding = (int) ceil((double) shedCircuit / (double) (materialWidth - overlap));
+
+        bom.add(newItem(quantityOfCladding, material.getId(), description, type, material));
+    }
+
     @Override
     protected void bolt() throws UserException {
         {
@@ -108,18 +171,19 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
             String type = "bolt";
             String description = "Til montering af rem på stolper";
 
+            //calculates the amount of posts ... instead of subtracting the shared posts then it will keep them, so there's 4 bolt on a spilt
             int postCarportWidth = amountOfPosts(carportWidth, MAX_WIDTH, OFFSET_W1, OFFSET_W2);
-
             int postShedLength = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2);
             int postCarportLength = amountOfPosts(carportLength - shedLength, MAX_LENGTH, OFFSET_L1, 0);
-
             int amountOfBoltPrPost = 2;
 
+            // calculates quantity
             int quantity = ((postCarportLength + postShedLength) * postCarportWidth) * amountOfBoltPrPost;
 
             bom.add(newItem(quantity, material.getId(), description, type, material));
 
             //firkantskiver
+            // adds same amount of ...
             material = materialFacade.getMaterial("firkantskiver 40x40x11mm");
             type = "firkantskriver";
 
@@ -133,6 +197,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         String type = "skrue";
         String description = "til montering af yderste beklædning";
 
+        //finds the quantity of cladding
         int quantity = 0;
         for (Material m : bom) {
             if (m.getType().equals("beklædningsbrædder")) {
@@ -164,6 +229,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         String type = "vinkelbeslag";
         String description = "Til montering af løsholter i skur";
 
+        // finds quantity of Wood 'løsholter'
         int quantity = 0;
         for (Material m : bom) {
             if (m.getType().equals("løsholter")) {
@@ -192,65 +258,4 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         material = materialFacade.getMaterial("t hængsel 390 mm");
         bom.add(newItem(2, material.getId(), "Til skurdør", "dør", material));
     }
-
-    // løsholter
-    private void calcShedWood() throws UserException {
-        // Get material
-        String description = "løsholter til skur gavle";
-        String type = "løsholter";
-        String name = "45x95 mm. Reglar ubh.";
-        List<Material> materialList = makeMaterialList(name);
-
-        // calculates Wood for both Gables
-        int quantityOfShedWoodWidth = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0) - 1;
-        int materialSizeWidth = shedWidth / quantityOfShedWoodWidth;
-
-        int numbersOfGables = 2;
-        int quantityOfBothGables = quantityOfShedWoodWidth * 3 * numbersOfGables;
-
-        useOfMaterials(materialSizeWidth, quantityOfBothGables, description, type, materialList, null);
-
-        // calculates Wood for both sides;
-        description = "løsholter til skur sider";
-
-        int quantityOfShedWoodLength = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2) - 1;
-        int materialSizeLength = shedLength / quantityOfShedWoodWidth;
-
-        int numbersOfSides = 2;
-        int quantityOfBothSides = quantityOfShedWoodLength * 3 * numbersOfSides;
-
-        useOfMaterials(materialSizeLength, quantityOfBothSides, description, type, materialList, null);
-    }
-
-    private void calcCladding() throws UserException {
-
-        // Get material
-        String description = "til beklædning af skur 1 på 2";
-        String type = "beklædningsbrædder";
-        String name = "19x100 mm. trykimp. Brædt";
-        List<Material> materialList = makeMaterialList(name);
-
-        int materialLength = 2100;
-        Material material = null;
-
-        for (Material m : materialList) {
-            if (m.getLength() == materialLength) {
-                material = m;
-            }
-        }
-
-        if (material == null) {
-            material = materialList.get(0);
-        }
-        int materialWidth = material.getWidth();
-        int overlap = 25;
-        int shedCircuit = (shedLength + shedWidth) * 2;
-
-        int quantityOfCladding = (int) ceil((double) shedCircuit / (double) (materialWidth - overlap));
-
-        bom.add(newItem(quantityOfCladding, material.getId(), description, type, material));
-
-    }
-
-
 }
