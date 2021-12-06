@@ -34,6 +34,9 @@
                                     pulvinar, at pulvinar felis blandit. Vestibulum volutpat tellus diam, consequat
                                     gravida libero
                                     rhoncus</label>
+                                <div style="margin-top: 3em;margin-bottom: 3em;">
+                                    Click here to see <a href="${pageContext.request.contextPath}/fc/showsvg"> SVG drawing</a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -46,7 +46,7 @@
                                         <th><h3>${order.totalPrice} kr</h3></th>
                                         <th><h3>${order.orderDate}</h3></th>
                                         <th><h3>${order.status}</h3></th>
-                                        <form action="${pageContext.request.contextPath}/fc/orderdetailcommand"
+                                        <form action="${pageContext.request.contextPath}/fc/drawsvgcommand"
                                               method="post">
                                             <input type="hidden" name="order" value="${index = index + 1}">
                                             <input type="hidden" name="customerorderlist" value="true">

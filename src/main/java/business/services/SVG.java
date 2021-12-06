@@ -16,7 +16,7 @@ public class SVG
             "y=\"%d\" " +
             " preserveAspectRatio=\"xMinYMin\">";
 
-    private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\"/>";
+    private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\"/>";
     private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"black\" style=\"stroke-dasharray: 4 4\"/>";
     private final String arrowTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; fill: #ffffff;marker-start: url(#beginArrow); marker-end: url(#endArrow)\"/>";
     private final String textTemplate = "<text style=\"text-anchor: middle\" transform=\"translate(%d, %d) rotate(%d)\">%d %s</text>";
@@ -52,7 +52,7 @@ public class SVG
         svg.append(String.format(headerTemplate,height,width,viewBox,x,y));
     }
 
-    public void addRect(int x, int y, int height, int width)
+    public void addRect(int x, int y, double height, int width)
     {
         svg.append(String.format(rectTemplate,x,y,height,width));
     }
@@ -71,6 +71,43 @@ public class SVG
     {
         svg.append(String.format(markerTemplate));
     }
+
+
+    public void drawRem(int x, int carportWidth, int width)
+    {
+        addRect(x,10,4.5,width);
+        addRect(x , carportWidth,4.5,width);
+    }
+
+    public void drawPost(int quantity, int length ,int carportWidth)
+    {
+        int distance = length/(quantity-1);
+        int offset = 350;
+
+
+        for (int x = 0; x < quantity; x++)
+        {
+            addRect(length-offset*x,7,10,10);
+            addRect(length-offset*x , carportWidth-3,10,10);
+
+        }
+    }
+
+    public void drawMetalBand()
+    {
+        addLine(50,20,600,580);
+        addLine(50,580,600,20);
+    }
+
+    public void drawRafter()
+    {
+        for (int x = 0; x < 14; x++)
+        {
+            addRect(100 + 50 * x,0,600,4);
+        }
+    }
+
+
 
     public void addSVG(SVG innerSVG)
     {
