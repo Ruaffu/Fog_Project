@@ -19,16 +19,16 @@
 
             <p>Here we insert a drawing</p>
 
-            <svg width="255" height=210>
-                <rect x="0" y="0" height="90" width="90"
-                      style="stroke:#000000; fill: #ff0000"></rect>
-                <rect x="120" y="0" height="90" width="135"
-                      style="stroke:#000000; fill: #ff0000"></rect>
-                <rect x="0" y="120" height="90" width="90"
-                      style="stroke:#000000; fill: #ff0000"></rect>
-                <rect x="120" y="120" height="90" width="135"
-                      style="stroke:#000000; fill: #ff0000"></rect>
-            </svg>
+<%--            <svg width="255" height=210>--%>
+<%--                <rect x="0" y="0" height="90" width="90"--%>
+<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
+<%--                <rect x="120" y="0" height="90" width="135"--%>
+<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
+<%--                <rect x="0" y="120" height="90" width="90"--%>
+<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
+<%--                <rect x="120" y="120" height="90" width="135"--%>
+<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
+<%--            </svg>--%>
 
                 ${sessionScope.svgdrawing}
 
