@@ -3,6 +3,7 @@ package business.services;
 public class SVG
 {
     StringBuilder svg = new StringBuilder();
+
     private int x;
     private int y;
     private String viewBox;
