@@ -98,7 +98,7 @@ public class MaterialMapper
                 }
             }
             catch (Exception e) {
-                throw new UserException("Could not find material");
+                throw new UserException("Could not find material " + name);
             }
 
         } catch (SQLException throwables) {

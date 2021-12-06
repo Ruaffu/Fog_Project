@@ -136,7 +136,8 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         int quantity = 0;
         for (Material m : bom) {
             if (m.getType().equals("beklædningsbrædder")) {
-                quantity += m.getQuantity();
+                // halv quantity er inder beklædning anden halvdel er ydre beklædning
+                quantity += m.getQuantity()/2;
             }
         }
 
@@ -144,7 +145,9 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         int numbersOfWood = 3;
         int amountOfScrewPrWood = 2;
 
-        quantity = quantity * numbersOfWood * amountOfScrewPrWood;
+        int screwPrPack = 200;
+
+        quantity = (int) ceil((double) (quantity * numbersOfWood * amountOfScrewPrWood) / (double) screwPrPack);
 
         bom.add(newItem(quantity, material.getId(), description, type, material));
 

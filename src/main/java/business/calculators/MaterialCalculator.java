@@ -136,14 +136,13 @@ public abstract class MaterialCalculator {
 
 
         int screwPrSQM = 12;
-        int carportSQM = (carportLength * carportWidth) / 1000;
-        int quantityOfScrews = (int) ceil((double) carportSQM * (double) screwPrSQM);
-        int screwPrPack = 200;
+        double carportSQM = (((double) carportLength /1000) * ((double) carportWidth / 1000));
+        int quantityOfScrews = (int) ceil(carportSQM * (double) screwPrSQM);
 
-        quantityOfScrews = (int) ceil((double) quantityOfScrews * (double) screwPrPack);
+        int screwPrPack = 200;
+        quantityOfScrews = (int) ceil((double) quantityOfScrews / (double) screwPrPack);;
 
         bom.add(newItem(quantityOfScrews, material.getId(), type, description, material));
-
     }
 
     protected void perforatedTape(int carportLength) throws UserException {
@@ -168,12 +167,12 @@ public abstract class MaterialCalculator {
         int amountOfScrewsPrRafter = 4;
 
         int quantity = 0;
-        for (Material material1 : bom) {
-            if (material.getType().equals("universalbeslag")) {
-                quantity += material.getQuantity() * amountOfScrewsPrMount;
+        for (Material m : bom) {
+            if (m.getType().equals("universalbeslag")) {
+                quantity += m.getQuantity() * amountOfScrewsPrMount;
             }
-            if (material.getType().equals("spær")) {
-                quantity += material.getQuantity() * amountOfScrewsPrRafter;
+            if (m.getType().equals("spær")) {
+                quantity += m.getQuantity() * amountOfScrewsPrRafter;
             }
         }
 
@@ -186,19 +185,19 @@ public abstract class MaterialCalculator {
     protected void rafterMount() throws UserException {
         // Get materials from database
         Material materialH = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Højre");
-        Material materialV = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Ventre");
+        Material materialV = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Venstre");
         String type = "universalbeslag";
         String description = "Til montering af spær på rem";
 
-        int quantity;
-        for (Material material : bom) {
-            if (material.getType().equals("spær")){
-                quantity = material.getQuantity();
-
-                bom.add(newItem(quantity,materialH.getId(),description,type,materialH));
-                bom.add(newItem(quantity,materialV.getId(),description,type,materialV));
+        int quantity = 0;
+        for (Material m : bom) {
+            if (m.getType().equals("spær")){
+                quantity += m.getQuantity();
             }
         }
+
+        bom.add(newItem(quantity,materialH.getId(),description,type,materialH));
+        bom.add(newItem(quantity,materialV.getId(),description,type,materialV));
     }
 
     protected void sternScrew() throws UserException {
