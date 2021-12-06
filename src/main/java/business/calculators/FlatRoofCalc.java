@@ -24,7 +24,8 @@ public class FlatRoofCalc extends MaterialCalculator{
 
     }
 
-    public ArrayList<Material> BOMCalculator() throws UserException {
+    @Override
+    protected void woodCalculator() throws UserException {
         calcPost();
 
         calcBeam(carportLength);
@@ -37,14 +38,23 @@ public class FlatRoofCalc extends MaterialCalculator{
         calcSternOverSides();
         calcSternWaterFront();
         calcSternWaterSides();
+    }
 
-        return bom;
+    @Override
+    protected void mountCalculator() throws UserException {
+        bottomScrews();
+        perforatedTape(carportLength);
+        rafterMount();
+        sternScrew();
+        mountScrews();
+        bolt();
     }
 
     protected void calcPost() throws UserException {
 
         // Get material
         String description = "Stolper nedgraves 90 cm. i jord";
+        String type = "stolpe";
         String name = "97x97 mm. trykimp. Stolpe";
         List<Material> materialList = makeMaterialList(name);
 
@@ -55,7 +65,34 @@ public class FlatRoofCalc extends MaterialCalculator{
         // amount of Posts Width multiplied by amount of Posts Length
         int quantity = quantityByWidth * quantityByLength;
 
-        bom.add(newItem(quantity, materialList.get(0).getId(), description, materialList.get(0)));
+        bom.add(newItem(quantity, materialList.get(0).getId(), description, type, materialList.get(0)));
+    }
+
+    @Override
+    protected void bolt() throws UserException {
+        // Get materials from database
+        Material material = materialFacade.getMaterial("bræddebolt 10 x 120 mm.");
+        String type = "bolt";
+        String description = "Til montering af rem på stolper";
+
+
+        int quantity = 0;
+        for (Material m : bom) {
+            if(m.getType().equals("stolpe")){
+                quantity += m.getQuantity();
+            }
+        }
+
+        int amountOfBoltPrPost = 2;
+        quantity *= amountOfBoltPrPost;
+
+        bom.add(newItem(quantity, material.getId(), description, type, material));
+
+        //firkantskiver
+        material = materialFacade.getMaterial("firkantskiver 40x40x11mm");
+        type = "firkantskriver";
+
+        bom.add(newItem(quantity, material.getId(), description, type, material));
     }
 
 

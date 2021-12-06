@@ -41,15 +41,23 @@ public abstract class MaterialCalculator {
         this.carportLength = carportLength * 10;
     }
 
-    public abstract ArrayList<Material> BOMCalculator() throws UserException;
+    public ArrayList<Material> BOMCalculator() throws UserException{
+        woodCalculator();
+        mountCalculator();
+
+        return bom;
+    }
+
+    protected abstract void woodCalculator() throws UserException;
+    protected abstract void mountCalculator() throws UserException;
 
     protected abstract void calcPost() throws UserException;
 
     // methode to create material, with quantity and description
-    protected Material newItem(int quantity, int materialID, String description, Material material) {
+    protected Material newItem(int quantity, int materialID, String description, String type, Material material) {
         return new Material(materialID,
                 material.getName(),
-                material.getType(),
+                type,
                 description,
                 material.getCost(),
                 material.getPrice(),
@@ -65,6 +73,7 @@ public abstract class MaterialCalculator {
 
         // Get materials from database
         String description = "Remme i sider, sadles ned i stolper";
+        String type = "remme";
         String name = "45x195 mm. spærtræ ubh.";
         List<Material> materialList = makeMaterialList(name);
 
@@ -73,7 +82,7 @@ public abstract class MaterialCalculator {
         int quantity = (int) ceil((double) (carportWidth - (OFFSET_W1 + OFFSET_W2)) / (double) MAX_WIDTH) + 1;
 
         // amount of materials pr beam
-        useOfMaterials(carLength, quantity, description, materialList, "Beam");
+        useOfMaterials(carLength, quantity, description, type, materialList, "Beam");
     }
 
     // Spær
@@ -81,6 +90,7 @@ public abstract class MaterialCalculator {
 
         // Get materials from database
         String description = "Spær, monteres på rem";
+        String type = "spær";
         String name = "45x195 mm. spærtræ ubh.";
         List<Material> materialList = makeMaterialList(name);
 
@@ -89,7 +99,7 @@ public abstract class MaterialCalculator {
         int quantity = (int) ceil((double) carportLength / (double) maxWidth);
 
         //
-        useOfMaterials(carportWidth, quantity, description, materialList, "Rafter");
+        useOfMaterials(carportWidth, quantity, description, type, materialList, "Rafter");
     }
 
     // Tag
@@ -97,6 +107,7 @@ public abstract class MaterialCalculator {
 
         // Get materials from database
         String description = "Tagplader monteres på spær";
+        String type = "tag";
         String name = "Plastmo Ecolite blåtonet";
         List<Material> materialList = makeMaterialList(name);
 
@@ -111,15 +122,16 @@ public abstract class MaterialCalculator {
         quantityWidth = (int) ceil((double) carportWidth / (double) (roofTileWidth - overlapWidth));
 
         //calculate
-        useOfMaterials(carportLength, quantityWidth, description, materialList, "FlatRoof");
+        useOfMaterials(carportLength, quantityWidth, description, type, materialList, "FlatRoof");
     }
 
     /** mount and screw **/
 
     // screws for the roof
-    public void bottomScrews() throws UserException {
+    protected void bottomScrews() throws UserException {
         // Get materials from database
         Material material = materialFacade.getMaterial("plastmo bundskruer 200 stk.");
+        String type = "bundskruer";
         String description = "Skruer til tagplader";
 
 
@@ -130,30 +142,81 @@ public abstract class MaterialCalculator {
 
         quantityOfScrews = (int) ceil((double) quantityOfScrews * (double) screwPrPack);
 
-        bom.add(newItem(quantityOfScrews, material.getId(), description, material));
+        bom.add(newItem(quantityOfScrews, material.getId(), type, description, material));
 
     }
 
-    public void perforatedTape(int carportLength) throws UserException {
+    protected void perforatedTape(int carportLength) throws UserException {
         // Get materials from database
         Material material = materialFacade.getMaterial("hulbånd 1x20 mm. 10 mtr.");
         String description = "Til vindkryds på spær";
+        String type = "hulbånd";
 
         int tapeRollLength = material.getLength();
         int quantityOfTapeRolls = (int) ceil((Math.sqrt(Math.pow((double) carportLength,2) + Math.pow((double) carportWidth, 2))) / tapeRollLength) * 2;
 
-        bom.add(newItem(quantityOfTapeRolls, material.getId(), description, material));
+        bom.add(newItem(quantityOfTapeRolls, material.getId(), description, type, material));
     }
 
-    public void rafterMount() throws UserException {
+    protected void mountScrews() throws UserException {
+        // Get material
+        Material material = materialFacade.getMaterial("4,5 x 50 mm. skruer 200 stk.");
+        String type = "skrue";
+        String description = "Til montering af universalbeslag + hulbånd";
+
+        int amountOfScrewsPrMount = 21;
+        int amountOfScrewsPrRafter = 4;
+
+        int quantity = 0;
+        for (Material material1 : bom) {
+            if (material.getType().equals("universalbeslag")) {
+                quantity += material.getQuantity() * amountOfScrewsPrMount;
+            }
+            if (material.getType().equals("spær")) {
+                quantity += material.getQuantity() * amountOfScrewsPrRafter;
+            }
+        }
+
+        int amountOfScrewPrPack = 200;
+        quantity /= amountOfScrewPrPack;
+
+        bom.add(newItem(quantity, material.getId(), description, type, material));
+    }
+
+    protected void rafterMount() throws UserException {
         // Get materials from database
         Material materialH = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Højre");
         Material materialV = materialFacade.getMaterial("UNIVERSALBESLAG 190MM Ventre");
+        String type = "universalbeslag";
         String description = "Til montering af spær på rem";
-        //todo: countinue
 
+        int quantity;
+        for (Material material : bom) {
+            if (material.getType().equals("spær")){
+                quantity = material.getQuantity();
 
+                bom.add(newItem(quantity,materialH.getId(),description,type,materialH));
+                bom.add(newItem(quantity,materialV.getId(),description,type,materialV));
+            }
+        }
     }
+
+    protected void sternScrew() throws UserException {
+        // Get materials from database
+        Material material = materialFacade.getMaterial("4,5 x 60 mm. skruer 200 stk.");
+        String type = "skrue";
+        String description = "Til montering af stern & vandbrædt";
+
+        int carportCircuit = (carportLength + carportWidth) * 2;
+        int maxWidthRafter = 550;
+        int screwsPrPack = 200;
+
+        int quantity = (int) ceil((((double) carportCircuit / (double) maxWidthRafter) * 2) / screwsPrPack);
+
+        bom.add(newItem(quantity, material.getId(), description, type, material));
+    }
+
+    protected abstract void bolt() throws UserException;
 
     /** all stern methods **/
 
@@ -162,8 +225,11 @@ public abstract class MaterialCalculator {
         // Get materials from database
         List<Material> materialList = makeMaterialList(name);
 
+        // set type
+        String type = "sternbrædder";
+
         // amount of materials pr beam
-        useOfMaterials(length, quantity, description, materialList, "Stern");
+        useOfMaterials(length, quantity, description, type, materialList, "Stern");
     }
 
     protected void calcSternUnderFrontAndBack() throws UserException {
@@ -212,13 +278,13 @@ public abstract class MaterialCalculator {
      * helper functions
      **/
 
-    protected void useOfMaterials(int carportLengthOrWidth, int quantity, String description, List<Material> materialList, String MaterialType) {
+    protected void useOfMaterials(int carportLengthOrWidth, int quantity, String description, String type, List<Material> materialList, String MaterialType) {
         Material material;
 
         // checks for perfect fit material
         for (Material m : materialList) {
             if (m.getLength() == carportLengthOrWidth) {
-                bom.add(newItem(quantity, m.getId(), description, m));
+                bom.add(newItem(quantity, m.getId(), description, type, m));
                 return;
             }
         }
@@ -249,7 +315,7 @@ public abstract class MaterialCalculator {
             // then it looks for best fit of materials
             for (Integer offset : offsets) {
                 material = bestFitMaterial(materialList, offset);
-                bom.add(newItem(quantity, material.getId(), description, material));
+                bom.add(newItem(quantity, material.getId(), description, type, material));
             }
         } else {
 
@@ -257,7 +323,7 @@ public abstract class MaterialCalculator {
 
             //if not longer then longest material... then it checks for the best fit
             material = bestFitMaterial(materialList, carportLengthOrWidth);
-            bom.add(newItem(quantity, material.getId(), description, material));
+            bom.add(newItem(quantity, material.getId(), description, type, material));
         }
     }
 

@@ -2,6 +2,7 @@ package business.persistence;
 
 import business.entities.Material;
 import business.entities.Order;
+import business.exceptions.UserException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,14 +20,15 @@ public class BOMMapper {
         try (Connection connection = database.connect()) {
 
             for (Material material : order.getBOM()) {
-                String sql = "INSERT INTO bom (order_id, material_id, quantity, description) " +
-                        "VALUES(?,?,?,?)";
+                String sql = "INSERT INTO bom (order_id, material_id, quantity, type, description) " +
+                        "VALUES(?,?,?,?,?)";
 
                 try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                     ps.setInt(1, order.getId());
                     ps.setInt(2, material.getId());
                     ps.setInt(3, material.getQuantity());
-                    ps.setString(4, material.getDescription());
+                    ps.setString(4, material.getType());
+                    ps.setString(5, material.getDescription());
                     ps.executeUpdate();
                 }
             }
@@ -69,6 +71,42 @@ public class BOMMapper {
             }
         }
         return BOM;
+    }
+
+    public Material getBOMMaterialByType(String type) throws UserException
+    {
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM billofmaterial WHERE type=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, type);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    int id = rs.getInt("id_material");
+                    String name = rs.getString("name");
+                    String description = rs.getString("description");
+                    float cost = rs.getFloat("cost");
+                    float price = rs.getFloat("price");
+                    int length = rs.getInt("length");
+                    int height = rs.getInt("height");
+                    int width = rs.getInt("width");
+                    String unit = rs.getString("unit");
+                    int quantity = rs.getInt("quantity");
+
+                    return new Material(id,name, type, description,cost,price,length,height,width,unit, quantity);
+                } else {
+                    throw new Exception("Could not find material");
+                }
+            }
+            catch (Exception e) {
+                throw new UserException("Could not find material");
+            }
+
+        } catch (SQLException throwables) {
+            throw new UserException("Could not find material");
+        }
+
     }
 }
 
