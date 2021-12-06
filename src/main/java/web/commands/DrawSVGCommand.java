@@ -25,13 +25,13 @@ public class DrawSVGCommand extends CommandUnprotectedPage
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException
     {
         HttpSession session = request.getSession();
-        int index = Integer.parseInt(request.getParameter("index"));
+        int index = Integer.parseInt(request.getParameter("order"));
         ArrayList<Order> orderList = (ArrayList<Order>) session.getAttribute("customerOrders");
         Order order = orderList.get(index);
         DrawCarport drawCarport = new DrawCarport(order);
-        drawCarport.drawFullCarport();
 
-        request.setAttribute("svgdrawing", drawCarport);
+
+        session.setAttribute("svgdrawing", drawCarport.drawFullCarport());
         return pageToShow;
     }
 }

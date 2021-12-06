@@ -30,12 +30,12 @@ public abstract class Command
         commands.put("registercommand", new RegisterCommand("index"));
 
         commands.put("requestcommand", new RequestCommand("requestconfirmationpage", "customer"));
-        commands.put("makeoffercommand", new MakeOfferCommand("makeofferpage", "employee"));
+        commands.put("makeoffercommand", new MakeOfferCommand("createofferpage", "employee"));
         commands.put("sendoffercommand", new SendOfferCommand("retrieverequestcommand", "employee"));
         commands.put("acceptoffercommand", new acceptOfferCommand("offerpage", "customer"));
 
 
-        commands.put("retrieverequestcommand", new RetrieveRequestCommand("requestpage", "employee"));
+        commands.put("retrieverequestcommand", new RetrieveRequestCommand("makeofferpage", "employee"));
 
         commands.put("allorderpage", new OrderListCommand("allorderpage", "employee"));
         commands.put("requestpage", new CommandUnprotectedPage("requestcarportpage"));
@@ -43,7 +43,7 @@ public abstract class Command
         commands.put("orderpage", new CommandProtectedPage("orderpage", "customer"));
         commands.put("offerpage", new CommandProtectedPage("offerpage", "customer"));
 
-        commands.put("drawsvgcommand", new CommandUnprotectedPage("svgpage"));
+        commands.put("drawsvgcommand", new DrawSVGCommand("svgpage"));
     }
 
     public static Command fromPath(

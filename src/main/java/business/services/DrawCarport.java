@@ -14,13 +14,12 @@ public class DrawCarport
         this.order = order;
     }
 
-    public void drawFullCarport()
+    public String drawFullCarport()
     {
-
         SVG svg = new SVG(0,0,"0 0 855 855",100, 100);
         svg.drawRem(15,order.getCarportWidth(), order.getCarportLength());
 
-        svg.drawPost(findQuantity("stolpe"), order.getCarportLength(), order.getCarportWidth());
+//        svg.drawPost(findQuantity("stolpe"), order.getCarportLength(), order.getCarportWidth());
 
         svg.drawMetalBand();
 
@@ -28,8 +27,10 @@ public class DrawCarport
         svg.addMarker();
         svg.addArrow(10,10,10,587);
         svg.addArrow(15,610,795,610);
-        svg.toString();
 
+        String drawing = svg.toString();
+
+        return drawing;
     }
 
     public int findQuantity(String type)

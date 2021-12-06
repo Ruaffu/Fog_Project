@@ -39,7 +39,6 @@
                             </tr>
                             <c:set var="index" value="-1"></c:set>
                             <c:forEach var="order" items="${sessionScope.customerOrders}">
-
                                     <tr>
                                         <th class="left-text"><h3>${order.id}</h3></th>
                                         <th><h3>${order.BOM.size()}</h3></th>
@@ -54,7 +53,6 @@
                                                style="padding: 10px 10px; width: 85px"></th>
                                         </form>
                                     </tr>
-
                             </c:forEach>
                         </table>
                     </div>
