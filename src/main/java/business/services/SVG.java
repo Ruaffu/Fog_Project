@@ -73,6 +73,12 @@ public class SVG
         svg.append(String.format(markerTemplate));
     }
 
+    public void drawFrame()
+    {
+        addRect(0,0,600,800);
+        addRect(0,0,600,10);
+        addRect(790,0,600,10);
+    }
 
     public void drawRem(int x, int carportWidth, int carportLength)
     {
@@ -106,6 +112,43 @@ public class SVG
         {
             addRect(100 + 50 * x,0,600,4);
         }
+    }
+
+    public void drawShed(int quantity, int length ,int shedWidth)
+    {
+        int distance = length/(quantity-1);
+        int offset = 350;
+
+
+        for (int x = 0; x < quantity; x++)
+        {
+            addRect(length,shedWidth-offset*x,10,10);
+            addRect(length-3 , shedWidth-offset*x,10,10);
+
+        }
+
+    }
+
+    public void drawShedPosts(int quantity,int carportLength ,int length ,int shedWidth)
+    {
+        int distance = length/(quantity-1);
+        int offset = 350;
+
+
+        for (int x = 0; x < quantity; x++)
+        {
+            addRect(carportLength-length,shedWidth*x/2+7,16,16);
+            addRect(length + carportLength-length , shedWidth*x/2+7,16,16);
+
+        }
+
+    }
+
+    public void drawShedRem(int shedLength, int carportLength,int shedWith)
+    {
+        addRect(carportLength-shedLength,10,shedWith,10);
+        addRect(carportLength , 10,shedWith,10);
+
     }
 
 
