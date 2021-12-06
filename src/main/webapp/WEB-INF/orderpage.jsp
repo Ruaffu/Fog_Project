@@ -39,7 +39,7 @@
                             </tr>
                             <c:set var="index" value="-1"></c:set>
                             <c:forEach var="order" items="${sessionScope.customerOrders}">
-                                <c:if test="${!(order.status.equals('request') || order.status.equals('offer'))}">
+
                                     <tr>
                                         <th class="left-text"><h3>${order.id}</h3></th>
                                         <th><h3>${order.BOM.size()}</h3></th>
@@ -54,7 +54,7 @@
                                                style="padding: 10px 10px; width: 85px"></th>
                                         </form>
                                     </tr>
-                                </c:if>
+
                             </c:forEach>
                         </table>
                     </div>
