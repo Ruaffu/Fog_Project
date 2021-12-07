@@ -79,10 +79,8 @@ public class SVG {
 
     }
 
-    public void drawFrame() {
-        addRect(0, 0, 600, 800);
-//        addRect(0,0,600,10);
-//        addRect(790,0,600,10);
+    public void drawFrame(int length, int width) {
+        addRect(0, 0, width, length);
     }
 
     public void drawRem(int x, int carportWidth, int carportLength) {
@@ -92,64 +90,61 @@ public class SVG {
 
     public void drawPost(int quantity, int length, int carportWidth, boolean hasShed) {
         int spaceBetweenPost;
-        int offset;
+        int offset = 100;
 
         if (hasShed) {
-            offset = 115;
             spaceBetweenPost = (length - offset) / ((quantity / 2) - 1);
         } else {
-            offset = 115;
             spaceBetweenPost = ((length - (offset+offset)) / ((quantity / 2) - 1));
         }
 
         for (int x = 0; x < quantity / 2; x++) {
-            addRect((offset + (spaceBetweenPost * x)) - 5, 12, 10, 10);
-            addRect((offset + (spaceBetweenPost * x)) - 5, carportWidth - 18, 10, 10);
+            addRect((offset + (spaceBetweenPost * x)) - 20, 12, 10, 10);
+            addRect((offset + (spaceBetweenPost * x)) - 20, carportWidth - 18, 10, 10);
 
         }
     }
 
     public void drawMetalBand(int length, int width) {
-        addLine(15, 15, length, width - 15);
-        addLine(15, width - 15, length, 15);
+        addLine(0, 15, length, width-15);
+        addLine(0, width-15, length, 15);
     }
 
     public void drawRafter(int quantity, int length, int width) {
         int offset = (int) ceil((double) length / (double) (quantity - 1));
 
         for (int x = 0; x < quantity - 1; x++) {
-            addRect((15 + (offset * x)), 0, width, 4);
+            addRect(((offset * x)), 0, width, 4);
         }
-        addRect(length + 15, 0, width, 4);
+        addRect(length, 0, width, 4);
     }
 
-    public void drawShed(int quantity, int length, int shedWidth) {
-        int distance = length / (quantity - 1);
-        int offset = 350;
-
-
-        for (int x = 0; x < quantity; x++) {
-            addRect(length, shedWidth - offset * x, 10, 10);
-            addRect(length - 3, shedWidth - offset * x, 10, 10);
-
-        }
-
-    }
+//    public void drawShed(int quantity, int length, int shedWidth) {
+//        int distance = length / (quantity - 1);
+//        int offset = 350;
+//
+//
+//        for (int x = 0; x < quantity; x++) {
+//            addRect(length, shedWidth - offset * x, 10, 10);
+//            addRect(length - 3, shedWidth - offset * x, 10, 10);
+//
+//        }
+//
+//    }
 
     public void drawShedPosts(int quantity, int carportLength, int length, int shedWidth) {
-//        int distance = length/(quantity-1);
         int offset = shedWidth / ((quantity / 2) - 1);
 
         for (int x = 0; x < quantity / 2; x++) {
-            addRect(carportLength - length - 5, offset * x + 12, 10, 10);
-            addRect(carportLength - 5, offset * x + 12, 10, 10);
+            addRect(carportLength - length - 20, offset * x + 12, 10, 10);
+            addRect(carportLength - 20, offset * x + 12, 10, 10);
         }
 
     }
 
     public void drawShedWood(int shedLength, int carportLength, int shedWith) {
-        addRect(carportLength - shedLength - 5, 15, shedWith, 10);
-        addRect(carportLength - 5, 15, shedWith, 10);
+        addRect(carportLength - shedLength - 20, 15, shedWith, 10);
+        addRect(carportLength - 20, 15, shedWith, 10);
 
     }
 

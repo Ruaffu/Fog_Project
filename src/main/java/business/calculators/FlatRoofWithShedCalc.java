@@ -258,24 +258,4 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         material = materialFacade.getMaterial("t hængsel 390 mm");
         bom.add(newItem(2, material.getId(), "Til skurdør", "dør", material));
     }
-
-    /** helper functions **/
-
-    public int calcPostsCarPort(){
-        // quantity for base carport
-        int quantityByWidth = amountOfPosts(carportWidth, MAX_WIDTH, OFFSET_W1, OFFSET_W2);
-        int quantityByLength = amountOfPosts(baseCarport, MAX_LENGTH, OFFSET_L1, 0);
-
-        // amount of Posts Width multiplied by amount of Posts Length
-        return quantityByWidth * quantityByLength;
-    }
-
-    public int calcPostsShed(){
-        // quantity for shed
-        int quantityByWidthShed = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0);
-        int quantityByLengthShed = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2);
-
-        // amount of Posts Width multiplied by amount of Posts Length
-        return quantityByWidthShed * quantityByLengthShed;
-    }
 }
