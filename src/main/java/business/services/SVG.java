@@ -17,7 +17,7 @@ public class SVG
             "y=\"%d\" " +
             " preserveAspectRatio=\"xMinYMin\">";
 
-    private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\"/>";
+    private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\"/>";
     private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"black\" style=\"stroke-dasharray: 4 4\"/>";
     private final String arrowTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; fill: #ffffff;marker-start: url(#beginArrow); marker-end: url(#endArrow)\"/>";
     private final String textTemplate = "<text style=\"text-anchor: middle\" transform=\"translate(%d, %d) rotate(%d)\">%d %s</text>";
@@ -50,38 +50,38 @@ public class SVG
         this.viewBox = viewBox;
         this.width = width;
         this.height = height;
-        svg.append(String.format(headerTemplate,height,width,viewBox,x,y));
+        svg.append(String.format(headerTemplate, height, width, viewBox, x, y)).append("\n");
     }
 
     public void SVGNest(int x, int y, String viewBox, int width, int height)
     {
 
-        svg.append(String.format(headerTemplate,height,width,viewBox,x,y));
+        svg.append(String.format(headerTemplate, height, width, viewBox, x, y)).append("\n");
     }
 
-    public void addRect(int x, int y, double height, int width)
+    public void addRect(int x, int y, int height, int width)
     {
-        svg.append(String.format(rectTemplate,x,y,height,width));
+        svg.append(String.format(rectTemplate, x, y, height, width)).append("\n");
     }
 
     public void addLine(int x1, int y1, int x2, int y2)
     {
-        svg.append(String.format(lineTemplate,x1,y1,x2,y2));
+        svg.append(String.format(lineTemplate,x1,y1,x2,y2)).append("\n");
     }
 
     public void addArrow(int x1, int y1, int x2, int y2)
     {
-        svg.append(String.format(arrowTemplate,x1,y1,x2,y2));
+        svg.append(String.format(arrowTemplate,x1,y1,x2,y2)).append("\n");
     }
 
     public void addMarker()
     {
-        svg.append(String.format(markerTemplate));
+        svg.append(String.format(markerTemplate)).append("\n");
     }
 
     public void addText(int x1, int y1, int x2, int y2, String s)
     {
-        svg.append(String.format(textTemplate,x1,y1,x2,y2,s));
+        svg.append(String.format(textTemplate,x1,y1,x2,y2,s)).append("\n");
 
     }
 
@@ -94,8 +94,8 @@ public class SVG
 
     public void drawRem(int x, int carportWidth, int carportLength)
     {
-        addRect(x,35,4.5,carportLength);
-        addRect(x , carportWidth-35,4.5,carportLength);
+        addRect(x,35,4,carportLength);
+        addRect(x , carportWidth-35,4,carportLength);
     }
 
     public void drawPost(int quantity, int length ,int carportWidth)
@@ -143,9 +143,8 @@ public class SVG
 
     public void drawShedPosts(int quantity,int carportLength ,int length ,int shedWidth)
     {
-        int distance = length/(quantity-1);
-        int offset = 350;
-
+//        int distance = length/(quantity-1);
+//        int offset = 350;
 
         for (int x = 0; x < quantity; x++)
         {

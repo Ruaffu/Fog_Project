@@ -19,9 +19,9 @@ public class DrawCarport
         SVG svg = new SVG(0,0,"0 0 855 855",100, 100);
         svg.addMarker();
         svg.addArrow(15,10,15,587);
-        svg.addText(15,300,-90,570,"cm");
+        svg.addText(15,300,-90, order.getCarportWidth(), "cm");
         svg.addArrow(20,610,795,610);
-        svg.addText(400,630,0,780,"cm");
+        svg.addText(400,630,0, order.getCarportLength(), "cm");
 
         svg.SVGNest(20,0,"0 0 855 810",100, 100);
         svg.drawFrame();
@@ -36,9 +36,9 @@ public class DrawCarport
 
         svg.drawRafter();
 
-        String drawing = svg.toString();
+        System.out.println(svg.toString());
 
-        return drawing;
+        return svg.toString();
     }
 
     public int findQuantity(String type)

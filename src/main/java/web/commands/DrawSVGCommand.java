@@ -30,7 +30,6 @@ public class DrawSVGCommand extends CommandUnprotectedPage
         Order order = orderList.get(index);
         DrawCarport drawCarport = new DrawCarport(order);
 
-
         session.setAttribute("svgdrawing", drawCarport.drawFullCarport());
         return pageToShow;
     }
