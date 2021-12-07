@@ -94,8 +94,8 @@ public class SVG
 
     public void drawRem(int x, int carportWidth, int carportLength)
     {
-        addRect(x,35,4,carportLength);
-        addRect(x , carportWidth-35,4,carportLength);
+        addRect(x,15,4,carportLength);
+        addRect(x , carportWidth-15,4,carportLength);
     }
 
     public void drawPost(int quantity, int length ,int carportWidth)
@@ -144,21 +144,21 @@ public class SVG
     public void drawShedPosts(int quantity,int carportLength ,int length ,int shedWidth)
     {
 //        int distance = length/(quantity-1);
-//        int offset = 350;
+        int offset = shedWidth / ((quantity/2)-1);
+        System.out.println(offset);
 
-        for (int x = 0; x < quantity; x++)
+        for (int x = 0; x < quantity/2; x++)
         {
-            addRect(carportLength-length,shedWidth*x/2+7,16,16);
-            addRect(length + carportLength-length , shedWidth*x/2+7,16,16);
-
+            addRect(carportLength-length,offset*x+12,10,10);
+            addRect(carportLength, offset*x+12,10,10);
         }
 
     }
 
-    public void drawShedRem(int shedLength, int carportLength,int shedWith)
+    public void drawShedWood(int shedLength, int carportLength, int shedWith)
     {
-        addRect(carportLength-shedLength,10,shedWith,10);
-        addRect(carportLength , 10,shedWith,10);
+        addRect(carportLength-shedLength,15,shedWith,10);
+        addRect(carportLength , 15,shedWith,10);
 
     }
 

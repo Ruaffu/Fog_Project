@@ -27,7 +27,7 @@ public class DrawCarport
         svg.drawFrame();
         svg.drawRem(15,order.getCarportWidth(), order.getCarportLength());
 
-        svg.drawShedRem(210,780,570);
+        svg.drawShedWood(210,780,570);
         svg.drawShedPosts(6,780,210,570);
 
 //        svg.drawPost(findQuantity("stolpe"), order.getCarportLength(), order.getCarportWidth());
@@ -36,7 +36,7 @@ public class DrawCarport
 
         svg.drawRafter();
 
-        System.out.println(svg.toString());
+//        System.out.println(svg.toString());
 
         return svg.toString();
     }
