@@ -94,8 +94,8 @@ public class SVG
 
     public void drawRem(int x, int carportWidth, int carportLength)
     {
-        addRect(x,10,4.5,carportLength);
-        addRect(x , carportWidth,4.5,carportLength);
+        addRect(x,35,4.5,carportLength);
+        addRect(x , carportWidth-35,4.5,carportLength);
     }
 
     public void drawPost(int quantity, int length ,int carportWidth)
