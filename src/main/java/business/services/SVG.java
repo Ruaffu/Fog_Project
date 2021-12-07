@@ -53,6 +53,12 @@ public class SVG
         svg.append(String.format(headerTemplate,height,width,viewBox,x,y));
     }
 
+    public void SVGNest(int x, int y, String viewBox, int width, int height)
+    {
+
+        svg.append(String.format(headerTemplate,height,width,viewBox,x,y));
+    }
+
     public void addRect(int x, int y, double height, int width)
     {
         svg.append(String.format(rectTemplate,x,y,height,width));
