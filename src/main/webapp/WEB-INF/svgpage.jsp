@@ -30,7 +30,11 @@
 <%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
 <%--            </svg>--%>
 
+            <div id="svgImg">
+
                 ${sessionScope.svgdrawing}
+
+            </div>
 
 
         </div>
