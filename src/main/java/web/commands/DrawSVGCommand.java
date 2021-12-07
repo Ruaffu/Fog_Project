@@ -28,7 +28,7 @@ public class DrawSVGCommand extends CommandUnprotectedPage
         int index = Integer.parseInt(request.getParameter("order"));
         ArrayList<Order> orderList = (ArrayList<Order>) session.getAttribute("customerOrders");
         Order order = orderList.get(index);
-        DrawCarport drawCarport = new DrawCarport(order);
+        DrawCarport drawCarport = new DrawCarport(order, database);
 
         session.setAttribute("svgdrawing", drawCarport.drawFullCarport());
         return pageToShow;
