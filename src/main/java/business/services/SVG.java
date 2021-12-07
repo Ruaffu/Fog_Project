@@ -73,6 +73,12 @@ public class SVG
         svg.append(String.format(markerTemplate));
     }
 
+    public void addText(int x1, int y1, int x2, int y2, String s)
+    {
+        svg.append(String.format(textTemplate,x1,y1,x2,y2,s));
+
+    }
+
     public void drawFrame()
     {
         addRect(0,0,600,800);

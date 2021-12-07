@@ -27,7 +27,9 @@ public class DrawCarport
         svg.drawRafter();
         svg.addMarker();
         svg.addArrow(10,10,10,587);
+        svg.addText(30,300,-90,570,"cm");
         svg.addArrow(15,610,795,610);
+        svg.addText(400,630,0,780,"cm");
 
         String drawing = svg.toString();
 
