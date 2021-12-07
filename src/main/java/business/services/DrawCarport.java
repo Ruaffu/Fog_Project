@@ -17,8 +17,11 @@ public class DrawCarport
     public String drawFullCarport()
     {
         SVG svg = new SVG(0,0,"0 0 855 855",100, 100);
+        svg.drawFrame();
         svg.drawRem(15,order.getCarportWidth(), order.getCarportLength());
 
+        svg.drawShedRem(210,780,570);
+        svg.drawShedPosts(6,780,210,570);
 
 //        svg.drawPost(findQuantity("stolpe"), order.getCarportLength(), order.getCarportWidth());
 
