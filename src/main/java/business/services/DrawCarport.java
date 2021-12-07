@@ -18,7 +18,7 @@ public class DrawCarport {
 
     }
 
-    public String drawFullCarport() {
+    public String drawFullCarportWithShed() {
         SVG svg = new SVG(0, 0, "0 0 855 855", 100, 100);
         svg.addMarker();
         svg.addArrow(15, 10, 15, 587);
@@ -37,16 +37,39 @@ public class DrawCarport {
         int postShed = mc.calcPostsShed();
         int postCarport = mc.calcPostsCarPort();
 
-        svg.drawPost(postCarport, order.getCarportLength()-order.getShedLength(), order.getCarportWidth());
+        System.out.println(postCarport);
+        System.out.println(postShed);
+
+        svg.drawPost(postCarport, order.getCarportLength()-order.getShedLength(), order.getCarportWidth(), true);
         svg.drawShedPosts(postShed, order.getCarportLength(), order.getShedLength(), order.getShedWidth());
 
         svg.drawMetalBand(order.getCarportLength() - order.getShedLength(), order.getCarportWidth());
-
 
 //        System.out.println(svg.toString());
 
         return svg.toString();
     }
+    public String drawFullCarportWithOut() {
+        SVG svg = new SVG(0, 0, "0 0 855 855", 100, 100);
+        svg.addMarker();
+        svg.addArrow(15, 10, 15, 587);
+        svg.addText(15, 300, -90, order.getCarportWidth(), "cm");
+        svg.addArrow(20, 610, 795, 610);
+        svg.addText(400, 630, 0, order.getCarportLength(), "cm");
+
+        svg.SVGNest(20, 0, "0 0 855 810", 100, 100);
+        svg.drawFrame();
+
+        svg.drawRem(15, order.getCarportWidth(), order.getCarportLength());
+        svg.drawRafter(findQuantity("spær"), order.getCarportLength(), order.getCarportWidth());
+
+        svg.drawPost(findQuantity("stolpe"), order.getCarportLength(), order.getCarportWidth(), false);
+
+        svg.drawMetalBand(order.getCarportLength(), order.getCarportWidth());
+
+        return svg.toString();
+    }
+
 
     public int findQuantity(String type) {
         int quantity = 0;

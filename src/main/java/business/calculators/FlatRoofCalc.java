@@ -19,8 +19,6 @@ public class FlatRoofCalc extends MaterialCalculator{
 
     public FlatRoofCalc(Database database, int carportWidth, int carportLength) {
         super(database, carportWidth, carportLength);
-
-
     }
 
     // calculates all the wood

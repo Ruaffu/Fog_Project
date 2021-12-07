@@ -2,10 +2,8 @@ package web.commands;
 
 import business.entities.Order;
 import business.exceptions.UserException;
-import business.persistence.BOMMapper;
 import business.services.DrawCarport;
 import business.services.OrderFacade;
-import business.services.SVG;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +28,11 @@ public class DrawSVGCommand extends CommandUnprotectedPage
         Order order = orderList.get(index);
         DrawCarport drawCarport = new DrawCarport(order, database);
 
-        session.setAttribute("svgdrawing", drawCarport.drawFullCarport());
+        if (order.getShedLength() > 0){
+            session.setAttribute("svgdrawing", drawCarport.drawFullCarportWithShed());
+        } else {
+            session.setAttribute("svgdrawing", drawCarport.drawFullCarportWithOut());
+        }
         return pageToShow;
     }
 }
