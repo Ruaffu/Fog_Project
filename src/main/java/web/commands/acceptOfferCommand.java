@@ -39,6 +39,7 @@ public class acceptOfferCommand extends CommandProtectedPage {
 
         session.setAttribute("customerrequests", offers);
         session.setAttribute("customerOrders", orders);
+        session.setAttribute("payorder", acceptOrder);
 
         return REDIRECT_INDICATOR + pageToShow;
     }

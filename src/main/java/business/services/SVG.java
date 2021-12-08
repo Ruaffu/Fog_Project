@@ -76,7 +76,6 @@ public class SVG {
 
     public void addText(int x1, int y1, int x2, int y2, String s) {
         svg.append(String.format(textTemplate, x1, y1, x2, y2, s)).append("\n");
-
     }
 
     public void drawFrame(int length, int width) {
@@ -101,7 +100,6 @@ public class SVG {
         for (int x = 0; x < quantity / 2; x++) {
             addRect((offset + (spaceBetweenPost * x)) - 20, 12, 10, 10);
             addRect((offset + (spaceBetweenPost * x)) - 20, carportWidth - 18, 10, 10);
-
         }
     }
 
