@@ -34,7 +34,6 @@ public abstract class Command
         commands.put("sendoffercommand", new SendOfferCommand("retrieverequestcommand", "employee"));
         commands.put("acceptoffercommand", new acceptOfferCommand("paymentpage", "customer"));
 
-
         commands.put("retrieverequestcommand", new RetrieveRequestCommand("makeofferpage", "employee"));
 
         commands.put("allorderpage", new OrderListCommand("allorderpage", "employee"));

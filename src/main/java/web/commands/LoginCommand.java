@@ -50,6 +50,24 @@ public class LoginCommand extends CommandUnprotectedPage {
                 session.setAttribute("customerOrders", orders);
                 session.setAttribute("customerrequests", requests);
             }
+            if (user.getRole().equals("employee")){
+                ArrayList<User> users;
+                try
+                {
+                    users = userFacade.getAllUsers();
+                    ArrayList<Order> requests = orderFacade.getAllRequests(users);
+                    session.setAttribute("allrequests", requests);
+
+                    ArrayList<Order> orders = orderFacade.getAllOrders(users);
+                    session.setAttribute("allorders", orders);
+                } catch (UserException e)
+                {
+                    e.printStackTrace();
+                }
+
+
+
+            }
 
             return REDIRECT_INDICATOR + pageToShow;
         } catch (UserException ex) {

@@ -13,7 +13,6 @@ public class DrawCarport {
     public DrawCarport(Order order) {
         this.order = order;
         svgHelper = new SVGHelper(order.getCarportWidth(), order.getCarportLength(), order.getShedWidth(), order.getShedLength());
-
     }
 
     public String drawFullCarportWithShed() {
@@ -63,7 +62,6 @@ public class DrawCarport {
         return svg.toString();
     }
 
-
     private int findQuantity(String type) {
         int quantity = 0;
         ArrayList<Material> bom = order.getBOM();
@@ -71,7 +69,6 @@ public class DrawCarport {
             if (material.getType().equals(type)) {
                 quantity = material.getQuantity();
             }
-
         }
         return quantity;
     }
