@@ -42,7 +42,7 @@ public class UserMapper {
 
     public User login(String email, String password) throws UserException {
         try (Connection connection = database.connect()) {
-            String sql = "SELECT * FROM users WHERE email=? AND password=?";
+            String sql = "SELECT * FROM userinfo WHERE email=? AND password=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, email);
@@ -55,9 +55,12 @@ public class UserMapper {
                     String lastname = rs.getString("lastname");
                     String streetname = rs.getString("streetname");
                     String housenr = rs.getString("housenr");
+                    String city = rs.getString("city");
                     String zipcode = rs.getString("zipcode");
+                    String regionName = rs.getString("region_name");
                     String phonenr = rs.getString("phonenr");
-                    return new User(id, email, password, role, firstname, lastname, streetname, housenr, zipcode, phonenr);
+
+                    return new User(id, email, password, role, firstname, lastname, streetname, housenr, city, zipcode, regionName, phonenr);
                 } else {
                     throw new UserException("Could not validate user");
                 }
@@ -73,7 +76,7 @@ public class UserMapper {
         ArrayList<User> users = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
-            String sql = "SELECT * FROM users ";
+            String sql = "SELECT * FROM userinfo ";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
@@ -84,11 +87,14 @@ public class UserMapper {
                     String role = rs.getString("role");
                     String firstname = rs.getString("firstname");
                     String lastname = rs.getString("lastname");
-                    String phoneNr = rs.getString("phonenr");
                     String streetName = rs.getString("streetname");
                     String houseNr = rs.getString("housenr");
+                    String city = rs.getString("city");
                     String zipcode = rs.getString("zipcode");
-                    User user = new User(id, email, password, role, firstname, lastname, streetName, houseNr, zipcode, phoneNr);
+                    String regionName = rs.getString("region_name");
+                    String phoneNr = rs.getString("phonenr");
+
+                    User user = new User(id, email, password, role, firstname, lastname, streetName, houseNr, city, zipcode, regionName, phoneNr);
 
                     users.add(user);
                 }

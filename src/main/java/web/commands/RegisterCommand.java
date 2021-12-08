@@ -29,20 +29,19 @@ public class RegisterCommand extends CommandUnprotectedPage {
         String streetname = request.getParameter("streetname");
         String housenr = request.getParameter("housenr");
         String zipcode = request.getParameter("zipcode");
-        String city = request.getParameter("city");
         String phonenr = request.getParameter("phonenr");
 
         if (password1.equals(password2)) {
-            User user = userFacade.createUser(email, password1, firstname, lastname, streetname, housenr, zipcode, city, phonenr);
+            User user = userFacade.createUser(email, password1, firstname, lastname, streetname, housenr, zipcode, phonenr);
             user.setRole("customer");
             HttpSession session = request.getSession();
+
+            user = userFacade.login(email, password1);
 
             session.setAttribute("email", email);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
-            session.setAttribute("firstname", user.getFirstname());
-            session.setAttribute("lastname", user.getLastname());
-            session.setAttribute("streetname", user.getHouseNr());
+
 
             ArrayList<Order> customerRequests = new ArrayList<>();
             session.setAttribute("customerrequests", customerRequests);
