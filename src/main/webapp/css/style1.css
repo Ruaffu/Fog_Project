@@ -879,7 +879,8 @@ select {
 #svgImg {
     border: 2px solid;
     padding: 20px;
-    width: 300px;
+    width: 600px;
     resize: both;
     overflow: auto;
+    margin: 0 auto;
 }
