@@ -12,7 +12,7 @@ public class DrawCarport {
 
     public DrawCarport(Order order) {
         this.order = order;
-        svgHelper = new SVGHelper(order.getShedWidth(), order.getCarportLength(), order.getShedWidth(), order.getShedLength());
+        svgHelper = new SVGHelper(order.getCarportWidth(), order.getCarportLength(), order.getShedWidth(), order.getShedLength());
 
     }
 
@@ -35,7 +35,7 @@ public class DrawCarport {
         int postCarport = svgHelper.calcPostsCarPort();
 
         System.out.println(postCarport);
-        System.out.println(postShed);
+
 
         svg.drawPost(postCarport, order.getCarportLength() - order.getShedLength(), order.getCarportWidth(), true);
         svg.drawShedPosts(postShed, order.getCarportLength(), order.getShedLength(), order.getShedWidth());

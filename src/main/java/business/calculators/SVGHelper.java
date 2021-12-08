@@ -1,7 +1,5 @@
 package business.calculators;
 
-import business.persistence.Database;
-
 import static java.lang.Math.ceil;
 
 public class SVGHelper {
@@ -21,22 +19,27 @@ public class SVGHelper {
             shedWidth,
             shedLength;
 
-    // shed with the offset at the back of the carport
-    private final int shedWithOffset = shedLength + OFFSET_L2;
-    // the carport length without shed
-    private final int baseCarport = carportLength - shedWithOffset;
+
 
     public SVGHelper(int carportWidth, int carportLength, int shedWidth, int shedLength) {
-        this.carportWidth = carportWidth;
-        this.carportLength = carportLength;
-        this.shedWidth = shedWidth;
-        this.shedLength = shedLength;
+        this.carportWidth = carportWidth * 10;
+        this.carportLength = carportLength * 10;
+        this.shedWidth = shedWidth * 10;
+        this.shedLength = shedLength * 10;
     }
 
     public int calcPostsCarPort() {
+        // shed with the offset at the back of the carport
+        int shedWithOffset = shedLength + OFFSET_L2;
+        // the carport length without shed
+        int baseCarport = carportLength - shedWithOffset;
+
         // quantity for base carport
         int quantityByWidth = amountOfPosts(carportWidth, MAX_WIDTH, OFFSET_W1, OFFSET_W2);
+        System.out.println(quantityByWidth);
+
         int quantityByLength = amountOfPosts(baseCarport, MAX_LENGTH, OFFSET_L1, 0);
+        System.out.println(quantityByLength);
 
         // amount of Posts Width multiplied by amount of Posts Length
         return quantityByWidth * quantityByLength;
@@ -51,7 +54,7 @@ public class SVGHelper {
         return quantityByWidthShed * quantityByLengthShed;
     }
 
-    protected int amountOfPosts(int carportLengthOrWidth, int maxLengthOrWidth, int offset1, int offset2) {
+    private int amountOfPosts(int carportLengthOrWidth, int maxLengthOrWidth, int offset1, int offset2) {
         return ((int) (ceil((double) (carportLengthOrWidth - (offset1 + offset2)) / (double) maxLengthOrWidth))) + 1;
     }
 }
