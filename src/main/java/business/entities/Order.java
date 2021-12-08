@@ -67,7 +67,7 @@ public class Order {
     private float costCalc(){
         float cost = 0;
         for (Material m: BOM) {
-            cost += m.getCost();
+            cost += (m.getCost() * m.getQuantity());
         }
         return cost;
     }
@@ -82,7 +82,7 @@ public class Order {
         }
 
         for (Material m: BOM) {
-            price += m.getPrice();
+            price += (m.getPrice() * m.getQuantity());
         }
         return price;
     }
