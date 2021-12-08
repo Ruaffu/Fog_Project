@@ -46,11 +46,35 @@
                         <div class="dropdown">
                             <a class="purple-button"
                                href="${pageContext.request.contextPath}/fc/profilepage">
-                                <h4>My profile</h4></a>
+                                <h4>My profile</h4>
+                                <c:set var="index" value="0"></c:set>
+                                <c:forEach items="${sessionScope.customerrequests}" var="offer">
+                                    <c:if test="${offer.status.equals('offer')}">
+                                        <input type="hidden" name="request" value="${index = index + 1}">
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${index != 0}">
+                                         <span class="badge">
+                                                 ${index}
+                                         </span>
+                                </c:if></a>
                             <div class="dropdown-content">
                                 <a href="${pageContext.request.contextPath}/fc/profilepage">Profile</a>
                                 <c:if test="${sessionScope.user.role.equals('customer')}">
-                                    <a href="${pageContext.request.contextPath}/fc/offerpage">Offer</a>
+                                    <a href="${pageContext.request.contextPath}/fc/offerpage" class="">
+                                        Offer
+                                        <c:set var="index" value="0"></c:set>
+                                        <c:forEach items="${sessionScope.customerrequests}" var="offer">
+                                            <c:if test="${offer.status.equals('offer')}">
+                                                <input type="hidden" name="request" value="${index = index + 1}">
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:if test="${index != 0}">
+                                         <span class="badge">
+                                              ${index}
+                                         </span>
+                                        </c:if>
+                                    </a>
                                     <a href="${pageContext.request.contextPath}/fc/orderpage">Order</a>
                                 </c:if>
                                 <a href="${pageContext.request.contextPath}/fc/logoutcommand">Sign out</a>
@@ -85,11 +109,35 @@
                     </a>
                 </li>
                 <li>
-                    <a class="white-button" href="${pageContext.request.contextPath}/fc/allorderpage"><h4>Orders</h4>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/allorderpage">
+                        <h4>Orders</h4>
+                        <c:set var="index" value="0"></c:set>
+                        <c:forEach items="${sessionScope.allorders}" var="accepted">
+                            <c:if test="${accepted.status.equals('accepted')}">
+                                <input type="hidden" name="request" value="${index = index + 1}">
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${index != 0}">
+                        <span class="badge">
+                                ${index}
+                        </span>
+                        </c:if>
                     </a>
                 </li>
                 <li>
-                    <a class="white-button" href="${pageContext.request.contextPath}/fc/retrieverequestcommand"><h4>Requests</h4>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/retrieverequestcommand">
+                        <h4>Requests</h4>
+                        <c:set var="index" value="0"></c:set>
+                        <c:forEach items="${sessionScope.allrequests}" var="request">
+                            <c:if test="${request.status.equals('request')}">
+                                <input type="hidden" name="request" value="${index = index + 1}">
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${index != 0}">
+                        <span class="badge">
+                                ${index}
+                        </span>
+                        </c:if>
                     </a>
                 </li>
             </c:if>

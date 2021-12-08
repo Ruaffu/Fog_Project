@@ -13,15 +13,17 @@ public class DrawCarport {
     public DrawCarport(Order order) {
         this.order = order;
         svgHelper = new SVGHelper(order.getCarportWidth(), order.getCarportLength(), order.getShedWidth(), order.getShedLength());
-
     }
 
     public String drawFullCarportWithShed() {
         SVG svg = new SVG(0, 0, "0 0 855 855", 100, 100);
+
+        //makes first two markers
         makeMarkers(svg);
+
         // shed width
         svg.addArrow(30, 15, 30, order.getShedWidth() - 15);
-        svg.addText(30, 300, -90, order.getShedWidth(), "cm");
+        svg.addText(30, order.getCarportWidth()/2, -90, order.getShedWidth(), "cm");
 
         svg.SVGNest(40, 0, "0 0 900 900", 100, 100);
         svg.drawFrame(order.getCarportLength(), order.getCarportWidth());
@@ -33,9 +35,6 @@ public class DrawCarport {
 
         int postShed = svgHelper.calcPostsShed();
         int postCarport = svgHelper.calcPostsCarPort();
-
-        System.out.println(postCarport);
-
 
         svg.drawPost(postCarport, order.getCarportLength() - order.getShedLength(), order.getCarportWidth(), true);
         svg.drawShedPosts(postShed, order.getCarportLength(), order.getShedLength(), order.getShedWidth());
@@ -63,7 +62,6 @@ public class DrawCarport {
         return svg.toString();
     }
 
-
     private int findQuantity(String type) {
         int quantity = 0;
         ArrayList<Material> bom = order.getBOM();
@@ -71,7 +69,6 @@ public class DrawCarport {
             if (material.getType().equals(type)) {
                 quantity = material.getQuantity();
             }
-
         }
         return quantity;
     }
@@ -80,9 +77,9 @@ public class DrawCarport {
         svg.addMarker();
         // carport width
         svg.addArrow(15, 0, 15, order.getCarportWidth()-30);
-        svg.addText(15, 300, -90, order.getCarportWidth(), "cm");
+        svg.addText(15, order.getCarportWidth()/2, -90, order.getCarportWidth(), "cm");
         // carport length
         svg.addArrow(40, order.getCarportWidth(), order.getCarportLength()+5, order.getCarportWidth());
-        svg.addText(400, 630, 0, order.getCarportLength(), "cm");
+        svg.addText(order.getCarportLength()/2, order.getCarportWidth() + 15, 0, order.getCarportLength(), "cm");
     }
 }

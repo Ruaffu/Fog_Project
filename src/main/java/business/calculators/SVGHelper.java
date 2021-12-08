@@ -36,10 +36,7 @@ public class SVGHelper {
 
         // quantity for base carport
         int quantityByWidth = amountOfPosts(carportWidth, MAX_WIDTH, OFFSET_W1, OFFSET_W2);
-        System.out.println(quantityByWidth);
-
         int quantityByLength = amountOfPosts(baseCarport, MAX_LENGTH, OFFSET_L1, 0);
-        System.out.println(quantityByLength);
 
         // amount of Posts Width multiplied by amount of Posts Length
         return quantityByWidth * quantityByLength;
