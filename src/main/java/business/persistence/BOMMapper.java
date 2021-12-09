@@ -37,23 +37,20 @@ public class BOMMapper {
         }
     }
 
-    public void updateBom(Order order) {
+    public void deleteBom(Order order) {
         try (Connection connection = database.connect()) {
-            for (Material material : order.getBOM())
-            {
-                String sql = "UPDATE bom SET quantity=? " +
-                        "WHERE order_id=? AND description=? AND material_id=?";
+
+                String sql = "DELETE FROM bom " +
+                        "WHERE order_id=? ";
 
                 try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
                 {
-                    ps.setFloat(1, material.getQuantity());
-                    ps.setInt(2, order.getId());
-                    ps.setString(3, material.getDescription());
-                    ps.setInt(4, material.getId());
+                    ps.setInt(1, order.getId());
+
 
                     ps.executeUpdate();
                 }
-            }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

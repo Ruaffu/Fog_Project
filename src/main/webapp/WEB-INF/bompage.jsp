@@ -16,13 +16,13 @@
                     <div class="col-2-grid">
                         <div class="large-title-grid-element">
                             <div class="left-text">
-                                <h1>Nr. ${sessionScope.bomlist.id}</h1>
+                                <h1>Nr. ${sessionScope.makeoffer.id}</h1>
                                 <h3><i class="fas">&#xf328;</i> Order details</h3>
                             </div>
                         </div>
                         <div class="right-text">
                             <h2>Status</h2>
-                            <h3>${sessionScope.bomlist.status}</h3>
+                            <h3>${sessionScope.makeoffer.status}</h3>
 
                         </div>
                     </div>
@@ -60,9 +60,9 @@
                                         <h3>${material.description}</h3>
                                     </th>
                                     <th style="padding-right: 15px; width: 130px">
-                                        <input name="quantity" class="border-input-text" type="number"
-                                               value="${material.quantity}">
-                                        <input type="hidden" value="${material.quantity} = quantity">
+                                        <input name="quantity" id="quantity" class="border-input-text" type="number"
+                                               value="${material.quantity}" onchange="changeQuantity()">
+<%--                                        <input type="hidden" value="${material.quantity = requestScope.}">--%>
                                     </th>
                                     <th><h3>${material.cost} kr</h3></th>
                                     <th><h3>${material.price} kr</h3></th>
@@ -79,9 +79,15 @@
                                         </th>
                                     </c:if>
                                 </tr>
+                                <script>
+                                    function changeQuantity() {
+                                        ${material.quantity} = document.getElementById("quantity").value;
+
+                                    }
+                                </script>
                             </c:forEach>
                         </table>
-                        <form action="${pageContext.request.contextPath}/fc/">
+                        <form action="${pageContext.request.contextPath}/fc/updateordercommand">
                         <input type="submit" value="Save" class="purple-button"
                                style="padding: 10px 10px; width: 85px">
                         </form>
@@ -89,6 +95,7 @@
                 </div>
             </div>
         </div>
+
     </jsp:body>
 
 </t:genericpage>

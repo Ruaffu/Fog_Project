@@ -28,7 +28,12 @@ public class OrderFacade {
 
     public void updateOrder(Order order) {
         orderMapper.updateOrder(order);
-        bomMapper.updateBom(order);
+    }
+
+    public void updateBom(Order order)
+    {
+        bomMapper.deleteBom(order);
+        bomMapper.saveBOM(order);
     }
 
     /** load data **/

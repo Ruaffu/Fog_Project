@@ -50,6 +50,8 @@ public abstract class Command
         commands.put("finduspage", new CommandUnprotectedPage("finduspage"));
         commands.put("profilepage", new CommandUnprotectedPage("profilepage"));
         commands.put("removefrombomlistcommand", new RemoveFromBOMListCommand("", "employee"));
+        commands.put("updateordercommand", new UpdateOrderCommand("createofferpage", "employee"));
+        commands.put("bomcopycommand", new BOMCopyCommand("bompage", "employee"));
 
     }
 

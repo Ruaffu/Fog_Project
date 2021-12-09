@@ -181,10 +181,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <input type="text" name="price" value="${sessionScope.makeoffer.totalPrice}">
-                                    <input type="text" name="cost" value="${sessionScope.makeoffer.totalCost}">
+                                    <input type="text" name="price" value="${sessionScope.makeoffer.totalPrice} Salgspris">
+                                    <input type="text" name="cost" value="${sessionScope.makeoffer.totalCost} Kostpris">
                                     <input type="text" name="coverageratio"
-                                           value="${sessionScope.makeoffer.coverageRatio}"> <%--todo: update in realtime aka javascript--%>
+                                           value="${sessionScope.makeoffer.coverageRatio} Ba %"> <%--todo: update in realtime aka javascript--%>
                                 </div>
 
                             </div>
@@ -192,7 +192,7 @@
 
                         </div>
                         <div style="width: 200px; padding-top: 25px">
-                            <a class="purple-no-fill-button" href="${pageContext.request.contextPath}/fc/bompage">
+                            <a class="purple-no-fill-button" href="${pageContext.request.contextPath}/fc/bomcopycommand">
                                 Stykliste</a>
                         </div>
                 </div>
@@ -205,13 +205,13 @@
 
                 </form>
 
+                <div style="width: 200px; padding-top: 25px">
+                    <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i
+                            class="fas">&#xf060;</i>
+                        Go back to home</a>
+                </div>
+            </div>
 
-            </div>
-            <div style="width: 200px; padding-top: 25px">
-                <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i
-                        class="fas">&#xf060;</i>
-                    Go back to home</a>
-            </div>
         </div>
         </div>
 

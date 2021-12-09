@@ -25,8 +25,7 @@ public class UpdateOrderCommand extends CommandProtectedPage
         Order order = (Order) session.getAttribute("makeoffer");
         ArrayList<Material> bomcopy = (ArrayList<Material>) session.getAttribute("bomlist");
         order.setBOM(bomcopy);
-        orderFacade.updateOrder(order);
-
+        orderFacade.updateBom(order);
 
         return pageToShow;
     }
