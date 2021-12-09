@@ -28,6 +28,7 @@ public class OrderFacade {
 
     public void updateOrder(Order order) {
         orderMapper.updateOrder(order);
+        bomMapper.updateBom(order);
     }
 
     /** load data **/

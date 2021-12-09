@@ -42,9 +42,10 @@
                         <table class="collapse-table">
                             <tr class="table-labels">
                                 <th class="left-text">PRODUCT DETAILS</th>
+                                <th class="left-text">DESCRIPTION</th>
                                 <th>QUANTITY</th>
+                                <th>COST</th>
                                 <th>PRICE</th>
-                                <th>TOTAL</th>
                                 <c:if test="${sessionScope.user.role.equals('employee')}">
                                     <th></th>
                                 </c:if>
@@ -53,14 +54,20 @@
                             <c:forEach var="material" items="${sessionScope.makeoffer.BOM}">
                                 <tr>
                                     <th class="left-text">
-                                        <h3>${material.name} material</h3>
+                                        <h3>${material.name}</h3>
                                     </th>
-                                    <th><h3>${material.quantity}</h3></th>
-                                    <th><h3>${material.price} kr</h3></th>
+                                    <th class="left-text">
+                                        <h3>${material.description}</h3>
+                                    </th>
+                                    <th style="padding-right: 15px; width: 130px">
+                                        <input name="quantity" class="border-input-text" type="number"
+                                               value="${material.quantity}">
+                                    </th>
                                     <th><h3>${material.cost} kr</h3></th>
+                                    <th><h3>${material.price} kr</h3></th>
                                     <c:if test="${sessionScope.user.role.equals('employee')}">
                                         <th>
-                                            <form action="${pageContext.request.contextPath}/fc/editordercommand"
+                                            <form action="${pageContext.request.contextPath}/fc/removefrombomlistcommand"
                                                   method="post">
 
                                                 <input type="hidden" name="materialid" value="${index = index + 1}">
@@ -68,7 +75,7 @@
                                                 <input type="hidden" name="userid"
                                                        value="${sessionScope.makeoffer.user.id}">
                                                 <!-- <input type="hidden" name="customerorderlist" value="false"> -->
-                                                <input type="submit" value="edit" class="purple-button"
+                                                <input type="submit" value="Delete" class="purple-button"
                                                        style="padding: 10px 10px; width: 85px">
                                             </form>
                                         </th>
@@ -76,6 +83,10 @@
                                 </tr>
                             </c:forEach>
                         </table>
+                        <form action="${pageContext.request.contextPath}/fc/">
+                        <input type="submit" value="Save" class="purple-button"
+                               style="padding: 10px 10px; width: 85px">
+                        </form>
                     </div>
                 </div>
             </div>
