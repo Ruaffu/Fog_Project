@@ -33,7 +33,9 @@
                                         <br>
                                         <label for="width">Carport bredde</label>
                                         <select name="width" id="width">
-                                            <option value="${sessionScope.makeoffer.carportWidth}" selected>${sessionScope.makeoffer.carportWidth} cm</option>
+                                            <option value="${sessionScope.makeoffer.carportWidth}"
+                                                    selected>${sessionScope.makeoffer.carportWidth} cm
+                                            </option>
                                             <option value="240">240 cm</option>
                                             <option value="270">270 cm</option>
                                             <option value="300">300 cm</option>
@@ -54,7 +56,9 @@
                                     <div>
                                         <label for="length">Carport længde</label>
                                         <select name="length" id="length">
-                                            <option value="${sessionScope.makeoffer.carportLength}" selected>${sessionScope.makeoffer.carportLength} cm</option>
+                                            <option value="${sessionScope.makeoffer.carportLength}"
+                                                    selected>${sessionScope.makeoffer.carportLength} cm
+                                            </option>
                                             <option value="240">240 cm</option>
                                             <option value="270">270 cm</option>
                                             <option value="300">300 cm</option>
@@ -81,7 +85,8 @@
                                     <div>
                                         <label for="roof">Tag</label>
                                         <select name="roof" id="roof">
-                                            <option value="${sessionScope.makeoffer.roofType}" selected>${sessionScope.makeoffer.roofType}</option>
+                                            <option value="${sessionScope.makeoffer.roofType}"
+                                                    selected>${sessionScope.makeoffer.roofType}</option>
                                             <option value="plasttrapezplader">plasttrapezplader</option>
 
                                         </select>
@@ -91,7 +96,9 @@
                                     <div>
                                         <label for="roofangle">Taghældning</label>
                                         <select name="roofangle" id="roofangle">
-                                            <option value="${sessionScope.makeoffer.roofAngle}" selected>${sessionScope.makeoffer.roofAngle} grader</option>
+                                            <option value="${sessionScope.makeoffer.roofAngle}"
+                                                    selected>${sessionScope.makeoffer.roofAngle} grader
+                                            </option>
                                             <option value="0">0 grader</option>
                                             <option value="15">15 grader</option>
                                             <option value="20">20 grader</option>
@@ -110,7 +117,9 @@
                                     <div>
                                         <label for="shedwidth">Redskabsrum bredde</label>
                                         <select name="shedwidth" id="shedwidth">
-                                            <option value="${sessionScope.makeoffer.shedWidth}" selected>${sessionScope.makeoffer.shedWidth} cm</option>
+                                            <option value="${sessionScope.makeoffer.shedWidth}"
+                                                    selected>${sessionScope.makeoffer.shedWidth} cm
+                                            </option>
                                             <option value="0">Ønsker ikke redskabsrum</option>
                                             <option value="210">210 cm</option>
                                             <option value="240">240 cm</option>
@@ -137,7 +146,9 @@
                                     <div>
                                         <label for="shedlength">Redskabsrum længde</label>
                                         <select name="shedlength" id="shedlength">
-                                            <option value="${sessionScope.makeoffer.shedLength}" selected>${sessionScope.makeoffer.shedLength} cm</option>
+                                            <option value="${sessionScope.makeoffer.shedLength}"
+                                                    selected>${sessionScope.makeoffer.shedLength} cm
+                                            </option>
                                             <option value="0">Ønsker ikke redskabsrum</option>
                                             <option value="150">150 cm</option>
                                             <option value="180">180 cm</option>
@@ -172,30 +183,36 @@
                                 <div>
                                     <input type="text" name="price" value="${sessionScope.makeoffer.totalPrice}">
                                     <input type="text" name="cost" value="${sessionScope.makeoffer.totalCost}">
-                                    <input type="text" name="coverageratio" value="${sessionScope.makeoffer.coverageRatio}">  <%--todo: update in realtime aka javascript--%>
+                                    <input type="text" name="coverageratio"
+                                           value="${sessionScope.makeoffer.coverageRatio}"> <%--todo: update in realtime aka javascript--%>
                                 </div>
 
                             </div>
 
 
                         </div>
-                        <div style="padding-top: 50px">
-                            <div class="row-2-grid" style="gap: 10px">
-                                <input class="purple-large-button" type="submit" value="Lav Tilbud">
-                            </div>
-
+                        <div style="width: 200px; padding-top: 25px">
+                            <a class="purple-no-fill-button" href="${pageContext.request.contextPath}/fc/bompage">
+                                Stykliste</a>
                         </div>
-
-                    </form>
-
+                </div>
+                <div style="padding-top: 50px">
+                    <div class="row-2-grid" style="gap: 10px">
+                        <input class="purple-large-button" type="submit" value="Lav Tilbud">
+                    </div>
 
                 </div>
-                <div style="width: 200px; padding-top: 25px">
-                    <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i
-                            class="fas">&#xf060;</i>
-                        Go back to home</a>
-                </div>
+
+                </form>
+
+
             </div>
+            <div style="width: 200px; padding-top: 25px">
+                <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i
+                        class="fas">&#xf060;</i>
+                    Go back to home</a>
+            </div>
+        </div>
         </div>
 
     </jsp:body>
