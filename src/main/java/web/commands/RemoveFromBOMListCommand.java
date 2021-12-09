@@ -1,11 +1,13 @@
 package web.commands;
 
+import business.entities.Material;
 import business.entities.Order;
 import business.exceptions.UserException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 public class RemoveFromBOMListCommand extends CommandProtectedPage{
     public RemoveFromBOMListCommand(String pageToShow, String role) {
@@ -16,11 +18,11 @@ public class RemoveFromBOMListCommand extends CommandProtectedPage{
     public String execute(HttpServletRequest request, HttpServletResponse response)  {
         HttpSession session = request.getSession();
 
-        int materialID = Integer.parseInt(request.getParameter("materialid"));
-        Order order = (Order) session.getAttribute("makeoffer");
-        order.getBOM().remove(materialID);
+        int materialIndex = Integer.parseInt(request.getParameter("materialindex"));
+        ArrayList<Material> order = (ArrayList<Material>) session.getAttribute("bomlist");
+        order.remove(materialIndex);
 
-        session.setAttribute("makeoffer", order);
+        session.setAttribute("bomlist", order);
 
         return "bompage";
     }
