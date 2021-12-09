@@ -46,6 +46,10 @@ public abstract class Command
         commands.put("drawsvgcommand", new DrawSVGCommand("svgpage"));
 
         commands.put("bompage", new CommandProtectedPage("bompage", "employee"));
+
+        commands.put("finduspage", new CommandUnprotectedPage("finduspage"));
+        commands.put("profilepage", new CommandUnprotectedPage("profilepage"));
+
     }
 
     public static Command fromPath(

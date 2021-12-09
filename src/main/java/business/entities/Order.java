@@ -67,14 +67,24 @@ public class Order {
     private float costCalc(){
         float cost = 0;
         for (Material m: BOM) {
-            cost += m.getCost();
+            cost += (m.getCost() * m.getQuantity());
         }
         return cost;
     }
 
     private float priceCalc(){
-        float cost = costCalc();
-        return cost * 2.5f;
+        float price;
+
+        if (user.getRegionName().equals("Region Hovedstaden") || user.getRegionName().equals("Region Sjælland")){
+            price = 0;
+        } else {
+            price = 2500;
+        }
+
+        for (Material m: BOM) {
+            price += (m.getPrice() * m.getQuantity());
+        }
+        return price;
     }
 
     public float getCoverageRatio()

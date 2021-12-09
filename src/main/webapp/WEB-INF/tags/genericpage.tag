@@ -87,14 +87,10 @@
 
             <c:if test="${sessionScope.user.role != 'employee'}">
                 <li>
-                    <a class="white-button" href="${pageContext.request.contextPath}/fc/shoppingcartpage"><i
-                            class="fas fa-shopping-cart"></i></a>
-                </li>
-                <li>
                     <a class="white-button" href="${pageContext.request.contextPath}/fc/finduspage"><h4>Find us</h4></a>
                 </li>
                 <li>
-                    <a class="white-button" href="${pageContext.request.contextPath}/fc/requestpage"><h4>Shop</h4>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/requestpage"><h4>Lav Carport</h4>
                     </a>
                 </li>
             </c:if>
