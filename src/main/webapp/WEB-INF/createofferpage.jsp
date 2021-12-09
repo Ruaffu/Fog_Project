@@ -181,10 +181,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <input type="text" name="price" value="${sessionScope.makeoffer.totalPrice} Salgspris">
-                                    <input type="text" name="cost" value="${sessionScope.makeoffer.totalCost} Kostpris">
-                                    <input type="text" name="coverageratio"
-                                           value="${sessionScope.makeoffer.coverageRatio} Ba %"> <%--todo: update in realtime aka javascript--%>
+                                    Salgspris <input type="text" name="price" value="${sessionScope.makeoffer.totalPrice}">
+                                    Kostpris <input type="text" name="cost" value="${sessionScope.makeoffer.totalCost}">
+                                    Ba % <input type="text" name="coverageratio"
+                                           value="${sessionScope.makeoffer.coverageRatio}"> <%--todo: update in realtime aka javascript--%>
                                 </div>
 
                             </div>
