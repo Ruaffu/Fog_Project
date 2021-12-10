@@ -107,4 +107,26 @@ public class UserMapper {
         }
     }
 
+    public void updateUser(User user) {
+        try (Connection connection = database.connect()) {
+            String sql = "UPDATE users " +
+                    "SET email = ?, password = ?, firstname = ?, lastname = ?, phonenr = ?, streetname = ?, housenr = ?, zipcode = ? " +
+                    "WHERE id_user = ? ";
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getFirstname());
+            ps.setString(4, user.getLastname());
+            ps.setString(5, user.getPhoneNr());
+            ps.setString(6, user.getStreetname());
+            ps.setString(7, user.getHouseNr());
+            ps.setString(8, user.getZipcode());
+            ps.setInt(9, user.getId());
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            System.out.println("could not update user");
+            throwables.printStackTrace();
+        }
+    }
+
 }
