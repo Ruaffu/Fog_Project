@@ -34,6 +34,7 @@ public class OrderFacade {
     {
         bomMapper.deleteBom(order);
         bomMapper.saveBOM(order);
+        orderMapper.updateOrder(order);
     }
 
     /** load data **/

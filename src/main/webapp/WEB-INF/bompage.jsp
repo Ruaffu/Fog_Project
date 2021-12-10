@@ -39,6 +39,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <table class="collapse-table">
                             <tr class="table-labels">
                                 <th class="left-text">PRODUCT DETAILS</th>
@@ -59,38 +60,30 @@
                                     <th class="left-text">
                                         <h3>${material.description}</h3>
                                     </th>
-                                    <th style="padding-right: 15px; width: 130px">
-                                        <input name="quantity"  class="border-input-text" type="number"
-                                               value="${material.quantity}">
-                                            <jsp:setProperty name="try" property="quantity" value="${material.quantity}"/>
-<%--                                        <input type="hidden" value="${material.quantity = requestScope.}">--%>
-                                    </th>
-                                    <th><h3>${material.cost} kr</h3></th>
-                                    <th><h3>${material.price} kr</h3></th>
-                                    <c:if test="${sessionScope.user.role.equals('employee')}">
-                                        <th>
-                                            <form action="${pageContext.request.contextPath}/fc/removefrombomlistcommand"
-                                                  method="post">
 
-                                                <input type="hidden" name="materialindex" value="${index}">
-<%--                                                <input type="hidden" name="id" value="${sessionScope.bomlist.id}">--%>
-                                                <input type="submit" value="Delete" class="purple-button"
-                                                       style="padding: 10px 10px; width: 85px">
+                                        <th style="padding-right: 15px; width: 130px">
+                                            <input name="quantity${index = index + 1}" class="border-input-text"
+                                                   type="number" form="save"
+                                                   value="${material.quantity}">
+                                        </th>
+                                        <th><h3>${material.cost} kr</h3></th>
+                                        <th><h3>${material.price} kr</h3></th>
+                                        <c:if test="${sessionScope.user.role.equals('employee')}">
+                                        <th>
+                                            <form action="${pageContext.request.contextPath}/fc/removefrombomlistcommand" method="post">
+                                            <input type="hidden" name="materialindex" value="${index}">
+                                            <input type="submit" value="Delete" class="purple-button"
+                                                   style="padding: 10px 10px; width: 85px">
                                             </form>
                                         </th>
+
                                     </c:if>
                                 </tr>
-<%--                                <script>--%>
-<%--                                    function changeQuantity() {--%>
-<%--                                        ${material.quantity} = document.getElementById("quantity");--%>
-
-<%--                                    }--%>
-<%--                                </script>--%>
                             </c:forEach>
                         </table>
-                        <form action="${pageContext.request.contextPath}/fc/updateordercommand">
-                        <input type="submit" value="Save" class="purple-button"
-                               style="padding: 10px 10px; width: 85px">
+                        <form id="save" action="${pageContext.request.contextPath}/fc/updateordercommand">
+                            <input type="submit" value="Save" class="purple-button"
+                                   style="padding: 10px 10px; width: 85px">
                         </form>
                     </div>
                 </div>

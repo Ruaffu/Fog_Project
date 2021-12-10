@@ -19,10 +19,10 @@ public class RemoveFromBOMListCommand extends CommandProtectedPage{
         HttpSession session = request.getSession();
 
         int materialIndex = Integer.parseInt(request.getParameter("materialindex"));
-        ArrayList<Material> order = (ArrayList<Material>) session.getAttribute("bomlist");
-        order.remove(materialIndex);
+        ArrayList<Material> bomcopy = (ArrayList<Material>) session.getAttribute("bomlist");
+        bomcopy.remove(materialIndex);
 
-        session.setAttribute("bomlist", order);
+        session.setAttribute("bomlist", bomcopy);
 
         return "bompage";
     }

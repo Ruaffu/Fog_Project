@@ -57,14 +57,14 @@ public class Order {
         this.coverageRatio = coverageRatio();
     }
 
-    private float coverageRatio()
+    public float coverageRatio()
     {
         float margin = totalPrice - totalCost;
 
         return (margin / totalPrice) * 100;
     }
 
-    private float costCalc(){
+    public float costCalc(){
         float cost = 0;
         for (Material m: BOM) {
             cost += (m.getCost() * m.getQuantity());
@@ -72,7 +72,7 @@ public class Order {
         return cost;
     }
 
-    private float priceCalc(){
+    public float priceCalc(){
         float price;
 
         if (user.getRegionName().equals("Region Hovedstaden") || user.getRegionName().equals("Region Sjælland")){
@@ -130,6 +130,10 @@ public class Order {
 
     public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public void setCoverageRatio(float coverageRatio) {
+        this.coverageRatio = coverageRatio;
     }
 
     public Timestamp getOrderDate() {

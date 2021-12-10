@@ -22,14 +22,19 @@ public class UpdateOrderCommand extends CommandProtectedPage
     public String execute(HttpServletRequest request, HttpServletResponse response)
     {
         HttpSession session = request.getSession();
-
-        int materialIndex = Integer.parseInt(request.getParameter("materialindex"));
-
-
-
         Order order = (Order) session.getAttribute("makeoffer");
         ArrayList<Material> bomcopy = (ArrayList<Material>) session.getAttribute("bomlist");
+
+        for (int i = 0; i < bomcopy.size(); i++) {
+            String makeString = "quantity"+i;
+            int newQuantity = Integer.parseInt(request.getParameter(makeString));
+            bomcopy.get(i).setQuantity(newQuantity);
+        }
+
         order.setBOM(bomcopy);
+        order.setTotalPrice(order.priceCalc());
+        order.setTotalCost(order.costCalc());
+        order.setCoverageRatio(order.coverageRatio());
         orderFacade.updateBom(order);
 
 
