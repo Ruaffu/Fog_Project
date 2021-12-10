@@ -50,7 +50,7 @@
                                     <th></th>
                                 </c:if>
                             </tr>
-                            <c:set var="index" value="-1"></c:set>
+                            <c:set var="index" value="-1"/>
                             <c:forEach var="material" items="${sessionScope.bomlist}">
                                 <tr>
                                     <th class="left-text">
@@ -60,8 +60,9 @@
                                         <h3>${material.description}</h3>
                                     </th>
                                     <th style="padding-right: 15px; width: 130px">
-                                        <input name="quantity" id="quantity" class="border-input-text" type="number"
-                                               value="${material.quantity}" onchange="changeQuantity()">
+                                        <input name="quantity"  class="border-input-text" type="number"
+                                               value="${material.quantity}">
+                                            <jsp:setProperty name="try" property="quantity" value="${material.quantity}"/>
 <%--                                        <input type="hidden" value="${material.quantity = requestScope.}">--%>
                                     </th>
                                     <th><h3>${material.cost} kr</h3></th>
@@ -71,7 +72,7 @@
                                             <form action="${pageContext.request.contextPath}/fc/removefrombomlistcommand"
                                                   method="post">
 
-                                                <input type="hidden" name="materialindex" value="${index = index + 1}">
+                                                <input type="hidden" name="materialindex" value="${index}">
 <%--                                                <input type="hidden" name="id" value="${sessionScope.bomlist.id}">--%>
                                                 <input type="submit" value="Delete" class="purple-button"
                                                        style="padding: 10px 10px; width: 85px">
@@ -79,12 +80,12 @@
                                         </th>
                                     </c:if>
                                 </tr>
-                                <script>
-                                    function changeQuantity() {
-                                        ${material.quantity} = document.getElementById("quantity").value;
+<%--                                <script>--%>
+<%--                                    function changeQuantity() {--%>
+<%--                                        ${material.quantity} = document.getElementById("quantity");--%>
 
-                                    }
-                                </script>
+<%--                                    }--%>
+<%--                                </script>--%>
                             </c:forEach>
                         </table>
                         <form action="${pageContext.request.contextPath}/fc/updateordercommand">

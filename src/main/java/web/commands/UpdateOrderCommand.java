@@ -22,10 +22,17 @@ public class UpdateOrderCommand extends CommandProtectedPage
     public String execute(HttpServletRequest request, HttpServletResponse response)
     {
         HttpSession session = request.getSession();
+
+        int materialIndex = Integer.parseInt(request.getParameter("materialindex"));
+
+
+
         Order order = (Order) session.getAttribute("makeoffer");
         ArrayList<Material> bomcopy = (ArrayList<Material>) session.getAttribute("bomlist");
         order.setBOM(bomcopy);
         orderFacade.updateBom(order);
+
+
 
         return pageToShow;
     }
