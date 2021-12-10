@@ -28,7 +28,17 @@ public class EditUserCommand extends CommandUnprotectedPage {
         String streetname = request.getParameter("streetname");
         String housenr = request.getParameter("housenr");
         String zipcode = request.getParameter("zipcode");
+
+        boolean isAdmin = Boolean.parseBoolean(request.getParameter("admin"));
+
+
         user = (User) session.getAttribute("user");
+
+        if (isAdmin){
+            user = (User) session.getAttribute("seemoreuser");
+        } else {
+            user = (User) session.getAttribute("user");
+        }
 
         user.setFirstname(firstname);
         user.setLastname(lastname);
@@ -40,6 +50,10 @@ public class EditUserCommand extends CommandUnprotectedPage {
         userFacade.updateUser(user);
         user = userFacade.login(user.getEmail(), user.getPassword());
 
+        if (isAdmin){
+            session.setAttribute("seemoreuser", user);
+            return "customerdetailspage";
+        }
         session.setAttribute("user", user);
 
         return REDIRECT_INDICATOR + pageToShow;

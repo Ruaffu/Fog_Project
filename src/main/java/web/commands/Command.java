@@ -51,8 +51,13 @@ public abstract class Command
 
         commands.put("profilepage", new CommandUnprotectedPage("profilepage"));
         commands.put("editprofilepage", new CommandUnprotectedPage("editprofilepage"));
+        commands.put("editprofileadminpage", new CommandUnprotectedPage( "editprofileadminpage"));
         commands.put("editusercommand", new EditUserCommand("profilepage"));
 
+        commands.put("allcustomercommand", new AllCustomerCommand("allcustomerpage", "employee"));
+        commands.put("allcustomerpage", new CommandProtectedPage("allcustomerpage","employee"));
+        commands.put("admineditusercommand", new AdminEditUserCommand("customerdetailspage","employee"));
+        commands.put("customerdetailspage", new CommandProtectedPage("customerdetailspage","employee"));
 
         commands.put("bomcopycommand", new BOMCopyCommand("bompage", "employee"));
 

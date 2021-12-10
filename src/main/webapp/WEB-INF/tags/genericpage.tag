@@ -101,7 +101,7 @@
                             class="fas fa-store"></i></a>
                 </li>
                 <li>
-                    <a class="white-button" href="${pageContext.request.contextPath}/fc/customerpage"><h4>Customers</h4>
+                    <a class="white-button" href="${pageContext.request.contextPath}/fc/allcustomercommand"><h4>Customers</h4>
                     </a>
                 </li>
                 <li>
