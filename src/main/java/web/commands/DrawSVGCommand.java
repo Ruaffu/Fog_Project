@@ -1,6 +1,7 @@
 package web.commands;
 
 import business.entities.Order;
+import business.entities.User;
 import business.exceptions.UserException;
 import business.services.DrawCarport;
 import business.services.OrderFacade;
@@ -23,10 +24,19 @@ public class DrawSVGCommand extends CommandUnprotectedPage
     public String execute(HttpServletRequest request, HttpServletResponse response) throws UserException
     {
         HttpSession session = request.getSession();
-        int index = Integer.parseInt(request.getParameter("order"));
-        ArrayList<Order> orderList = (ArrayList<Order>) session.getAttribute("customerOrders");
-        Order order = orderList.get(index);
-        DrawCarport drawCarport = new DrawCarport(order);
+        User user = (User) session.getAttribute("user");
+        Order order;
+        DrawCarport drawCarport;
+        if (user.getRole().equals("customer"))
+        {
+            int index = Integer.parseInt(request.getParameter("order"));
+            ArrayList<Order> orderList = (ArrayList<Order>) session.getAttribute("customerOrders");
+            order = orderList.get(index);
+            drawCarport = new DrawCarport(order);
+        } else {
+            order = (Order) session.getAttribute("makeoffer");
+            drawCarport = new DrawCarport(order);
+        }
 
         if (order.getShedLength() > 0){
             session.setAttribute("svgdrawing", drawCarport.drawFullCarportWithShed());

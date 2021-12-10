@@ -136,10 +136,16 @@
                                 </form>
                             </tr>
                         </table>
+                        <div class="col-2-grid">
+                            <div style="width: 200px; padding-top: 25px">
+                                <a class="red-large-button" href="${pageContext.request.contextPath}">
+                                    Annuller</a>
+                            </div>
                         <form id="save" action="${pageContext.request.contextPath}/fc/updateordercommand">
-                            <input type="submit" value="Save" class="purple-button"
+                            <input type="submit" value="Save" class="green-large-button"
                                    style="padding: 10px 10px; width: 85px">
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>

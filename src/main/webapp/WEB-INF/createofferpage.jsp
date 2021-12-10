@@ -181,38 +181,48 @@
                                     </div>
                                 </div>
                                 <div>
-                                    Salgspris <input type="text" name="price" value="${sessionScope.makeoffer.totalPrice}">
+                                    Salgspris <input type="text" name="price"
+                                                     value="${sessionScope.makeoffer.totalPrice}">
                                     Kostpris <input type="text" name="cost" value="${sessionScope.makeoffer.totalCost}">
                                     Ba % <input type="text" name="coverageratio"
-                                           value="${sessionScope.makeoffer.coverageRatio}"> <%--todo: update in realtime aka javascript--%>
+                                                value="${sessionScope.makeoffer.coverageRatio}"> <%--todo: update in realtime aka javascript--%>
                                 </div>
 
                             </div>
 
 
                         </div>
-                        <div style="width: 200px; padding-top: 25px">
-                            <a class="purple-no-fill-button" href="${pageContext.request.contextPath}/fc/bomcopycommand">
-                                Stykliste</a>
+                        <div class="col-3-grid">
+                            <div style="width: 200px; padding-top: 25px">
+                                <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i
+                                        class="fas">&#xf060;</i>
+                                    Go back to home</a>
+                            </div>
+                            <div style="width: 200px; padding-top: 25px">
+                                <a class="purple-no-fill-button"
+                                   href="${pageContext.request.contextPath}/fc/bomcopycommand">
+                                    Stykliste</a>
+                            </div>
+                            <div style="width: 200px; padding-top: 25px">
+                                <a class="purple-no-fill-button"
+                                   href="${pageContext.request.contextPath}/fc/drawsvgcommand">
+                                    SVG tegning</a>
+                            </div>
                         </div>
-                </div>
-                <div style="padding-top: 50px">
-                    <div class="row-2-grid" style="gap: 10px">
-                        <input class="purple-large-button" type="submit" value="Lav Tilbud">
-                    </div>
+
+                        <div style="padding-top: 50px">
+                            <div class="row-2-grid" style="gap: 10px">
+                                <input class="purple-large-button" type="submit" value="Lav Tilbud">
+                            </div>
+
+                        </div>
+
+                    </form>
+
 
                 </div>
 
-                </form>
-
-                <div style="width: 200px; padding-top: 25px">
-                    <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i
-                            class="fas">&#xf060;</i>
-                        Go back to home</a>
-                </div>
             </div>
-
-        </div>
         </div>
 
     </jsp:body>
