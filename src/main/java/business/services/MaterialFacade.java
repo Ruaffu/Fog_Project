@@ -43,4 +43,9 @@ public class MaterialFacade
         return bomMapper.getBOMMaterialByType(type);
     }
 
+    public ArrayList<Material> getAllMaterials() throws UserException
+    {
+       return materialMapper.getAllMaterials();
+    }
+
 }

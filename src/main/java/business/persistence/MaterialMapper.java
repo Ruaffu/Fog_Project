@@ -139,8 +139,35 @@ public class MaterialMapper
 
     }
 
-//    public ArrayList<Material> getAllMaterials()
-//    {
-//
-//    }
+    public ArrayList<Material> getAllMaterials() throws UserException
+    {
+        ArrayList<Material> materials = new ArrayList<>();
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM material ";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id_material");
+                    String name = rs.getString("name");
+                    float cost = rs.getFloat("cost");
+                    float price = rs.getFloat("price");
+                    int length = rs.getInt("length");
+                    int height = rs.getInt("height");
+                    int width = rs.getInt("width");
+                    String unit = rs.getString("unit");
+                    materials.add(new Material(id,name,cost,price,length,height,width,unit));
+
+                }
+                return materials;
+            }
+            catch (Exception e) {
+                throw new UserException("Could not find material");
+            }
+
+        } catch (SQLException throwables) {
+            throw new UserException("Could not find material");
+        }
+    }
 }

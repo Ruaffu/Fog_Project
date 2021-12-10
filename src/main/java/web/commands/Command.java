@@ -52,6 +52,7 @@ public abstract class Command
         commands.put("removefrombomlistcommand", new RemoveFromBOMListCommand("", "employee"));
         commands.put("updateordercommand", new UpdateOrderCommand("createofferpage", "employee"));
         commands.put("bomcopycommand", new BOMCopyCommand("bompage", "employee"));
+        commands.put("addtobomlistcommand", new AddToBOMListCommand("bompage", "employee"));
 
     }
 
