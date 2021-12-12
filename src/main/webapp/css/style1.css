@@ -476,6 +476,10 @@ th h3, th h4 {
     color: darkgray;
 }
 
+.black-text {
+    color: black;
+}
+
 .dark-purple {
     color: #004687;
 }
