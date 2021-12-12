@@ -34,4 +34,7 @@ public class UserFacade
     }
 
 
+    public void updateUser(User user) {
+        userMapper.updateUser(user);
+    }
 }

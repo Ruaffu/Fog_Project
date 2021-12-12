@@ -37,8 +37,6 @@ public class UpdateOrderCommand extends CommandProtectedPage
         order.setCoverageRatio(order.coverageRatio());
         orderFacade.updateBom(order);
 
-
-
         return pageToShow;
     }
 }

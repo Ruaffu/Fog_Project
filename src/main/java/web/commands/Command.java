@@ -48,11 +48,23 @@ public abstract class Command
         commands.put("bompage", new CommandProtectedPage("bompage", "employee"));
 
         commands.put("finduspage", new CommandUnprotectedPage("finduspage"));
+
         commands.put("profilepage", new CommandUnprotectedPage("profilepage"));
+        commands.put("editprofilepage", new CommandUnprotectedPage("editprofilepage"));
+        commands.put("editprofileadminpage", new CommandUnprotectedPage( "editprofileadminpage"));
+        commands.put("editusercommand", new EditUserCommand("profilepage"));
+
+        commands.put("allcustomercommand", new AllCustomerCommand("allcustomerpage", "employee"));
+        commands.put("allcustomerpage", new CommandProtectedPage("allcustomerpage","employee"));
+        commands.put("admineditusercommand", new AdminEditUserCommand("customerdetailspage","employee"));
+        commands.put("customerdetailspage", new CommandProtectedPage("customerdetailspage","employee"));
+
+        commands.put("bomcopycommand", new BOMCopyCommand("bompage", "employee"));
+
         commands.put("removefrombomlistcommand", new RemoveFromBOMListCommand("", "employee"));
         commands.put("updateordercommand", new UpdateOrderCommand("createofferpage", "employee"));
-        commands.put("bomcopycommand", new BOMCopyCommand("bompage", "employee"));
         commands.put("addtobomlistcommand", new AddToBOMListCommand("bompage", "employee"));
+
         commands.put("createofferpage", new CommandProtectedPage("createofferpage","employee"));
         commands.put("orderdetailcommand", new OrderDetailCommand("orderdetailspage", "employee"));
         commands.put("updatestatuscommand", new UpdateStatusCommand("allorderpage","employee"));
