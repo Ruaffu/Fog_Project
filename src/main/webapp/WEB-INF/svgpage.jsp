@@ -15,28 +15,35 @@
     <jsp:body>
 
         <div>
-            <h2>Drawing</h2>
-
-            <p>Here we insert a drawing</p>
-
-<%--            <svg width="255" height=210>--%>
-<%--                <rect x="0" y="0" height="90" width="90"--%>
-<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
-<%--                <rect x="120" y="0" height="90" width="135"--%>
-<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
-<%--                <rect x="0" y="120" height="90" width="90"--%>
-<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
-<%--                <rect x="120" y="120" height="90" width="135"--%>
-<%--                      style="stroke:#000000; fill: #ff0000"></rect>--%>
-<%--            </svg>--%>
-
             <div id="svgImg">
-
-                ${sessionScope.svgdrawing}
-
-
+                    ${sessionScope.svgdrawing}
             </div>
+            <table class="collapse-table" style="padding: 50px; margin-right: 50px; margin-top: 50px; margin-left: 50px; width: 1000px">
+                <tr class="table-labels">
+                    <th class="left-text">PRODUCT DETAILS</th>
+                    <th class="left-text">DESCRIPTION</th>
+                    <th>QUANTITY</th>
+                    <th>COST</th>
+                    <th>PRICE</th>
+                </tr>
+                <c:set var="index" value="-1"/>
+                <c:forEach var="material" items="${sessionScope.order.BOM}">
+                    <tr>
+                        <th class="left-text">
+                            <h3>${material.name}</h3>
+                        </th>
+                        <th class="left-text">
+                            <h3>${material.description}</h3>
+                        </th>
 
+                        <th style="padding-right: 15px; width: 130px">
+                            <h3>${material.quantity}</h3>
+                        </th>
+                        <th><h3>${material.cost} kr</h3></th>
+                        <th><h3>${material.price} kr</h3></th>
+                    </tr>
+                </c:forEach>
+            </table>
 
         </div>
 

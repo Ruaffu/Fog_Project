@@ -52,8 +52,7 @@
                                     <form action="${pageContext.request.contextPath}/fc/orderdetailcommand"
                                           method="post">
                                         <input type="hidden" name="order" value="${index = index + 1}">
-                                        <input type="hidden" name="customerorderlist" value="false">
-                                        <th><input type="submit" value="see more" class="purple-button"
+                                        <th><input type="submit" value="edit order" class="purple-button"
                                                    style="padding: 10px 10px; width: 85px"></th>
                                     </form>
                                 </tr>

@@ -47,9 +47,6 @@
                                 <th>QUANTITY</th>
                                 <th>COST</th>
                                 <th>PRICE</th>
-                                <c:if test="${sessionScope.user.role.equals('employee')}">
-                                    <th></th>
-                                </c:if>
                             </tr>
                             <c:set var="index" value="-1"/>
                             <c:forEach var="material" items="${sessionScope.bomlist}">

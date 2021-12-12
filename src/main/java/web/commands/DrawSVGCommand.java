@@ -33,9 +33,11 @@ public class DrawSVGCommand extends CommandUnprotectedPage
             ArrayList<Order> orderList = (ArrayList<Order>) session.getAttribute("customerOrders");
             order = orderList.get(index);
             drawCarport = new DrawCarport(order);
+            session.setAttribute("order", order);
         } else {
             order = (Order) session.getAttribute("makeoffer");
             drawCarport = new DrawCarport(order);
+            session.setAttribute("order", order);
         }
 
         if (order.getShedLength() > 0){
