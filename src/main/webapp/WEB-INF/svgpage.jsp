@@ -13,11 +13,15 @@
     </jsp:attribute>
 
     <jsp:body>
-
+        <div class="grey-large-container">
+        <div class="white-large-box">
         <div>
-            <div id="svgImg">
+            <h1 class="hcarport">Carport tegning</h1>
+            <div  id="svgImg">
                     ${sessionScope.svgdrawing}
-            </div>
+            </div><br>
+        <div id="bomList">
+            <h2>Stykliste</h2>
             <table class="collapse-table" style="padding: 50px; margin-right: 50px; margin-top: 50px; margin-left: 50px; width: 1000px">
                 <tr class="table-labels">
                     <th class="left-text">PRODUCT DETAILS</th>
@@ -44,7 +48,10 @@
                     </tr>
                 </c:forEach>
             </table>
+        </div>
 
+        </div>
+        </div>
         </div>
 
     </jsp:body>

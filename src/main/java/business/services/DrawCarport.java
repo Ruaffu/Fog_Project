@@ -16,7 +16,7 @@ public class DrawCarport {
     }
 
     public String drawFullCarportWithShed() {
-        SVG svg = new SVG(0, 0, "0 0 855 855", 100, 100);
+        SVG svg = new SVG(0, 0, "0 0 800 650", 100, 100);
 
         //makes first two markers
         makeMarkers(svg);
@@ -25,7 +25,7 @@ public class DrawCarport {
         svg.addArrow(30, 15, 30, order.getShedWidth() - 15);
         svg.addText(30, order.getCarportWidth()/2, -90, order.getShedWidth(), "cm");
 
-        svg.SVGNest(40, 0, "0 0 900 900", 100, 100);
+        svg.SVGNest(40, 0, "0 0 845 81", 100, 100);
         svg.drawFrame(order.getCarportLength(), order.getCarportWidth());
 
         svg.drawRem(0, order.getCarportWidth(), order.getCarportLength());

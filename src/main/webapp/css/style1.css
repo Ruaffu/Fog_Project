@@ -901,6 +901,25 @@ select {
     overflow: auto;
     margin: 0 auto;
 }
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.hcarport {
+    text-align: center;
+}
+
+#bomList {
+    border: 2px solid;
+    padding: 20px;
+    width: 1080px;
+    resize: both;
+    overflow: auto;
+    margin: 0 auto;
+}
 
 .white-button .badge, .purple-button .badge {
     position: absolute;
