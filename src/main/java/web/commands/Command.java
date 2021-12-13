@@ -32,7 +32,7 @@ public abstract class Command
         commands.put("requestcommand", new RequestCommand("requestconfirmationpage", "customer"));
         commands.put("makeoffercommand", new MakeOfferCommand("createofferpage", "employee"));
         commands.put("sendoffercommand", new SendOfferCommand("retrieverequestcommand", "employee"));
-        commands.put("acceptoffercommand", new acceptOfferCommand("paymentpage", "customer"));
+        commands.put("acceptoffercommand", new AcceptOfferCommand("paymentpage", "customer"));
 
         commands.put("retrieverequestcommand", new RetrieveRequestCommand("makeofferpage", "employee"));
 
@@ -68,7 +68,9 @@ public abstract class Command
         commands.put("createofferpage", new CommandProtectedPage("createofferpage","employee"));
         commands.put("orderdetailcommand", new OrderDetailCommand("orderdetailspage", "employee"));
         commands.put("updatestatuscommand", new UpdateStatusCommand("allorderpage","employee"));
-
+        commands.put("productpage", new CommandProtectedPage("productpage", "employee"));
+        commands.put("editproductpage", new CommandProtectedPage("editproductpage", "employee"));
+        commands.put("addmaterialcommand", new AddMaterialCommand("productpage", "employee"));
     }
 
     public static Command fromPath(

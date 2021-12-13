@@ -19,20 +19,19 @@ public class MaterialMapper
 
         try (Connection connection = database.connect()) {
 
-            String sql = "INSERT INTO material (name, description, cost, price, length, height, width, unit) " +
-                    "VALUES(?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE price=?, cost=?";
+            String sql = "INSERT INTO material (name, cost, price, length, height, width, unit) " +
+                    "VALUES(?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE price=?, cost=?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, material.getName());
-                ps.setString(2, material.getDescription());
-                ps.setFloat(3, material.getCost());
-                ps.setFloat(4, material.getPrice());
-                ps.setInt(5, material.getLength());
-                ps.setInt(6, material.getHeight());
-                ps.setInt(7, material.getWidth());
-                ps.setString(8, material.getUnit());
-                ps.setFloat(9, material.getPrice());
-                ps.setFloat(10, material.getCost());
+                ps.setFloat(2, material.getCost());
+                ps.setFloat(3, material.getPrice());
+                ps.setInt(4, material.getLength());
+                ps.setInt(5, material.getHeight());
+                ps.setInt(6, material.getWidth());
+                ps.setString(7, material.getUnit());
+                ps.setFloat(8, material.getPrice());
+                ps.setFloat(9, material.getCost());
 
                 ps.executeUpdate();
             }

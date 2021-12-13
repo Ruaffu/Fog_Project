@@ -9,11 +9,11 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class acceptOfferCommand extends CommandProtectedPage {
+public class AcceptOfferCommand extends CommandProtectedPage {
 
     OrderFacade orderFacade;
 
-    public acceptOfferCommand(String pageToShow, String role) {
+    public AcceptOfferCommand(String pageToShow, String role) {
         super(pageToShow, role);
         orderFacade = new OrderFacade(database);
     }

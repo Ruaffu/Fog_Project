@@ -1,7 +1,9 @@
 package web.commands;
 
+import business.entities.Material;
 import business.entities.Order;
 import business.entities.User;
+import business.services.MaterialFacade;
 import business.services.OrderFacade;
 import business.services.UserFacade;
 import business.exceptions.UserException;
@@ -14,11 +16,13 @@ import java.util.ArrayList;
 public class LoginCommand extends CommandUnprotectedPage {
     private UserFacade userFacade;
     private OrderFacade orderFacade;
+    private MaterialFacade materialFacade;
 
     public LoginCommand(String pageToShow) {
         super(pageToShow);
         userFacade = new UserFacade(database);
         orderFacade = new OrderFacade(database);
+        materialFacade = new MaterialFacade(database);
     }
 
     @Override
@@ -57,7 +61,8 @@ public class LoginCommand extends CommandUnprotectedPage {
                     users = userFacade.getAllUsers();
                     ArrayList<Order> requests = orderFacade.getAllRequests(users);
                     session.setAttribute("allrequests", requests);
-
+                    ArrayList<Material> materials = materialFacade.getAllMaterials();
+                    session.setAttribute("materials", materials);
                     ArrayList<Order> orders = orderFacade.getAllOrders(users);
                     session.setAttribute("allorders", orders);
                 } catch (UserException e)
