@@ -38,6 +38,7 @@
                                 <th>DATE</th>
                                 <th>STATUS</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                             <c:set var="index" value="-1"></c:set>
                             <c:forEach var="order" items="${sessionScope.allorders}">
@@ -55,6 +56,15 @@
                                         <th><input type="submit" value="edit order" class="purple-button"
                                                    style="padding: 10px 10px; width: 85px"></th>
                                     </form>
+                                    <th>
+                                    <th>
+                                        <form action="${pageContext.request.contextPath}/fc/deleteordercommand" method="post">
+                                            <input type="hidden" name="order" value="${index}">
+                                            <input type="submit" value="Delete" class="purple-button"
+                                                   style="padding: 10px 10px; width: 85px">
+                                        </form>
+                                    </th>
+                                    </th>
                                 </tr>
 
                             </c:forEach>

@@ -71,6 +71,7 @@ public abstract class Command
         commands.put("productpage", new CommandProtectedPage("productpage", "employee"));
         commands.put("editproductpage", new CommandProtectedPage("editproductpage", "employee"));
         commands.put("addmaterialcommand", new AddMaterialCommand("productpage", "employee"));
+        commands.put("deleteordercommand", new DeleteOrderCommand("allorderpage", "employee"));
     }
 
     public static Command fromPath(

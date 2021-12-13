@@ -73,6 +73,20 @@ public class OrderMapper {
         }
     }
 
+    public void deleteOrder(Order order) {
+        try (Connection connection = database.connect()) {
+
+            String sql = "DELETE FROM user_orders WHERE id_order=?";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setInt(1, order.getId());
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     /** Select from database **/
 
     public ArrayList<Integer> getOrderId(int user_id) {

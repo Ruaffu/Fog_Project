@@ -37,6 +37,11 @@ public class OrderFacade {
         orderMapper.updateOrder(order);
     }
 
+    public void deleteOrder(Order order) {
+        bomMapper.deleteBom(order);
+        orderMapper.deleteOrder(order);
+    }
+
     /** load data **/
 
     public ArrayList<Order> getAllOrders(ArrayList<User> users) throws UserException {
