@@ -82,9 +82,18 @@ public class SVG {
         addRect(0, 0, width, length);
     }
 
+    public void drawFrameSideView(int y,int length, int width) {
+        addRect(0, y, width, length);
+    }
+
     public void drawRem(int x, int carportWidth, int carportLength) {
         addRect(x, 15, 4, carportLength);
         addRect(x, carportWidth - 15, 4, carportLength);
+    }
+
+    public void drawRemSideView(int x, int carportWidth, int carportLength) {
+        addRect(x, 15, 10, carportLength);
+        addRect(x+5, 25, 10, carportLength-10);
     }
 
     public void drawPost(int quantity, int length, int carportWidth, boolean hasShed) {
@@ -102,6 +111,22 @@ public class SVG {
             addRect((offset + (spaceBetweenPost * x)) - 20, carportWidth - 18, 10, 10);
         }
     }
+
+    public void drawPostSideView(int quantity, int length, int carportWidth, boolean hasShed) {
+        int spaceBetweenPost;
+        int offset = 100;
+
+        if (hasShed) {
+            spaceBetweenPost = (length - offset) / ((quantity / 2) - 1);
+        } else {
+            spaceBetweenPost = ((length - (offset+offset)) / ((quantity / 2) - 1));
+        }
+
+        for (int x = 0; x < quantity / 2; x++) {
+            addRect((offset + (spaceBetweenPost * x)) - 20, 15, 230, 10);
+        }
+    }
+
 
     public void drawMetalBand(int length, int width) {
         addLine(0, 15, length, width-15);
@@ -139,10 +164,34 @@ public class SVG {
 
     }
 
+    public void drawShedPostsSideView(int quantity, int carportLength, int length, int shedWidth) {
+        int offset = shedWidth / ((quantity / 2) - 1);
+        for (int x = 0; x < quantity / 4; x++) {
+            addRect(carportLength - length - 20, offset * x + 15, 230, 10);
+            addRect(carportLength - 20, offset * x + 15, 230, 10);
+        }
+
+    }
+
     public void drawShedWood(int shedLength, int carportLength, int shedWith) {
         addRect(carportLength - shedLength - 20, 15, shedWith, 10);
         addRect(carportLength - 20, 15, shedWith, 10);
 
+    }
+
+    public void drawShedCladding(int quantity, int length, int width, int carportLength) {
+        System.out.println("quantity " + quantity);
+        quantity = quantity/4;
+        System.out.println("quantity " + quantity);
+        int offset = (int) ceil((double) length / (double) (quantity - 1));
+
+
+        System.out.println("offset: " +offset);
+        for (int x = 0; x < quantity - 1; x++) {
+            addRect((carportLength-10-(offset * x)), 25, 220, 4);
+        }
+        System.out.println(carportLength-length);
+//        addRect(carportLength-length, 0, width, 4);
     }
 
 
