@@ -18,10 +18,11 @@ public class Order {
     int roofAngle;
     int shedLength;
     int shedWidth;
+    String remarks;
 
     ArrayList<Material> BOM;
 
-    public Order(int id, User user, float totalCost, float totalPrice, Timestamp orderDate, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
+    public Order(int id, User user, float totalCost, float totalPrice, Timestamp orderDate, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, String remarks, ArrayList<Material> BOM) {
         this.id = id;
         this.user = user;
         this.totalCost = totalCost;
@@ -36,9 +37,10 @@ public class Order {
         this.shedWidth = shedWidth;
         this.BOM = BOM;
         this.coverageRatio = coverageRatio();
+        this.remarks = remarks;
     }
 
-    public Order(User user, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
+    public Order(User user, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, String remarks, ArrayList<Material> BOM) {
         this.user = user;
         this.orderDate = new Timestamp(System.currentTimeMillis());
         this.status = status;
@@ -52,6 +54,7 @@ public class Order {
         this.totalCost = costCalc();
         this.totalPrice = priceCalc();
         this.coverageRatio = coverageRatio();
+        this.remarks = remarks;
     }
 
     public float coverageRatio()
@@ -187,6 +190,14 @@ public class Order {
 
     public void setShedWidth(int shedWidth) {
         this.shedWidth = shedWidth;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     public ArrayList<Material> getBOM() {

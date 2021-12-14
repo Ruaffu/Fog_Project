@@ -180,11 +180,7 @@
                                 </div>
 
                             </div>
-
-                    </div>
                     </form>
-
-
                 </div>
                 <div style="width: 200px; padding-top: 25px">
                     <a class="purple-no-fill-button" href="${pageContext.request.contextPath}"><i

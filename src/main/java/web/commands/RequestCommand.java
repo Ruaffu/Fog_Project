@@ -39,6 +39,7 @@ public class RequestCommand extends CommandProtectedPage
         int roofAngle = Integer.parseInt(request.getParameter("roofangle"));
         int shedLength = Integer.parseInt(request.getParameter("shedlength"));
         int shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
+        String remarks = request.getParameter("misc");
 
         if (shedLength > 0){
             MC = new FlatRoofWithShedCalc(database, width, length, shedWidth, shedLength);
@@ -52,11 +53,12 @@ public class RequestCommand extends CommandProtectedPage
         request.setAttribute("roofangle",roofAngle);
         request.setAttribute("shedwidth",shedWidth);
         request.setAttribute("shedlength",shedLength);
+        request.setAttribute("remarks", remarks);
 
         try {
             ArrayList<Material> BOM = MC.BOMCalculator();
 
-            Order order = new Order(user, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
+            Order order = new Order(user, "request", length, width, roof, roofAngle, shedLength, shedWidth, remarks, BOM);
             orderFacade.saveOrder(order);
 
             ArrayList<Order> orders = (ArrayList<Order>) session.getAttribute("customerrequests");

@@ -19,21 +19,22 @@ public class OrderMapper {
 
     public void saveOrder(Order order) {
         try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO user_orders (user_id, totalprice, totalcost, orderdate, status, carport_length, carport_width, roof_type, roof_angle, shed_length, shed_width) " +
-                    "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO user_orders (user_id, totalprice, totalcost, orderdate, status, carport_length, carport_width, roof_type, roof_angle, shed_length, shed_width, remarks) " +
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, order.getUser().getId());
-                ps.setFloat(3, order.getTotalPrice());
-                ps.setFloat(4, order.getTotalCost());
-                ps.setTimestamp(5, order.getOrderDate());
-                ps.setString(6, order.getStatus());
-                ps.setInt(7, order.getCarportLength());
-                ps.setInt(8, order.getCarportWidth());
-                ps.setString(9, order.getRoofType());
-                ps.setInt(10, order.getRoofAngle());
-                ps.setInt(11, order.getShedLength());
-                ps.setInt(12, order.getShedWidth());
+                ps.setFloat(2, order.getTotalPrice());
+                ps.setFloat(3, order.getTotalCost());
+                ps.setTimestamp(4, order.getOrderDate());
+                ps.setString(5, order.getStatus());
+                ps.setInt(6, order.getCarportLength());
+                ps.setInt(7, order.getCarportWidth());
+                ps.setString(8, order.getRoofType());
+                ps.setInt(9, order.getRoofAngle());
+                ps.setInt(10, order.getShedLength());
+                ps.setInt(11, order.getShedWidth());
+                ps.setString(12, order.getRemarks());
 
                 ps.executeUpdate();
                 ResultSet ids = ps.getGeneratedKeys();
@@ -167,8 +168,9 @@ public class OrderMapper {
                     int roofAngle = rs.getInt("roof_angle");
                     int shedLength = rs.getInt("shed_length");
                     int shedWidth = rs.getInt("shed_width");
+                    String remarks = rs.getString("remarks");
 
-                    order = new Order(order_id, user, totalCost, totalPrice, orderDate, status, carportLength, carportWidth, roofType, roofAngle, shedLength, shedWidth, BOM);
+                    order = new Order(order_id, user, totalCost, totalPrice, orderDate, status, carportLength, carportWidth, roofType, roofAngle, shedLength, shedWidth, remarks, BOM);
                 }
                 return order;
             } catch (Exception e) {

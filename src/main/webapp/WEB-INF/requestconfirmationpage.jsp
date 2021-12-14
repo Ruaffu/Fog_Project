@@ -44,6 +44,10 @@
                                 <th>Redskabsrum længde</th>
                                 <td>${requestScope.shedlength} cm</td>
                             </tr>
+                            <tr>
+                                <th>Bemærkning</th>
+                                <td>${requestScope.remarks}</td>
+                            </tr>
                         </table>
 
                <p>Din forespørgelse er blevet sendt....Good luck!</p>

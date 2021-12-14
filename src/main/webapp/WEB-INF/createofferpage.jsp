@@ -175,8 +175,8 @@
                                 <div class="col-2-grid" style="gap: 20px">
 
                                     <div>
-                                        <label for="misc">Evt. bemærkninger</label><br> <%--todo: fix textbox--%>
-                                        <textarea id="misc" name="misc" rows="4" cols="50">
+                                        <label for="misc">Evt. bemærkninger</label><br>
+                                        <textarea id="misc" name="misc" rows="4" cols="50"> ${sessionScope.makeoffer.remarks}
                                             </textarea>
                                     </div>
                                 </div>
