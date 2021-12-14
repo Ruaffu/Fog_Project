@@ -45,11 +45,11 @@ public class DrawCarport {
     }
 
     public String drawFullCarportWithOut() {
-        SVG svg = new SVG(0, 0, "0 0 855 855", 100, 100);
+        SVG svg = new SVG(0, 0, "0 0 800 650", 100, 100);
 
         makeMarkers(svg);
 
-        svg.SVGNest(40, 0, "0 0 900 900", 100, 100);
+        svg.SVGNest(40, 0, "0 0 845 81", 100, 100);
         svg.drawFrame(order.getCarportLength(), order.getCarportWidth());
 
         svg.drawRem(0, order.getCarportWidth(), order.getCarportLength());
@@ -58,6 +58,47 @@ public class DrawCarport {
         svg.drawPost(findQuantity("stolpe"), order.getCarportLength(), order.getCarportWidth(), false);
 
         svg.drawMetalBand(order.getCarportLength(), order.getCarportWidth());
+
+        return svg.toString();
+    }
+
+    public String drawFullCarportSideWithOut() {
+        SVG svg = new SVG(0, 0, "0 0 800 300", 100, 100);
+        int carportHeight = 230;
+
+        makeMarkersSideView(svg, carportHeight);
+
+        svg.SVGNest(40, 0, "0 0 845 81", 100, 100);
+//        svg.drawFrame(order.getCarportLength(), order.getCarportWidth());
+
+        svg.drawPostSideView(findQuantity("stolpe"), order.getCarportLength(), order.getCarportWidth(), false);
+        svg.drawRemSideView(0, order.getCarportWidth(), order.getCarportLength());
+
+        return svg.toString();
+    }
+
+    public String drawFullCarportSideViewWithShed() {
+        SVG svg = new SVG(0, 0, "0 0 800 300", 100, 100);
+
+        int carportHeight = 230;
+        //makes first two markers
+        makeMarkersSideView(svg, carportHeight);
+
+        // shed width
+        svg.addArrow(32, 25, 32, carportHeight);
+        svg.addText(30, carportHeight/2, -90, 210, "cm");
+
+        svg.SVGNest(40, 0, "0 0 845 81", 100, 100);
+//        svg.drawFrameSideView(15,order.getCarportLength(), carportHeight);
+
+        int postShed = svgHelper.calcPostsShed();
+        int postCarport = svgHelper.calcPostsCarPort();
+
+        svg.drawPostSideView(postCarport, order.getCarportLength() - order.getShedLength(), order.getCarportWidth(), true);
+        svg.drawShedPostsSideView(postShed, order.getCarportLength(), order.getShedLength(), order.getShedWidth());
+        svg.drawRemSideView(0, order.getCarportWidth(), order.getCarportLength());
+        svg.drawShedCladding(findQuantity("beklædningsbrædder"), order.getShedLength(), order.getCarportWidth(), order.getCarportLength());
+
 
         return svg.toString();
     }
@@ -81,5 +122,16 @@ public class DrawCarport {
         // carport length
         svg.addArrow(40, order.getCarportWidth(), order.getCarportLength()+5, order.getCarportWidth());
         svg.addText(order.getCarportLength()/2, order.getCarportWidth() + 15, 0, order.getCarportLength(), "cm");
+    }
+
+
+    private void makeMarkersSideView(SVG svg, int height) {
+        svg.addMarker();
+        // carport width
+        svg.addArrow(14, 15, 14, height);
+        svg.addText(12, height/2, -90, height, "cm");
+        // carport length
+        svg.addArrow(40, height+20, order.getCarportLength(), height+20);
+        svg.addText(order.getCarportLength()/2, height + 20, 0, order.getCarportLength(), "cm");
     }
 }

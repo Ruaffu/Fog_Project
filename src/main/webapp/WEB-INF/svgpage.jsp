@@ -17,6 +17,9 @@
         <div class="white-large-box">
         <div>
             <h1 class="hcarport">Carport tegning</h1>
+            <div id="svgImg">
+                ${sessionScope.svgdrawingsideview}
+            </div><br>
             <div  id="svgImg">
                     ${sessionScope.svgdrawing}
             </div><br>
