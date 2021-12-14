@@ -1,16 +1,23 @@
 package web.commands;
 
+import business.calculators.FlatRoofCalc;
+import business.calculators.FlatRoofWithShedCalc;
+import business.calculators.MaterialCalculator;
+import business.entities.Material;
 import business.entities.Order;
+import business.exceptions.UserException;
 import business.services.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class SendOfferCommand extends CommandProtectedPage {
 
     OrderFacade orderFacade;
+    MaterialCalculator MC;
 
     public SendOfferCommand(String pageToShow, String role) {
         super(pageToShow, role);
@@ -32,7 +39,25 @@ public class SendOfferCommand extends CommandProtectedPage {
         int shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
         float price = Float.parseFloat(request.getParameter("price"));
 
-        // TODO: if carport is being changed, make new BOM and redirect på makeofferpage again
+//        // TODO: if carport is being changed, make new BOM and redirect på makeofferpage again
+//        if (shedLength > 0){
+//            MC = new FlatRoofWithShedCalc(database, width, length, shedWidth, shedLength);
+//        } else {
+//            MC = new FlatRoofCalc(database, width, length);
+//        }
+//
+//
+//        ArrayList<Material> BOM = null;
+//        try {
+//            BOM = MC.BOMCalculator();
+//            sendRequest.setBOM(BOM);
+//        } catch (UserException e) {
+//            e.printStackTrace();
+//        }
+//
+//        orderFacade.updateBom(sendRequest);
+
+
 
         sendRequest.setCarportLength(length);
         sendRequest.setCarportWidth(width);

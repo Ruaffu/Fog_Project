@@ -326,9 +326,6 @@ public abstract class MaterialCalculator {
                 bom.add(newItem(quantity, material.getId(), description, type, material));
             }
         } else {
-
-            //TODO: hvis længden er under halvt så kort af en brædde, skal man kun have en brædde og ikke 2...
-
             //if not longer then longest material... then it checks for the best fit
             material = bestFitMaterial(materialList, carportLengthOrWidth);
             bom.add(newItem(quantity, material.getId(), description, type, material));
