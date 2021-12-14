@@ -180,18 +180,14 @@ public class SVG {
     }
 
     public void drawShedCladding(int quantity, int length, int width, int carportLength) {
-        System.out.println("quantity " + quantity);
         quantity = quantity/4;
-        System.out.println("quantity " + quantity);
         int offset = (int) ceil((double) length / (double) (quantity - 1));
 
 
-        System.out.println("offset: " +offset);
         for (int x = 0; x < quantity - 1; x++) {
             addRect((carportLength-10-(offset * x)), 25, 220, 4);
         }
-        System.out.println(carportLength-length);
-//        addRect(carportLength-length, 0, width, 4);
+
     }
 
 
