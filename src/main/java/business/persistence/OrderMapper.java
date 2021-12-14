@@ -19,12 +19,11 @@ public class OrderMapper {
 
     public void saveOrder(Order order) {
         try (Connection connection = database.connect()) {
-            String sql = "INSERT INTO user_orders (user_id, admin_id, totalprice, totalcost, orderdate, status, carport_length, carport_width, roof_type, roof_angle, shed_length, shed_width) " +
-                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO user_orders (user_id, totalprice, totalcost, orderdate, status, carport_length, carport_width, roof_type, roof_angle, shed_length, shed_width) " +
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, order.getUser().getId());
-                ps.setInt(2, order.getAdminId());
                 ps.setFloat(3, order.getTotalPrice());
                 ps.setFloat(4, order.getTotalCost());
                 ps.setTimestamp(5, order.getOrderDate());
@@ -158,7 +157,6 @@ public class OrderMapper {
                 ps.setInt(1, order_id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    int admin_id = rs.getInt("admin_id");
                     float totalCost = rs.getFloat("totalcost");
                     float totalPrice = rs.getFloat("totalprice");
                     Timestamp orderDate = rs.getTimestamp("orderdate");
@@ -170,7 +168,7 @@ public class OrderMapper {
                     int shedLength = rs.getInt("shed_length");
                     int shedWidth = rs.getInt("shed_width");
 
-                    order = new Order(order_id, user, admin_id, totalCost, totalPrice, orderDate, status, carportLength, carportWidth, roofType, roofAngle, shedLength, shedWidth, BOM);
+                    order = new Order(order_id, user, totalCost, totalPrice, orderDate, status, carportLength, carportWidth, roofType, roofAngle, shedLength, shedWidth, BOM);
                 }
                 return order;
             } catch (Exception e) {

@@ -56,7 +56,7 @@ public class RequestCommand extends CommandProtectedPage
         try {
             ArrayList<Material> BOM = MC.BOMCalculator();
 
-            Order order = new Order(user, 0, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
+            Order order = new Order(user, "request", length, width, roof, roofAngle, shedLength, shedWidth, BOM);
             orderFacade.saveOrder(order);
 
             ArrayList<Order> orders = (ArrayList<Order>) session.getAttribute("customerrequests");

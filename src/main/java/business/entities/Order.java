@@ -7,7 +7,6 @@ public class Order {
 
     int id;
     User user;
-    int adminId;
     float totalCost;
     float totalPrice;
     float coverageRatio;
@@ -22,10 +21,9 @@ public class Order {
 
     ArrayList<Material> BOM;
 
-    public Order(int id, User user, int adminId, float totalCost, float totalPrice, Timestamp orderDate, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
+    public Order(int id, User user, float totalCost, float totalPrice, Timestamp orderDate, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
         this.id = id;
         this.user = user;
-        this.adminId = adminId;
         this.totalCost = totalCost;
         this.totalPrice = totalPrice;
         this.orderDate = orderDate;
@@ -40,9 +38,8 @@ public class Order {
         this.coverageRatio = coverageRatio();
     }
 
-    public Order(User user, int adminId,  String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
+    public Order(User user, String status, int carportLength, int carportWidth, String roofType, int roofAngle, int shedLength, int shedWidth, ArrayList<Material> BOM) {
         this.user = user;
-        this.adminId = adminId;
         this.orderDate = new Timestamp(System.currentTimeMillis());
         this.status = status;
         this.carportLength = carportLength;
@@ -106,14 +103,6 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public int getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
     }
 
     public float getTotalCost() {
