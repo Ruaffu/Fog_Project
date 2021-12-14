@@ -42,8 +42,10 @@ public class DrawSVGCommand extends CommandUnprotectedPage
 
         if (order.getShedLength() > 0){
             session.setAttribute("svgdrawing", drawCarport.drawFullCarportWithShed());
+            session.setAttribute("svgdrawingsideview", drawCarport.drawFullCarportSideViewWithShed());
         } else {
             session.setAttribute("svgdrawing", drawCarport.drawFullCarportWithOut());
+            session.setAttribute("svgdrawingsideview", drawCarport.drawFullCarportSideWithOut());
         }
         return pageToShow;
     }
