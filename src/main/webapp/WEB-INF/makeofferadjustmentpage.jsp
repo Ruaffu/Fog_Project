@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:genericpage>
     <jsp:attribute name="header">
-        Lav carport
+         Tilpasning af mål
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -13,8 +13,10 @@
             <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
                 <div class="row">
                     <div class="col-md-6 introtext">
-                        <div class="pageheadline">
-                            <h1>Lav carport</h1>
+                        <div class="pageheadline setbreadcrumb">
+                            <h1>Forespørgslser</h1>
+                            <p class="split">></p>
+                            <span class="active">Lav tilbud</span>
                         </div>
                     </div>
                 </div>
@@ -23,13 +25,47 @@
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="xhtml-string">
-                            <form action="${pageContext.request.contextPath}/fc/requestcommand" method="post">>
-                                <div style="padding-bottom: 45px">
-                                    <h3>Vælg model</h3>
-                                    <div class="row">
+                    <div class="article-page">
+                        <div class="col-md-12">
+                            <div class="col-xs-12">
+                                <div class="pull-right">
+                                    <input type="submit" class="green-button" style="padding-left: 20px; padding-right: 20px" value="Gem"> <!--TODO: gem-->
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-md-3 article-page-menu mobile-navigation">
+                            <ul class="nav nav-pills nav-stacked" style="padding-bottom: 20px">
+                                <li style="width: 100%;">
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferinfopage">Info</a>
+                                </li>
+                                <li style="width: 100%;" class="active">
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"> Tilpasning
+                                        af mål</a>
+                                </li>
+                                <li style="width: 100%;">
+                                    <a href="${pageContext.request.contextPath}/fc/makeoffermateriallistpage">Stykliste</a>
+                                </li>
+                                <li style="width: 100%;">
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferpriceadjustmentpage">Prissætning</a>
+                                </li>
+                                <li style="width: 100%;">
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferdrawingpage">Tegninger</a>
+                                </li>
+                                <li style="width: 100%">
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferconfirmpage">Opret
+                                        tilbud</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="xhtml-string">
+
+                                <h2>Tilpasning</h2>
+                                <div style="padding-bottom: 45px">
+                                    <h3>model</h3> <!--TODO: hent data fra databasen-->
+                                    <div class="row">
                                         <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
                                                 <input type="radio" id="flatroof" name="choosenroof" value="flatroof">
@@ -43,16 +79,20 @@
                                                 <label for="angleroof">Carport med rejsning</label>
                                             </div>
                                         </div>
+
+
                                     </div>
                                 </div>
                                 <div style="padding-bottom: 45px">
-                                    <h3>Vælg størrelse</h3>
+                                    <h3>størrelse</h3>
                                     <div class="row">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
                                                 <label for="width">Carport bredde</label>
-                                                <select name="width" id="width"  class="large-select-dropdown">
-                                                    <option value="initial">Vælg bredde</option>
+                                                <select name="width" id="width" class="large-select-dropdown">
+                                                    <option value="${sessionScope.makeoffer.carportWidth}"
+                                                            selected>${sessionScope.makeoffer.carportWidth} cm
+                                                    </option>
                                                     <option value="240">240 cm</option>
                                                     <option value="270">270 cm</option>
                                                     <option value="300">300 cm</option>
@@ -71,7 +111,9 @@
                                             <div>
                                                 <label for="length">Carport længde</label>
                                                 <select name="length" id="length" class="large-select-dropdown">
-                                                    <option value="initial">Vælg længde</option>
+                                                    <option value="${sessionScope.makeoffer.carportLength}"
+                                                            selected>${sessionScope.makeoffer.carportLength} cm
+                                                    </option>
                                                     <option value="240">240 cm</option>
                                                     <option value="270">270 cm</option>
                                                     <option value="300">300 cm</option>
@@ -97,20 +139,23 @@
                                     </div>
                                 </div>
                                 <div style="padding-bottom: 45px">
-                                    <h3>Vælg tag</h3>
+                                    <h3>tag</h3>
                                     <div class="row">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
                                                 <label for="roof">Tag-materiale</label>
                                                 <select name="roof" id="roof" class="large-select-dropdown">
-                                                    <option value="initial">Vælg tag</option>
+                                                    <option value="${sessionScope.makeoffer.roofType}"
+                                                            selected>${sessionScope.makeoffer.roofType}</option>
                                                     <option value="plasttrapezplader">plasttrapezplader</option>
                                                 </select>
                                             </div>
                                             <div>
                                                 <label for="roofangle">Taghældning</label>
                                                 <select name="roofangle" id="roofangle" class="large-select-dropdown">
-                                                    <option value="initial">Vælg hældning</option>
+                                                    <option value="${sessionScope.makeoffer.roofAngle}"
+                                                            selected>${sessionScope.makeoffer.roofAngle} grader
+                                                    </option>
                                                     <option value="0">0 grader</option>
                                                     <option value="15">15 grader</option>
                                                     <option value="20">20 grader</option>
@@ -125,12 +170,15 @@
                                     </div>
                                 </div>
                                 <div style="padding-bottom: 45px">
-                                    <h3>Vælg redskabsrum</h3>
+                                    <h3>redskabsrum</h3>
                                     <div class="row">
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
                                                 <label for="shedwidth">Redskabsrum bredde</label>
                                                 <select name="shedwidth" id="shedwidth" class="large-select-dropdown">
+                                                    <option value="${sessionScope.makeoffer.shedWidth}"
+                                                            selected>${sessionScope.makeoffer.shedWidth} cm
+                                                    </option>
                                                     <option value="0">Ønsker ikke redskabsrum</option>
                                                     <option value="210">210 cm</option>
                                                     <option value="240">240 cm</option>
@@ -145,11 +193,19 @@
                                                     <option value="510">510 cm</option>
                                                     <option value="540">540 cm</option>
                                                     <option value="570">570 cm</option>
+                                                    <option value="600">600 cm</option>
+                                                    <option value="630">630 cm</option>
+                                                    <option value="660">660 cm</option>
+                                                    <option value="690">690 cm</option>
+                                                    <option value="720">720 cm</option>
                                                 </select>
                                             </div>
                                             <div>
                                                 <label for="shedlength">Redskabsrum længde</label>
                                                 <select name="shedlength" id="shedlength" class="large-select-dropdown">
+                                                    <option value="${sessionScope.makeoffer.shedLength}"
+                                                            selected>${sessionScope.makeoffer.shedLength} cm
+                                                    </option>
                                                     <option value="0">Ønsker ikke redskabsrum</option>
                                                     <option value="150">150 cm</option>
                                                     <option value="180">180 cm</option>
@@ -175,33 +231,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div style="padding-bottom: 70px">
-                                    <h3>Andet</h3>
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div style="margin-bottom: 15px">
-                                                <label for="misc">Evt. bemærkninger</label>
-                                                <textarea id="misc" name="misc" placeholder="Skriv her"></textarea>
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="pull-right col-xs-3">
+
+                                    <div class="col-xs-6">
+                                        <a href="${pageContext.request.contextPath}/fc/makeofferinfopage"
+                                           class="button"><i class="fa fa-chevron-left"></i> Tilbage</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="${pageContext.request.contextPath}/fc/makeoffermateriallistpage"
+                                           class="button">Næste <i class="fa fa-chevron-right"></i></a>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <a href="${pageContext.request.contextPath}" class="grey-button"> Fortryd </a>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <input class="blue-button" type="submit" value="Send forespørgsel">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
     </jsp:body>
 </t:genericpage>

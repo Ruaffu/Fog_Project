@@ -24,7 +24,8 @@ public class MakeOfferCommand extends CommandProtectedPage {
         ArrayList<Order> requests = (ArrayList<Order>) session.getAttribute("allrequests");
         Order makeRequest = requests.get(index);
 
-        session.setAttribute("makeoffer", makeRequest);
+        session.setAttribute("makeoffer", makeRequest); //bruges til at ændre data af tilbuddet før det er gemt
+        session.setAttribute("currentrequest", makeRequest); //Bruges til at se det nuværrende sendte forespørgsel fra kunden
 
         return pageToShow;
     }

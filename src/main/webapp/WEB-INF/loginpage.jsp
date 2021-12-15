@@ -4,49 +4,59 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Login page
+         Login
     </jsp:attribute>
 
     <jsp:attribute name="footer">
     </jsp:attribute>
 
     <jsp:body>
-        <div class="grey-large-container">
-            <div class="white-small-box">
-                <div class="row-3-grid" style="gap: 20px">
-                    <div class="large-title-grid-element">
-                        <div class="center-text">
-                            <h1>Log in</h1>
-                        </div>
-                    </div>
-                    <form name="login" action="${pageContext.request.contextPath}/fc/logincommand"
-                          method="post">
-                        <div>
-                            <div class="row-2-grid">
-                                <div style="padding-bottom: 55px">
-                                    <label class="l-label" for="email">ENTER EMAIL</label><br>
-                                    <input class="border-bottom-input-text" type="text" id="email" name="email"
-                                           placeholder="Email.."><br>
-                                </div>
-                                <div style="padding-bottom: 20px">
-                                    <label class="l-label" for="password">ENTER PASSWORD</label><br>
-                                    <input class="border-bottom-input-text" type="password" id="password"
-                                           name="password"
-                                           placeholder="Password.."><br>
-                                    <div class="center-flex" style="padding: 35px 0 50px 0">
-                                        <a class="blue-link">Forgot password?</a>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="article-page">
+                        <div class="col-md-12">
+                            <div class="xhtml-string">
+                                <div class="row">
+                                    <div class="col-xs-3"></div>
+
+                                    <div class="col-xs-6" style="padding-top: 50px; padding-bottom: 50px">
+                                        <form name="login" action="${pageContext.request.contextPath}/fc/logincommand"
+                                              method="post">
+                                            <h1 style="font-weight: bold; padding-bottom: 10px">Log in</h1>
+                                            <div style="margin-bottom: 20px">
+                                                <label for="email" style="font-size: 16px; font-weight: bold">Indtast
+                                                    e-mail</label>
+                                                <input type="text" id="email" name="email" class="white-input"
+                                                       placeholder="Skriv din e-mail">
+                                            </div>
+                                            <div style="margin-bottom: 30px">
+                                                <label for="password" style="font-size: 16px; font-weight: bold">Indtast
+                                                    adgangskode</label>
+                                                <input type="password" id="password"
+                                                       name="password" class="white-input"
+                                                       placeholder="Skriv din adgangskode">
+                                            </div>
+                                            <div style="text-align: left">
+                                                <a class="blue-link">Glemt password?</a>
+                                            </div>
+
+                                            <div style="margin-top: 30px">
+                                                <input type="submit"
+                                                       value="Login" class="blue-button" style="margin-bottom: 15px">
+                                                <a href="${pageContext.request.contextPath}/fc/registerpage" class="green-button">
+                                                    Opret bruger
+                                                </a>
+                                            </div>
+                                        </form>
                                     </div>
+                                    <div class="col-xs-3"></div>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <input class="purple-large-button" type="submit"
-                                   value="Login"><br>
-                            <a class="green-large-button" href="${pageContext.request.contextPath}/fc/registerpage">Create account</a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </jsp:body>
 </t:genericpage>

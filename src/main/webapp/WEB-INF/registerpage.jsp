@@ -4,87 +4,113 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Register as new User
+         Opret bruger
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
     <jsp:body>
-
-        <div class="grey-large-container">
-            <div class="white-small-box">
-                <div class="large-title-grid-element">
-                    <div class="center-text">
-                        <h1>Create account</h1>
+        <main>
+            <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
+                <div class="row">
+                    <div class="col-md-6 introtext">
+                        <div class="pageheadline">
+                            <h1>Opret bruger</h1>
+                        </div>
                     </div>
                 </div>
-                <form action="${pageContext.request.contextPath}/fc/registercommand" method="post">
-                    <div class="row-6-grid" style="gap: 45px">
-                        <div>
-                            <div class="col-2-grid" style="gap: 25px">
-                                <div>
-                                    <label for="firstname" class="small-title-label" >First name</label><br>
-                                    <input class="border-input-text" type="text" id="firstname" name="firstname" placeholder="Enter your first name ..."><br>
-                                </div>
-                                <div>
-                                    <label for="lastname" class="small-title-label">Last name</label><br>
-                                    <input class="border-input-text" type="text" id="lastname" name="lastname" placeholder="Enter your first name ..."><br>
+            </div>
+        </main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="article-page">
+                        <div class="col-md-12">
+                            <div class="xhtml-string">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <h3>Indtast oplysninger</h3>
+                                        <form action="${pageContext.request.contextPath}/fc/registercommand" method="post">
+                                            <div style="padding-bottom: 35px">
+                                                <div style="padding-bottom: 10px">
+                                                    <label for="firstname" style="font-weight: bold">Fornavn</label>
+                                                    <input type="text" id="firstname" name="firstname" class="white-input" placeholder="Skriv dit fornavn">
+                                                </div>
+                                                <div>
+                                                    <label for="lastname" style="font-weight: bold">Efternavn</label>
+                                                    <input type="text" id="lastname" name="lastname" class="white-input"
+                                                           placeholder="Skriv dit efternavn">
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 35px">
+                                                <div>
+                                                    <label for="email" style="font-weight: bold">E-mail</label>
+                                                    <input type="text" id="email" name="email" class="white-input" placeholder="Skriv din e-mail">
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 35px">
+                                                <div style="padding-bottom: 10px">
+                                                    <label for="password1" style="font-weight: bold">Adgangskode</label>
+                                                    <input type="password" id="password1" name="password1" class="white-input" placeholder="Skriv adgangskode">
+                                                </div>
+
+                                                <div>
+                                                    <label for="password2" style="font-weight: bold">Adgangskode igen</label>
+                                                    <input type="password" id="password2" name="password2" class="white-input"
+                                                           placeholder="Skriv adgangskoden igen">
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 35px">
+                                                <div>
+                                                    <label for="phonenr" style="font-weight: bold">Telefon</label>
+                                                    <input type="text" id="phonenr" name="phonenr" class="white-input"
+                                                           placeholder="Skriv dit telefon-nummer">
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 35px">
+                                                <div class="row" style="padding-bottom: 10px">
+                                                    <div class="col-xs-9">
+                                                        <label for="streetname" style="font-weight: bold">Vejnavn</label>
+                                                        <input type="text" id="streetname" name="streetname" class="white-input"
+                                                               placeholder="Skriv vejnavn">
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <label for="housenr" style="font-weight: bold">nr.</label>
+                                                        <input type="text" id="housenr" name="housenr" class="white-input"
+                                                               placeholder="Skriv hus nr.">
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-9">
+                                                        <label for="city" style="font-weight: bold">By</label>
+                                                        <input type="text" id="city" name="city" class="white-input"
+                                                               placeholder="Skriv by">
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <label for="zipcode" style="font-weight: bold">zip</label>
+                                                        <input type="text" id="zipcode" name="zipcode" class="white-input"
+                                                               placeholder="Skriv zip">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 20px">
+                                                <div class="col-xs-6">
+                                                    <a href="${pageContext.request.contextPath}/fc/loginpage" class="grey-button">Fortryd</a>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <input type="submit" class="green-button" value="opret nu">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <label for="email" class="small-title-label">Email</label><br>
-                            <input class="border-input-text" type="text" id="email" name="email" placeholder="Enter your email ..."><br>
-                        </div>
-                        <div>
-                            <div class="row-2-grid" style="gap: 20px">
-                                <div>
-                                    <label for="password1" class="small-title-label">Password</label><br>
-                                    <input class="border-input-text" type="password" id="password1" name="password1"
-                                           placeholder="Enter your password ..."><br>
-                                </div>
-                                <div>
-                                    <label for="password2" class="small-title-label"> Password again</label><br>
-                                    <input class="border-input-text" type="password" id="password2" name="password2"
-                                           placeholder="Enter your password again ..."><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="phonenr" class="small-title-label">Phone number</label><br>
-                            <input class="border-input-text" type="text" id="phonenr" name="phonenr" placeholder="Enter your phone number ..."><br>
-                        </div>
-                        <div>
-                            <div class="row-2-grid" style="gap: 20px">
-                                <div class="center-flex">
-                                    <div style="width: 100%; padding-right: 10px">
-                                        <label for="streetname" class="small-title-label">Street</label><br>
-                                        <input class="border-input-text" type="text" id="streetname" name="streetname" placeholder="Enter streetname ..."><br>
-                                    </div>
-                                    <div>
-                                        <label for="housenr" class="small-title-label">House number</label><br>
-                                        <input class="border-input-text" type="text" id="housenr" name="housenr" placeholder="Enter housenumber ..."><br>
-                                    </div>
-                                </div>
-                                <div class="center-flex">
-                                    <div style="width: 100%; padding-right: 10px">
-                                        <label for="city" class="small-title-label">City</label><br>
-                                        <input class="border-input-text" type="text" id="city" name="city" placeholder="Enter city ..."><br>
-                                    </div>
-                                    <div>
-                                        <label for="zipcode" class="small-title-label">Zip code</label><br>
-                                        <input class="border-input-text" type="text" id="zipcode" name="zipcode" placeholder="Enter zip code ..."><br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="padding-top: 35px">
-                            <input class="purple-large-button" type="submit" value="Create account">
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-
+        </section>
     </jsp:body>
 </t:genericpage>
 

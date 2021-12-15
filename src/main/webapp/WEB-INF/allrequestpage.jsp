@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Forespørgelser
+        Forespørgsler
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
@@ -45,13 +45,19 @@
                                 </ul>
                             </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
                             <div class="pull-right">
-                                <p style="font-weight: bold">${sessionScope.customerrequests.size()} Total</p>
+                                <p style="font-weight: bold">${sessionScope.allrequests.size()} Total</p>
                             </div>
                             <table class="white-background" border="0">
                                 <tbody>
                                 <tr>
                                     <td>
                                         <strong>ID</strong>
+                                    </td>
+                                    <td>
+                                        <strong>E-mail</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Telefon</strong>
                                     </td>
                                     <td>
                                         <strong>Antal</strong>
@@ -68,27 +74,32 @@
                                     <td></td>
                                 </tr>
                                 <c:set var="index" value="-1"></c:set>
-                                <c:forEach var="request" items="${sessionScope.customerrequests}">
-                                    <c:if test="${order.status.equals('request') || order.status.equals('offer')}">
+                                <c:forEach var="request" items="${sessionScope.allrequests}">
                                     <tr>
                                         <td>${request.id}</td>
+                                        <td>${request.user.email}</td>
+                                        <td>${request.user.phoneNr}</td>
                                         <td>${request.BOM.size()}</td>
                                         <td>${request.totalPrice} kr.</td>
                                         <td>${request.orderDate}</td>
                                         <td>${request.status}</td>
                                         <td>
-                                            <form action="${pageContext.request.contextPath}/fc/getrequestcommand"
-                                                  method="post">
-                                                <input type="hidden" name="request" value="${index = index + 1}">
-                                                <input type="submit" class="btn"
-                                                       style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
-                                                       value="see mere">
-                                            </form>
+                                            <c:if test="${request.status.equals('request')}">
+                                                <form action="${pageContext.request.contextPath}/fc/makeoffercommand"
+                                                      method="post">
+                                                    <input type="hidden" name="request" value="${index = index + 1}">
+
+
+                                                    <input type="submit" class="btn"
+                                                           style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
+                                                           value="Lav tilbud">
+
+                                                </form>
+                                            </c:if>
                                         </td>
 
                                         <!--TODO: delete button-->
                                     </tr>
-                                    </c:if>
                                 </c:forEach>
 
                                 </tbody>

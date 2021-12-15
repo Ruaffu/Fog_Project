@@ -4,63 +4,117 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Customers
+         Kunder
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
-
     <jsp:body>
-        <div class="grey-large-container">
-            <div class="white-large-box">
-                <div class="row-3-grid" style="gap: 20px">
-                    <div class="large-title-grid-element">
-                        <div class="left-text">
-                            <h1>Customers</h1>
+        <main>
+            <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
+                <div class="row">
+                    <div class="col-md-6 introtext">
+                        <div class="pageheadline">
+                            <h1>Kundeoversigt</h1>
                         </div>
-                    </div>
-                    <div class="col-3-grid">
-                        <div class="left-grid">
-                            <h2>Customers</h2>
-                        </div>
-                        <div class="right-grid">
-                            <h3>${sessionScope.users.size()} Total</h3>
-                        </div>
-                    </div>
-                    <div>
-                        <table class="collapse-table">
-                            <tr class="table-labels">
-                                <th class="left-text">CUSTOMER</th>
-                                <th>FIRST NAME</th>
-                                <th>LAST NAME</th>
-                                <th>Phone</th>
-                                <th>Role</th>
-                                <th>Address</th>
-<%--                                <th>ORDER TOTAL</th>--%>
-                                <th></th>
-                            </tr>
-                            <c:set var="index" value="-1"/>
-                            <c:forEach var="userinfo" items="${sessionScope.users}">
-                            <tr>
-                                <th class="left-text"><h3>${userinfo.email}</h3></th>
-                                <th><h3>${userinfo.firstname}</h3></th>
-                                <th><h3>${userinfo.lastname}</h3></th>
-                                <th><h3>${userinfo.phoneNr}</h3></th>
-                                <th><h3>${userinfo.role}</h3></th>
-                                <th><h3>${userinfo.city} ${userinfo.zipcode}, ${userinfo.streetname} ${userinfo.houseNr}</h3></th>
-<%--                                <th><h3>${userinfo}</h3></th>&lt;%&ndash; todo get order total &ndash;%&gt;--%>
-                                <form action="${pageContext.request.contextPath}/fc/admineditusercommand" method="post">
-                                    <input type="hidden" name="index" value="${index = index+1}">
-                                <th><input type="submit" value="see more" class="purple-button"  style="padding: 10px 5px; width: 85px"></th>
-                                </form>
-                            </tr>
-                            </c:forEach>
-
-                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </jsp:body>
+        </main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="xhtml-string">
+                            <div class="clearfix  search-pagination">
+                                <select class="pull-left search-dropdown">
+                                    <option>Vis 10</option>
+                                    <option>Vis 25</option>
+                                    <option>Vis 50</option>
+                                </select>
+                                <ul class="pull-right pagination-sm pagination">
+                                    <li>
+                                        <a class="fa fa-chevron-left"></a>
+                                    </li>
+                                    <li class="pagination-page active">
+                                        <a>1</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-chevron-right"></a>
+                                    </li>
+                                </ul>
+                            </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
+                            <div class="pull-right">
+                                <p style="font-weight: bold">${sessionScope.users.size()} Total</p>
+                            </div>
+                            <table class="white-background" border="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>ID</strong>
+                                    </td>
+                                    <td>
+                                        <strong>E-mail</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Fornavn</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Efternavn</strong>
+                                    </td>
 
+                                    <td>
+                                        <strong>Telefon</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Rolle</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Adresse</strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <c:set var="index" value="-1"></c:set>
+                                <c:forEach var="userinfo" items="${sessionScope.users}">
+                                    <tr>
+                                        <td>${userinfo.id}</td>
+                                        <td>${userinfo.email}</td>
+                                        <td>${userinfo.firstname}</td>
+                                        <td>${userinfo.lastname}</td>
+                                        <td>${order.user.phoneNr}</td>
+                                        <td>${userinfo.role}</td>
+                                        <td>${userinfo.city} nr. ${userinfo.zipcode}, ${userinfo.streetname} ${userinfo.houseNr}</td>
+                                        <form action="${pageContext.request.contextPath}/fc/admineditusercommand"
+                                              method="post">
+                                            <td>
+                                                <input type="hidden" name="order" value="${index = index + 1}">
+                                                <input type="submit" class="btn"
+                                                       style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
+                                                       value="se mere">
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </c:forEach>
+
+                                </tbody>
+                            </table>
+                            <div class="clearfix  search-pagination">
+                                <ul class="pull-right pagination-sm pagination">
+                                    <li>
+                                        <a class="fa fa-chevron-left"></a>
+                                    </li>
+                                    <li class="pagination-page active">
+                                        <a>1</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-chevron-right"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </jsp:body>
 </t:genericpage>
 

@@ -4,61 +4,109 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Orders
+         Ordrer
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
 
     <jsp:body>
-        <div class="grey-large-container">
-            <div class="white-large-box">
-                <div class="row-3-grid" style="gap: 20px">
-                    <div class="large-title-grid-element">
-                        <div class="left-text">
-                            <h1>Orders</h1>
+        <main>
+            <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
+                <div class="row">
+                    <div class="col-md-6 introtext">
+                        <div class="pageheadline">
+                            <h1>Ordrer</h1>
                         </div>
-                    </div>
-
-                    <div class="col-3-grid">
-                        <div class="left-grid">
-                            <h2>Orders</h2>
-                        </div>
-                        <div class="right-grid">
-                          <h3>${sessionScope.customerOrders.size()} Total</h3>
-                        </div>
-                    </div>
-                    <div>
-                        <table class="collapse-table">
-                            <tr class="table-labels">
-                                <th class="left-text">ORDER</th>
-                                <th>ITEMS</th>
-                                <th>TOTAL</th>
-                                <th>DATE</th>
-                                <th>STATUS</th>
-                                <th></th>
-                            </tr>
-                            <c:set var="index" value="-1"></c:set>
-                            <c:forEach var="order" items="${sessionScope.customerOrders}">
-                                    <tr>
-                                        <th class="left-text"><h3>${order.id}</h3></th>
-                                        <th><h3>${order.BOM.size()}</h3></th>
-                                        <th><h3>${order.totalPrice} kr</h3></th>
-                                        <th><h3>${order.orderDate}</h3></th>
-                                        <th><h3>${order.status}</h3></th>
-                                        <form action="${pageContext.request.contextPath}/fc/drawsvgcommand"
-                                              method="post">
-                                            <input type="hidden" name="order" value="${index = index + 1}">
-                                            <input type="hidden" name="customerorderlist" value="true">
-                                        <th><input type="submit" value="See more" class="purple-button"
-                                               style="padding: 10px 10px; width: 85px"></th>
-                                        </form>
-                                    </tr>
-                            </c:forEach>
-                        </table>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="xhtml-string">
+                            <div class="clearfix  search-pagination">
+                                <select class="pull-left search-dropdown">
+                                    <option>Vis 10</option>
+                                    <option>Vis 25</option>
+                                    <option>Vis 50</option>
+                                </select>
+                                <ul class="pull-right pagination-sm pagination">
+                                    <li>
+                                        <a class="fa fa-chevron-left"></a>
+                                    </li>
+                                    <li class="pagination-page active">
+                                        <a>1</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-chevron-right"></a>
+                                    </li>
+                                </ul>
+                            </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
+                            <div class="pull-right">
+                                <p style="font-weight: bold">${sessionScope.customerOrders.size()} Total</p>
+                            </div>
+                            <table class="white-background" border="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>ID</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Antal</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Dato</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Status</strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <c:set var="index" value="-1"></c:set>
+                                <c:forEach var="order" items="${sessionScope.customerOrders}">
+                                    <tr>
+                                        <td>${order.id}</td>
+                                        <td>${order.BOM.size()}</td>
+                                        <td>${order.totalPrice} kr.</td>
+                                        <td>${order.orderDate}</td>
+                                        <td>${order.status}</td>
+                                        <form action="${pageContext.request.contextPath}/fc/orderdetailcommand"
+                                              method="post">
+                                            <td>
+                                                <input type="hidden" name="order" value="${index = index + 1}">
+                                                <input type="hidden" name="customerorderlist" value="true">
+                                                <input type="submit" class="btn" style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;" value="se mere">
+                                            </td>
+                                        </form>
+                                        <!--TODO: delete button-->
+                                    </tr>
+                                </c:forEach>
+
+                                </tbody>
+                            </table>
+                            <div class="clearfix  search-pagination">
+                                <ul class="pull-right pagination-sm pagination">
+                                    <li>
+                                        <a class="fa fa-chevron-left"></a>
+                                    </li>
+                                    <li class="pagination-page active">
+                                        <a>1</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-chevron-right"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </jsp:body>
 
 </t:genericpage>
