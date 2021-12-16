@@ -3,59 +3,114 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:genericpage>
     <jsp:attribute name="header">
-         Product page
+         Materialer
     </jsp:attribute>
 
     <jsp:attribute name="footer">
     </jsp:attribute>
     <jsp:body>
-        <div class="grey-large-container">
-            <div class="white-large-box">
-                <div class="large-title-grid-element">
-                    <div class="left-text">
-                        <h1>Products <i class="fas fa-store"></i></h1>
+        <main>
+            <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
+                <div class="row">
+                    <div class="col-md-6 introtext">
+                        <div class="pageheadline">
+                            <h1>Materiale sortiment</h1>
+                        </div>
                     </div>
                 </div>
-                <div class="col-2-grid" style="box-sizing: border-box; gap: 50px; width: 100%">
-                    <div style="box-sizing: border-box; width: 100%; padding: 25px">
-                        <div class="row-2-grid" style="gap: 10px">
-                            <div class="title-grid-element">
-                                <div class="left-text">
-                                    <h2>Materials <a class="red-button" href="${pageContext.request.contextPath}/fc/editproductpage"><i
-                                            class="fas fa-edit"></i></a></h2>
+            </div>
+        </main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="xhtml-string">
+                            <div class="col-xs-12" style="margin-bottom: 20px">
+                                <div class="pull-right">
+                                    <a href="${pageContext.request.contextPath}/fc/editmateriallistcommand" class="blue-button"
+                                       style="padding-left: 20px; padding-right: 20px">Tilpas</a>
                                 </div>
                             </div>
-                            <div>
-                                <table class="collapse-table">
-                                    <tr class="table-labels">
-                                        <th class="left-text">Name</th>
-                                        <th class="left-text">Id</th>
-                                        <th>Cost</th>
-                                        <th>Price</th>
-                                        <th>Length</th>
-                                        <th>Height</th>
-                                        <th>Width</th>
-                                        <th>Unit</th>
-                                    </tr>
-                                    <c:forEach var="material" items="${sessionScope.materials}">
+                            <div class="clearfix  search-pagination">
+                                <select class="pull-left search-dropdown">
+                                    <option>Vis 10</option>
+                                    <option>Vis 25</option>
+                                    <option>Vis 50</option>
+                                </select>
+                                <ul class="pull-right pagination-sm pagination">
+                                    <li>
+                                        <a class="fa fa-chevron-left"></a>
+                                    </li>
+                                    <li class="pagination-page active">
+                                        <a>1</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-chevron-right"></a>
+                                    </li>
+                                </ul>
+                            </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
+                            <div class="pull-right">
+                                <p style="font-weight: bold">${sessionScope.materials.size()} Total</p>
+                            </div>
+                            <table class="white-background" border="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>ID</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Materiale</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Kostpris</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Salgspris</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Længde</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Højde</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Bredde</strong>
+                                    </td>
+                                    <td>
+                                        <strong>Enhed</strong>
+                                    </td>
+                                </tr>
+                                <c:forEach var="material" items="${sessionScope.materials}">
                                     <tr>
-                                        <th class="left-text"><h3>${material.name}</h3></th>
-                                        <th class="left-text"><h3>${material.id}</h3></th>
-                                        <th><h3>${material.cost} kr.</h3></th>
-                                        <th><h3>${material.price} kr.</h3></th>
-                                        <th><h3>${material.length}</h3></th>
-                                        <th><h3>${material.height}</h3></th>
-                                        <th><h3>${material.width}</h3></th>
-                                        <th><h3>${material.unit}</h3></th>
+                                        <td>${material.id}</td>
+                                        <td>${material.name}</td>
+                                        <td>${material.cost} kr.</td>
+                                        <td>${material.price} kr.</td>
+                                        <td>${material.length} </td>
+                                        <td>${material.height}</td>
+                                        <td>${material.width}</td>
+                                        <td>${material.unit}</td>
                                     </tr>
-                                    </c:forEach>
-                                </table>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                            <div class="clearfix  search-pagination">
+                                <ul class="pull-right pagination-sm pagination">
+                                    <li>
+                                        <a class="fa fa-chevron-left"></a>
+                                    </li>
+                                    <li class="pagination-page active">
+                                        <a>1</a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-chevron-right"></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </section>
     </jsp:body>
 </t:genericpage>

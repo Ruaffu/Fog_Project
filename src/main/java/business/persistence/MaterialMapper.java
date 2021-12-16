@@ -1,6 +1,7 @@
 package business.persistence;
 
 import business.entities.Material;
+import business.entities.Order;
 import business.exceptions.UserException;
 
 import java.sql.*;
@@ -13,6 +14,31 @@ public class MaterialMapper
     public MaterialMapper(Database database)
     {
         this.database = database;
+    }
+
+    public void saveMaterialList (ArrayList<Material> materials) {
+        try (Connection connection = database.connect()) {
+
+            for (Material material : materials) {
+                String sql = "INSERT INTO material (name, cost, price, length, height, width, unit) " +
+                        "VALUES(?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE price=?, cost=?";
+
+                try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                    ps.setString(1, material.getName());
+                    ps.setFloat(2, material.getCost());
+                    ps.setFloat(3, material.getPrice());
+                    ps.setInt(4, material.getLength());
+                    ps.setInt(5, material.getHeight());
+                    ps.setInt(6, material.getWidth());
+                    ps.setString(7, material.getUnit());
+                    ps.setFloat(8, material.getPrice());
+                    ps.setFloat(9, material.getCost());
+                    ps.executeUpdate();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void saveMaterial(Material material) {

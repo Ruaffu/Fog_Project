@@ -29,7 +29,9 @@
                         <div class="col-md-12">
                             <div class="col-xs-12">
                                 <div class="pull-right">
-                                    <input type="submit" class="green-button" style="padding-left: 20px; padding-right: 20px" value="Gem"> <!--TODO: gem-->
+                                    <form id="save" action="${pageContext.request.contextPath}/fc/updateorderpricecommand" method="post">
+                                        <input type="submit" class="green-button" style="padding-left: 20px; padding-right: 20px" value="Gem">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -86,13 +88,13 @@
                                                     <div class="col-xs-4">
                                                         <div style="margin-bottom: 15px">
                                                             <label for="cost">Kostpris, kr.</label>
-                                                            <input type="number" name="cost" id="cost" value="${sessionScope.makeoffer.totalCost}" class="white-input">
+                                                            <input type="number" name="cost" id="cost" value="${sessionScope.makeoffer.totalCost}" class="white-input" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <div style="margin-bottom: 15px">
                                                             <label for="price">Salgspris, kr.</label>
-                                                            <input type="number" name="price" id="price"
+                                                            <input type="number" name="price" id="price" form="save"
                                                                    value="${sessionScope.makeoffer.totalPrice}" class="white-input">
                                                         </div>
                                                     </div>

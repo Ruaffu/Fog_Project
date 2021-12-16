@@ -1,6 +1,7 @@
 package web.commands;
 
 import business.entities.Order;
+import business.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,11 +18,13 @@ public class GetRequestCommand extends CommandUnprotectedPage{
         HttpSession session = request.getSession();
         int requestIndex = Integer.parseInt(request.getParameter("request"));
 
-        ArrayList<Order> orders = (ArrayList<Order>) session.getAttribute("customerrequests");
+
+        String listname = request.getParameter("listname");
+        ArrayList<Order> orders = (ArrayList<Order>) session.getAttribute(listname);
 
         Order order = orders.get(requestIndex);
-        request.setAttribute("request", order);
-        request.setAttribute("requestIndex", requestIndex);
+        session.setAttribute("request", order);
+        session.setAttribute("requestIndex", requestIndex);
 
         return pageToShow;
     }

@@ -35,7 +35,8 @@ public class UpdateOrderCommand extends CommandProtectedPage
         order.setTotalPrice(order.priceCalc());
         order.setTotalCost(order.costCalc());
         order.setCoverageRatio(order.coverageRatio());
-        orderFacade.updateBom(order);
+        session.setAttribute("makeoffer", order);
+        //orderFacade.updateBom(order);
 
         return pageToShow;
     }

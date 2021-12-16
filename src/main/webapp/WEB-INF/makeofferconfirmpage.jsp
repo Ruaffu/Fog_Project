@@ -28,11 +28,12 @@
                     <div class="article-page">
                         <div class="col-md-3 article-page-menu mobile-navigation">
                             <ul class="nav nav-pills nav-stacked" style="padding-bottom: 20px">
-                                <li style="width: 100%;" >
+                                <li style="width: 100%;">
                                     <a href="${pageContext.request.contextPath}/fc/makeofferinfopage">Info</a>
                                 </li>
                                 <li style="width: 100%;">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"> Tilpasning af mål</a>
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"> Tilpasning
+                                        af mål</a>
                                 </li>
                                 <li style="width: 100%;">
                                     <a href="${pageContext.request.contextPath}/fc/makeoffermateriallistpage">Stykliste</a>
@@ -44,7 +45,8 @@
                                     <a href="${pageContext.request.contextPath}/fc/makeofferdrawingpage">Tegninger</a>
                                 </li>
                                 <li style="width: 100%" class="active">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferconfirmpage">Opret tilbud</a>
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferconfirmpage">Opret
+                                        tilbud</a>
                                 </li>
                             </ul>
                         </div>
@@ -75,11 +77,11 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-12">
-                                            <form> <!--TODO: gem som tilbud-->
-                                                <div style="padding-bottom: 20px">
+                                            <div style="padding-bottom: 20px">
+                                                <form action="${pageContext.request.contextPath}/fc/saveoffercommand" method="post">
                                                     <input type="submit" class="blue-button" value="Opret tilbud">
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +96,8 @@
                                         <div class="button"><a class="fa fa-chevron-left"></a> Tilbage</div>
                                     </div>
                                     <div class="col-xs-6">
-                                        <div class="button" style="color: #b5b9be; cursor: default">Næste <a class="fa fa-chevron-right"></a></div>
+                                        <div class="button" style="color: #b5b9be; cursor: default">Næste <a
+                                                class="fa fa-chevron-right"></a></div>
                                     </div>
                                 </div>
                             </div>

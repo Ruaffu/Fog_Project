@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="xhtml-string">
-                            <form action="${pageContext.request.contextPath}/fc/requestcommand" method="post">>
+                            <form action="${pageContext.request.contextPath}/fc/requestcommand" method="post">
                                 <div style="padding-bottom: 45px">
                                     <h3>Vælg model</h3>
                                     <div class="row">

@@ -13,10 +13,8 @@
             <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
                 <div class="row">
                     <div class="col-md-6 introtext">
-                        <div class="pageheadline setbreadcrumb">
-                            <h1>Forespørgslser</h1>
-                            <p class="split">></p>
-                            <span class="active">Lav tilbud</span>
+                        <div class="pageheadline">
+                            <h1>Ordre</h1>
                         </div>
                     </div>
                 </div>
@@ -29,23 +27,21 @@
                         <div class="col-md-3 article-page-menu mobile-navigation">
                             <ul class="nav nav-pills nav-stacked" style="padding-bottom: 20px">
                                 <li style="width: 100%;">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferinfopage">Info</a>
-                                </li>
-                                <li style="width: 100%;">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"> Tilpasning af mål</a>
-                                </li>
-                                <li style="width: 100%;">
-                                    <a href="${pageContext.request.contextPath}/fc/makeoffermateriallistpage">Stykliste</a>
-                                </li>
-                                <li style="width: 100%;">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferpriceadjustmentpage">Prissætning</a>
+                                    <a href="${pageContext.request.contextPath}/fc/orderdetailinfopage">Info</a>
                                 </li>
                                 <li style="width: 100%;" class="active">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferdrawingpage">Tegninger</a>
+                                    <a href="${pageContext.request.contextPath}/fc/orderdetaildrawingpage">Tegninger</a>
                                 </li>
-                                <li style="width: 100%">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferconfirmpage">Opret tilbud</a>
-                                </li>
+
+                                <c:if test="${sessionScope.user.role.equals('employee')}">
+                                    <li style="width: 100%;">
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetailstatuspage">Skift
+                                            status</a>
+                                    </li>
+                                    <li style="width: 100%;">
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetailmateriallistpage">Stykliste</a>
+                                    </li>
+                                </c:if>
                             </ul>
                         </div>
                         <div class="col-md-9">
@@ -56,7 +52,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div>
-                                                ${sessionScope.svgdrawingsideview}
+                                                    ${sessionScope.svgdrawingsideview}
                                             </div>
                                         </div>
                                     </div>

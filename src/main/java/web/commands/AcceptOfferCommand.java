@@ -26,10 +26,9 @@ public class AcceptOfferCommand extends CommandProtectedPage {
         ArrayList<Order> orders = (ArrayList<Order>) session.getAttribute("customerOrders");
         ArrayList<Order> offers = (ArrayList<Order>) session.getAttribute("customerrequests");
 
-        int index = Integer.parseInt(request.getParameter("order"));
+        Order acceptOrder = (Order) session.getAttribute("request");
 
-        Order acceptOrder = offers.get(index);
-        acceptOrder.setStatus("accepted"); // TODO: better word??
+        acceptOrder.setStatus("accepted"); // TODO: better word?? NO ;(
         acceptOrder.setOrderDate(new Timestamp(System.currentTimeMillis()));
 
         orderFacade.updateOrder(acceptOrder);

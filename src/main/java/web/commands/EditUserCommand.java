@@ -24,6 +24,7 @@ public class EditUserCommand extends CommandUnprotectedPage {
         HttpSession session = request.getSession();
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
+        String email = request.getParameter("email");
         String phonenr = request.getParameter("phonenr");
         String streetname = request.getParameter("streetname");
         String housenr = request.getParameter("housenr");
@@ -42,6 +43,7 @@ public class EditUserCommand extends CommandUnprotectedPage {
 
         user.setFirstname(firstname);
         user.setLastname(lastname);
+        user.setEmail(email);
         user.setPhoneNr(phonenr);
         user.setStreetname(streetname);
         user.setHouseNr(housenr);

@@ -62,8 +62,7 @@ public abstract class Command
         commands.put("bomcopycommand", new BOMCopyCommand("bompage", "employee"));
 
         commands.put("removefrombomlistcommand", new RemoveFromBOMListCommand("", "employee"));
-        commands.put("updateordercommand", new UpdateOrderCommand("createofferpage", "employee")); //TODO: createofferpage er nu makeofferinfo
-        commands.put("addtobomlistcommand", new AddToBOMListCommand("bompage", "employee"));
+        commands.put("addtobomlistcommand", new AddToBOMListCommand("makeoffermateriallistpage", "employee"));
 
         commands.put("makeofferinfopage", new CommandProtectedPage("makeofferinfopage","employee"));
         commands.put("makeofferadjustmentpage", new CommandProtectedPage("makeofferadjustmentpage","employee"));
@@ -75,12 +74,27 @@ public abstract class Command
         commands.put("makeofferdrawingpage", new DrawSVGCommand("makeofferdrawingpage"));
 
         commands.put("orderdetailcommand", new OrderDetailCommand("orderdetailspage", "employee"));
-        commands.put("updatestatuscommand", new UpdateStatusCommand("allorderpage","employee"));
+        commands.put("updatestatuscommand", new UpdateStatusCommand("orderdetailstatuspage","employee"));
         commands.put("productpage", new CommandProtectedPage("productpage", "employee"));
         commands.put("editproductpage", new CommandProtectedPage("editproductpage", "employee"));
-        commands.put("addmaterialcommand", new AddMaterialCommand("productpage", "employee"));
+        commands.put("addmaterialcommand", new AddMaterialCommand("editproductpage", "employee"));
         commands.put("deleteordercommand", new DeleteOrderCommand("allorderpage", "employee"));
         commands.put("getrequestcommand", new GetRequestCommand("requestdetailspage"));
+
+        commands.put("updatecarportcommand", new UpdateCarportCommand("makeofferadjustmentpage", "employee"));
+        commands.put("updateorderpricecommand", new UpdateOrderPriceCommand("makeofferpriceadjustmentpage", "employee"));
+        commands.put("updateordercommand", new UpdateOrderCommand("makeoffermateriallistpage", "employee"));
+        commands.put("saveoffercommand", new SaveOfferCommand("index", "employee"));
+
+        commands.put("logoutpage", new CommandUnprotectedPage("logoutpage"));
+        commands.put("editmateriallistcommand", new EditMaterialListCommand("editproductpage", "employee"));
+        commands.put("removefrommateriallistcommand", new RemoveFromMaterialListCommand("editproductpage", "employee"));
+        commands.put("savemateriallistcommand", new SaveMaterialListCommand("productpage", "employee"));
+        commands.put("getorderdetailcommand", new GetOrderDetailCommand("orderdetailinfopage"));
+        commands.put("orderdetailinfopage", new CommandUnprotectedPage("orderdetailinfopage"));
+        commands.put("orderdetailmateriallistpage", new CommandUnprotectedPage("orderdetailmateriallistpage"));
+        commands.put("orderdetaildrawingpage", new DrawOrderSVGCommand("orderdetaildrawingpage"));
+        commands.put("orderdetailstatuspage", new CommandUnprotectedPage("orderdetailstatuspage"));
     }
 
     public static Command fromPath(

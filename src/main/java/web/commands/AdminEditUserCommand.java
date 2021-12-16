@@ -30,7 +30,9 @@ public class AdminEditUserCommand extends CommandProtectedPage
         session.setAttribute("seemoreuser", user);
 
         ArrayList<Order> orders = orderFacade.getAllUserOrders(user);
+        ArrayList<Order> requests = orderFacade.getAllUserOffersAndRequests(user);
         session.setAttribute("orderlist", orders);
+        session.setAttribute("requestlist", requests);
 
         return REDIRECT_INDICATOR + pageToShow;
     }

@@ -47,43 +47,65 @@
                                     </div>
                                 </div>
                                 <div style="padding-top: 2%">
+                                    <c:set var="thisPage" value="${pageContext.request.servletPath}"/>
+                                    <c:set var="isNotLoginPage" value="${!fn:endsWith(thisPage,'loginpage.jsp')}"/>
+                                    <c:set var="isNotRegisterPage"
+                                           value="${!fn:endsWith(thisPage,'registerpage.jsp')}"/>
+
                                     <div class="col-xs-2 pull-left">
-                                        <a href="${pageContext.request.contextPath}/fc/loginpage"
-                                           class="nav-button"><i class="jf-icon-human-check fa fa-user"></i>
-                                            Login</a> <!--TODO: indsæt dropdown menu-->
+                                        <c:if test="${isNotLoginPage && isNotRegisterPage}">
+                                            <c:if test="${sessionScope.user == null }">
+                                                <a href="${pageContext.request.contextPath}/fc/loginpage"
+                                                   class="nav-button"><i class="jf-icon-human-check fa fa-user"></i>
+                                                    Login</a> <!--TODO: indsæt dropdown menu-->
+                                            </c:if>
+                                            <c:if test="${sessionScope.user != null}">
+                                                <a class="nav-button"
+                                                   href="${pageContext.request.contextPath}/fc/profilepage">
+                                                    <h4><i class="fas">&#xf2bd;</i> Min profil</h4>
+                                                </a>
+                                            </c:if>
+                                        </c:if>
                                     </div>
                                     <div class="col-xs-7 pull-right">
                                         <c:if test="${sessionScope.user.role != 'employee' && sessionScope.user.role != 'customer'}">
                                             <div class="col-xs-4"></div>
                                             <div class="col-xs-4"></div>
                                             <div class="col-xs-4">
-                                                <a href="${pageContext.request.contextPath}/fc/requestpage" class="nav-button">Lav carport</a>
+                                                <a href="${pageContext.request.contextPath}/fc/requestpage"
+                                                   class="nav-button">Lav carport</a>
                                             </div>
                                         </c:if>
                                         <c:if test="${sessionScope.user.role.equals('employee')}">
                                             <div class="col-xs-3">
-                                                <a href="${pageContext.request.contextPath}/fc/retrieverequestcommand" class="nav-button">Forespørgsler</a>
+                                                <a href="${pageContext.request.contextPath}/fc/retrieverequestcommand"
+                                                   class="nav-button">Forespørgsler</a>
                                             </div>
                                             <div class="col-xs-3">
-                                                <a href="${pageContext.request.contextPath}/fc/allorderpage" class="nav-button">Ordrer</a>
+                                                <a href="${pageContext.request.contextPath}/fc/allorderpage"
+                                                   class="nav-button">Ordre</a>
                                             </div>
                                             <div class="col-xs-3">
-                                                <a href="${pageContext.request.contextPath}/fc/allcustomercommand" class="nav-button">Kunder</a>
+                                                <a href="${pageContext.request.contextPath}/fc/allcustomercommand"
+                                                   class="nav-button">Kunder</a>
                                             </div>
                                             <div class="col-xs-3">
-                                                <a class="nav-button">Materialer</a>
+                                                <a href="${pageContext.request.contextPath}/fc/productpage" class="nav-button">Materialer</a>
                                             </div>
                                         </c:if> <!--TODO: indsæt bagde-->
 
                                         <c:if test="${sessionScope.user.role.equals('customer')}">
                                             <div class="col-xs-4">
-                                                <a href="${pageContext.request.contextPath}/fc/offerpage" class="nav-button">Forespørgsler</a>
+                                                <a href="${pageContext.request.contextPath}/fc/offerpage"
+                                                   class="nav-button">Forespørgsler</a>
                                             </div>
                                             <div class="col-xs-4">
-                                                <a href="${pageContext.request.contextPath}/fc/orderpage" class="nav-button">Ordrer</a>
+                                                <a href="${pageContext.request.contextPath}/fc/orderpage"
+                                                   class="nav-button">Ordre</a>
                                             </div>
                                             <div class="col-xs-4">
-                                                <a href="${pageContext.request.contextPath}/fc/requestpage" class="nav-button">Lav carport</a>
+                                                <a href="${pageContext.request.contextPath}/fc/requestpage"
+                                                   class="nav-button">Lav carport</a>
                                             </div>
                                         </c:if> <!--TODO: indsæt bagde-->
                                     </div>

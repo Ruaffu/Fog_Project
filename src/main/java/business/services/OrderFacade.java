@@ -30,6 +30,8 @@ public class OrderFacade {
         orderMapper.updateOrder(order);
     }
 
+
+    //bruges til at opdater en order
     public void updateBom(Order order)
     {
         bomMapper.deleteBom(order);

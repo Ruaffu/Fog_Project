@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:genericpage>
     <jsp:attribute name="header">
-         Detaljer
+         Info om ordren
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -14,12 +14,7 @@
                 <div class="row">
                     <div class="col-md-6 introtext">
                         <div class="pageheadline">
-                            <c:if test="${sessionScope.request.status.equals('request')}">
-                                <h1>Forespørgsel</h1>
-                            </c:if>
-                            <c:if test="${sessionScope.request.status.equals('offer')}">
-                                <h1>Tilbud</h1>
-                            </c:if>
+                            <h1>Ordre</h1>
                         </div>
                     </div>
                 </div>
@@ -29,51 +24,55 @@
             <div class="container">
                 <div class="row">
                     <div class="article-page">
-                        <div class="col-md-9">
+                        <div class="col-md-3 article-page-menu mobile-navigation">
+                            <ul class="nav nav-pills nav-stacked" style="padding-bottom: 20px">
+                                <li style="width: 100%;" class="active">
+                                    <a href="${pageContext.request.contextPath}/fc/orderdetailinfopage">Info</a>
+                                </li>
+                                <li style="width: 100%;">
+                                    <a href="${pageContext.request.contextPath}/fc/orderdetaildrawingpage">Tegninger</a>
+                                </li>
+
+                                <c:if test="${sessionScope.user.role.equals('employee')}">
+                                    <li style="width: 100%;">
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetailstatuspage">Skift
+                                            status</a>
+                                    </li>
+                                    <li style="width: 100%;">
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetailmateriallistpage">Stykliste</a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
                             <div class="xhtml-string">
-                                <c:if test="${sessionScope.request.status.equals('offer')}">
-                                    <h2>Tilbud</h2>
-                                    <div class="row" style="margin-bottom: 50px">
+                                <h2>Ordre</h2>
+                                <div style="margin-bottom: 50px">
+                                    <div class="row">
                                         <div class="col-xs-12">
-
-                                            <div>
-                                                <div>
-                                                    <label style="font-weight: bold">Pris: </label>
-                                                </div>
-                                                <div>
-                                                    <p>${sessionScope.request.totalPrice} kr.</p>
-                                                </div>
+                                            <div style="padding-bottom: 10px">
+                                                <label style="font-weight: bold">ID:</label>
+                                                <label>${sessionScope.editorder.id}</label>
                                             </div>
-
-                                            <div>
-                                                <div>
-                                                    <label style="font-weight: bold">Antal materiale: </label>
-                                                </div>
-                                                <div>
-                                                    <p>${sessionScope.request.BOM.size()}</p>
-                                                </div>
+                                            <div style="padding-bottom: 10px">
+                                                <label style="font-weight: bold">Status:</label>
+                                                <label>${sessionScope.editorder.status}</label>
                                             </div>
-
-                                            <c:if test="${sessionScope.role.equals('customer')}">
-                                                <div class="row"> <!--TODO: afvis et tilbud-->
-                                                    <div class="col-xs-6">
-                                                        <a class="grey-button">
-                                                            Afvis tilbud
-                                                        </a>
-                                                    </div>
-                                                    <form action="${pageContext.request.contextPath}/fc/acceptoffercommand"
-                                                          method="post">
-                                                        <div class="col-xs-6">
-                                                            <input type="submit" class="green-button"
-                                                                   value="Bekræft tilbud">
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </c:if>
+                                            <div style="padding-bottom: 10px">
+                                                <label style="font-weight: bold">Total pris:</label>
+                                                <label>${sessionScope.editorder.totalPrice} kr.</label>
+                                            </div>
+                                            <div style="padding-bottom: 10px">
+                                                <label style="font-weight: bold">Antal:</label>
+                                                <label>${sessionScope.editorder.BOM.size()}</label>
+                                            </div>
+                                            <div>
+                                                <label style="font-weight: bold">Dato:</label>
+                                                <label>${sessionScope.editorder.orderDate}</label>
+                                            </div>
                                         </div>
                                     </div>
-                                </c:if>
-
+                                </div>
                                 <c:if test="${sessionScope.user.role.equals('employee')}">
                                     <h2>Kundeoplysninger</h2>
                                     <div class="alert alert-info" style="margin-bottom: 50px">
@@ -81,10 +80,10 @@
                                             <div class="col-xs-12">
                                                 <div>
                                                     <div>
-                                                        <label style="font-weight: bold">Fornavn: </label>
+                                                        <label>Fornavn: </label>
                                                     </div>
                                                     <div>
-                                                        <p>${sessionScope.request.user.firstname}</p>
+                                                        <p>${sessionScope.editorder.user.firstname}</p>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -92,16 +91,15 @@
                                                         <label>Efternavn: </label>
                                                     </div>
                                                     <div>
-                                                        <p>${sessionScope.request.user.lastname}</p>
+                                                        <p>${sessionScope.editorder.user.lastname}</p>
                                                     </div>
                                                 </div>
-
                                                 <div>
                                                     <div>
                                                         <label>E-mail: </label>
                                                     </div>
                                                     <div>
-                                                        <p>${sessionScope.request.user.email}</p>
+                                                        <p>${sessionScope.editorder.user.email}</p>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -109,7 +107,7 @@
                                                         <label>Telefon: </label>
                                                     </div>
                                                     <div>
-                                                        <p>${sessionScope.request.user.phoneNr}</p>
+                                                        <p>${sessionScope.editorder.user.phoneNr}</p>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -117,22 +115,22 @@
                                                         <label>Adresse: </label>
                                                     </div>
                                                     <div>
-                                                        <p>${sessionScope.request.user.streetname} nr. ${sessionScope.request.user.houseNr}, ${sessionScope.request.user.city} ${sessionScope.request.user.zipcode}</p>
+                                                        <p>${sessionScope.editorder.user.streetname}
+                                                            nr. ${sessionScope.editorder.user.houseNr}, ${sessionScope.editorder.user.city} ${sessionScope.editorder.user.zipcode}</p>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </c:if>
-                                <h2>Mål for carport</h2>
+                                <h2>Carport mål</h2>
                                 <div class="alert alert-info">
                                     <div style="padding-bottom: 45px">
                                         <h3>model</h3>
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div>
-                                                    <input type="text" value="${sessionScope.request.roofType}"
+                                                    <input type="text" value="${sessionScope.currentrequest.roofType}"
                                                            disabled> <!--TODO: carport model bliver ikke gemt :(-->
                                                 </div>
                                             </div>
@@ -145,13 +143,13 @@
                                                 <div style="margin-bottom: 15px">
                                                     <label>Carport bredde</label>
                                                     <input type="text"
-                                                           value="${sessionScope.request.carportWidth} cm"
+                                                           value="${sessionScope.editorder.carportWidth} cm"
                                                            disabled>
                                                 </div>
                                                 <div>
                                                     <label>Carport længde</label>
                                                     <input type="text"
-                                                           value="${sessionScope.request.carportLength} cm"
+                                                           value="${sessionScope.editorder.carportLength} cm"
                                                            disabled>
                                                 </div>
                                             </div>
@@ -163,13 +161,13 @@
                                             <div class="col-xs-12">
                                                 <div style="margin-bottom: 15px">
                                                     <label>Tag-materiale</label>
-                                                    <input type="text" value="${sessionScope.request.roofType}"
+                                                    <input type="text" value="${sessionScope.editorder.roofType}"
                                                            disabled>
                                                 </div>
                                                 <div>
                                                     <label>Taghældning</label>
                                                     <input type="text"
-                                                           value="${sessionScope.currentrequest.roofAngle} grader"
+                                                           value="${sessionScope.editorder.roofAngle} grader"
                                                            disabled>
                                                 </div>
                                             </div>
@@ -182,12 +180,12 @@
                                                 <div style="margin-bottom: 15px">
                                                     <label>Redskabsrum bredde</label>
                                                     <input type="text"
-                                                           value="${sessionScope.request.shedWidth} cm" disabled>
+                                                           value="${sessionScope.editorder.shedWidth} cm" disabled>
                                                 </div>
                                                 <div>
                                                     <label>Redskabsrum længde</label>
                                                     <input type="text"
-                                                           value="${sessionScope.request.shedLength} cm"
+                                                           value="${sessionScope.editorder.shedLength} cm"
                                                            disabled>
                                                 </div>
                                             </div>
@@ -198,10 +196,24 @@
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div style="margin-bottom: 15px">
-                                                    <textarea disabled>${sessionScope.request.remarks}</textarea>
+                                                    <textarea disabled>${sessionScope.editorder.remarks}</textarea>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="pull-right col-xs-3">
+                                    <div class="col-xs-6">
+                                        <a class="button" style="color: #b5b9be; cursor: default"><i
+                                                class="fa fa-chevron-left"></i> Tilbage</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"
+                                           class="button">Næste <i class="fa fa-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>

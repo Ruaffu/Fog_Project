@@ -372,7 +372,6 @@ footer .footer ul li {
     color: #fff;
 }
 
-
 .blue-button, input[type=submit].blue-button {
     background-color: #014687;
     color: #fff;
@@ -396,14 +395,12 @@ footer .footer ul li {
     color: #014687;
 }
 
-
-
-
 .btn-info {
     color: #fff;
     background-color: #5bc0de;
     border-color: #46b8da;
 }
+
 
 header nav {
     position: relative;

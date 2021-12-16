@@ -44,7 +44,7 @@
                                 </ul>
                             </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
                             <div class="pull-right">
-                                <p style="font-weight: bold">${sessionScope.allrequests.size()} Total</p>
+                                <p style="font-weight: bold">${sessionScope.allorders.size()} Total</p>
                             </div>
                             <table class="white-background" border="0">
                                 <tbody>
@@ -82,11 +82,11 @@
                                         <td>${order.totalPrice} kr.</td>
                                         <td>${order.orderDate}</td>
                                         <td>${order.status}</td>
-                                        <form action="${pageContext.request.contextPath}/fc/orderdetailcommand"
+                                        <form action="${pageContext.request.contextPath}/fc/getorderdetailcommand"
                                               method="post">
                                             <td>
                                                 <input type="hidden" name="order" value="${index = index + 1}">
-                                                <input type="submit" class="btn" style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;" value="se mere">
+                                                <input type="submit" class="blue-button" style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;" value="se mere">
                                             </td>
                                         </form>
                                         <!--TODO: delete button-->

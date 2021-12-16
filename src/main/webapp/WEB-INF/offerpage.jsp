@@ -69,7 +69,7 @@
                                 </tr>
                                 <c:set var="index" value="-1"></c:set>
                                 <c:forEach var="request" items="${sessionScope.customerrequests}">
-                                    <c:if test="${order.status.equals('request') || order.status.equals('offer')}">
+
                                     <tr>
                                         <td>${request.id}</td>
                                         <td>${request.BOM.size()}</td>
@@ -80,7 +80,8 @@
                                             <form action="${pageContext.request.contextPath}/fc/getrequestcommand"
                                                   method="post">
                                                 <input type="hidden" name="request" value="${index = index + 1}">
-                                                <input type="submit" class="btn"
+                                                <input type="hidden" name="listname" value="customerrequests">
+                                                <input type="submit" class="blue-button"
                                                        style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
                                                        value="see mere">
                                             </form>
@@ -88,7 +89,6 @@
 
                                         <!--TODO: delete button-->
                                     </tr>
-                                    </c:if>
                                 </c:forEach>
 
                                 </tbody>

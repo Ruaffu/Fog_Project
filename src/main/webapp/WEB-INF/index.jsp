@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <a href="${pageContext.request.contextPath}/fc/requestpage">
-                            <img src="${pageContext.request.contextPath}/images/carport_quickbyg.jpg">
+                            <img style="width: 100%" src="${pageContext.request.contextPath}/images/carport_quickbyg.jpg">
                         </a>
                     </div>
                 </div>

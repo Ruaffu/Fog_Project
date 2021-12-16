@@ -51,7 +51,7 @@
                         <div class="col-md-6">
                             <div class="xhtml-string">
                                 <h2>Kundeoplysninger</h2>
-                                <div class="alert alert-info" style="margin-bottom: 20px">
+                                <div class="alert alert-info" style="margin-bottom: 50px">
                                     <div class="row">
                                         <div class="col-xs-12">
 
@@ -97,9 +97,6 @@
                                                 <div>
                                                     <p>godnatvej nr. 15, Herlev 2730</p>
                                                 </div>
-                                            </div>
-                                            <div class="blue-button">
-                                                ændre profil
                                             </div>
                                         </div>
                                     </div>

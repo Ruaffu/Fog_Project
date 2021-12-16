@@ -31,15 +31,17 @@ public class AddMaterialCommand extends CommandProtectedPage{
         String unit = request.getParameter("unit");
 
         Material material = new Material(name, cost, price, length, height, width, unit);
-        materialFacade.saveMaterial(material);
+        //materialFacade.saveMaterial(material);
 
-        ArrayList<Material> materials = null;
-        try {
-            materials = materialFacade.getAllMaterials();
-        } catch (UserException e) {
-            e.printStackTrace();
-        }
-        session.setAttribute("materials", materials);
+        ArrayList<Material> materials = (ArrayList<Material>) session.getAttribute("editmateriallist");
+        materials.add(material);
+//        ArrayList<Material> materials = null;
+//        try {
+//            materials = materialFacade.getAllMaterials();
+//        } catch (UserException e) {
+//            e.printStackTrace();
+//        }
+        session.setAttribute("editmateriallist", materials);
 
         return pageToShow;
     }

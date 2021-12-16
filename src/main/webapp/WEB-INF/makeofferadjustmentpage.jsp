@@ -29,7 +29,10 @@
                         <div class="col-md-12">
                             <div class="col-xs-12">
                                 <div class="pull-right">
-                                    <input type="submit" class="green-button" style="padding-left: 20px; padding-right: 20px" value="Gem"> <!--TODO: gem-->
+                                    <form id="save" action="${pageContext.request.contextPath}/fc/updatecarportcommand" method="post">
+                                        <input type="submit" class="green-button"
+                                               style="padding-left: 20px; padding-right: 20px" value="Gem">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +92,7 @@
                                         <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
                                                 <label for="width">Carport bredde</label>
-                                                <select name="width" id="width" class="large-select-dropdown">
+                                                <select name="width" form="save" id="width" class="large-select-dropdown">
                                                     <option value="${sessionScope.makeoffer.carportWidth}"
                                                             selected>${sessionScope.makeoffer.carportWidth} cm
                                                     </option>
@@ -110,7 +113,7 @@
                                             </div>
                                             <div>
                                                 <label for="length">Carport længde</label>
-                                                <select name="length" id="length" class="large-select-dropdown">
+                                                <select name="length" form="save" id="length" class="large-select-dropdown">
                                                     <option value="${sessionScope.makeoffer.carportLength}"
                                                             selected>${sessionScope.makeoffer.carportLength} cm
                                                     </option>
@@ -144,7 +147,7 @@
                                         <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
                                                 <label for="roof">Tag-materiale</label>
-                                                <select name="roof" id="roof" class="large-select-dropdown">
+                                                <select name="roof" form="save" id="roof" class="large-select-dropdown">
                                                     <option value="${sessionScope.makeoffer.roofType}"
                                                             selected>${sessionScope.makeoffer.roofType}</option>
                                                     <option value="plasttrapezplader">plasttrapezplader</option>
@@ -152,7 +155,7 @@
                                             </div>
                                             <div>
                                                 <label for="roofangle">Taghældning</label>
-                                                <select name="roofangle" id="roofangle" class="large-select-dropdown">
+                                                <select name="roofangle" form="save" id="roofangle" class="large-select-dropdown">
                                                     <option value="${sessionScope.makeoffer.roofAngle}"
                                                             selected>${sessionScope.makeoffer.roofAngle} grader
                                                     </option>
@@ -175,7 +178,7 @@
                                         <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
                                                 <label for="shedwidth">Redskabsrum bredde</label>
-                                                <select name="shedwidth" id="shedwidth" class="large-select-dropdown">
+                                                <select name="shedwidth" form="save" id="shedwidth" class="large-select-dropdown">
                                                     <option value="${sessionScope.makeoffer.shedWidth}"
                                                             selected>${sessionScope.makeoffer.shedWidth} cm
                                                     </option>
@@ -202,7 +205,7 @@
                                             </div>
                                             <div>
                                                 <label for="shedlength">Redskabsrum længde</label>
-                                                <select name="shedlength" id="shedlength" class="large-select-dropdown">
+                                                <select name="shedlength" form="save" id="shedlength" class="large-select-dropdown">
                                                     <option value="${sessionScope.makeoffer.shedLength}"
                                                             selected>${sessionScope.makeoffer.shedLength} cm
                                                     </option>

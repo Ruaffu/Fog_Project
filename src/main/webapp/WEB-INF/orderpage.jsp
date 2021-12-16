@@ -75,7 +75,7 @@
                                         <td>${order.totalPrice} kr.</td>
                                         <td>${order.orderDate}</td>
                                         <td>${order.status}</td>
-                                        <form action="${pageContext.request.contextPath}/fc/orderdetailcommand"
+                                        <form action="${pageContext.request.contextPath}/fc/getorderdetailcommand"
                                               method="post">
                                             <td>
                                                 <input type="hidden" name="order" value="${index = index + 1}">

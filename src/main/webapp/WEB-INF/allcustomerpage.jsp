@@ -80,18 +80,20 @@
                                         <td>${userinfo.email}</td>
                                         <td>${userinfo.firstname}</td>
                                         <td>${userinfo.lastname}</td>
-                                        <td>${order.user.phoneNr}</td>
+                                        <td>${userinfo.phoneNr}</td>
                                         <td>${userinfo.role}</td>
                                         <td>${userinfo.city} nr. ${userinfo.zipcode}, ${userinfo.streetname} ${userinfo.houseNr}</td>
-                                        <form action="${pageContext.request.contextPath}/fc/admineditusercommand"
-                                              method="post">
+
                                             <td>
-                                                <input type="hidden" name="order" value="${index = index + 1}">
-                                                <input type="submit" class="btn"
+                                                <form action="${pageContext.request.contextPath}/fc/admineditusercommand"
+                                                      method="post">
+                                                <input type="hidden" name="index" value="${index = index + 1}">
+                                                <input type="submit" class="blue-button"
                                                        style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
                                                        value="se mere">
+                                                </form>
                                             </td>
-                                        </form>
+
                                     </tr>
                                 </c:forEach>
 

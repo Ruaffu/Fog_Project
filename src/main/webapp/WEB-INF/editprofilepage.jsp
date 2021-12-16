@@ -4,78 +4,111 @@
 
 <t:genericpage>
     <jsp:attribute name="header">
-         Register as new User
+         Ændre profil
     </jsp:attribute>
     <jsp:attribute name="footer">
     </jsp:attribute>
     <jsp:body>
-        <div class="grey-large-container">
-            <div class="white-small-box">
-                <div class="large-title-grid-element">
-                    <div class="center-text">
-                        <h1> Edit profile</h1>
+        <main>
+            <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
+                <div class="row">
+                    <div class="col-md-6 introtext">
+                        <div class="pageheadline setbreadcrumb">
+                            <h1>Min profil</h1>
+                            <p class="split">></p>
+                            <span class="active">Ændre i profil</span>
+                        </div>
                     </div>
                 </div>
-                <form action="${pageContext.request.contextPath}/fc/editusercommand" method="post">
-                    <div class="row-4-grid" style="gap: 45px">
-                        <div>
-                            <div class="col-2-grid" style="gap: 25px">
-                                <div>
-                                    <label for="firstname" class="small-title-label">First name</label><br>
-                                    <input class="border-input-text" type="text" id="firstname" name="firstname"
-                                           value="${sessionScope.user.firstname}"><br>
-                                </div>
-                                <div>
-                                    <label for="lastname" class="small-title-label">Last name</label><br>
-                                    <input class="border-input-text" type="text" id="lastname" name="lastname"
-                                           value="${sessionScope.user.lastname}"><br>
-                                </div>
-                            </div>
+            </div>
+        </main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="article-page">
+                        <div class="col-md-3 article-page-menu mobile-navigation">
+                            <ul class="nav nav-pills nav-stacked" style="padding-bottom: 20px">
+                                <li style="width: 100%;" class="active">
+                                    <a href="">Mine oplysninger</a>
+                                </li>
+                                <li style="width: 100%;">
+                                    <a href="">Log ud</a>
+                                </li>
+                            </ul>
                         </div>
-                        <div>
-                            <label for="phonenr" class="small-title-label">Phone number</label><br>
-                            <input class="border-input-text" type="text" id="phonenr" name="phonenr"
-                                   value="${sessionScope.user.phoneNr}"><br>
-                        </div>
-                        <div>
-                            <div class="row-2-grid" style="gap: 20px">
-                                <div class="center-flex">
-                                    <div style="width: 100%; padding-right: 10px">
-                                        <label for="streetname" class="small-title-label">Street</label><br>
-                                        <input class="border-input-text" type="text" id="streetname" name="streetname"
-                                               value="${sessionScope.user.streetname}"><br>
-                                    </div>
-                                    <div>
-                                        <label for="housenr" class="small-title-label">House number</label><br>
-                                        <input class="border-input-text" type="text" id="housenr" name="housenr"
-                                               value="${sessionScope.user.houseNr}"><br>
-                                    </div>
+                        <div class="col-md-6">
+                            <div class="xhtml-string">
+                                <div class="col-xs-12">
+                                    <h3>Indtast oplysninger</h3>
+                                    <form action="${pageContext.request.contextPath}/fc/editusercommand" method="post">
+                                        <div style="padding-bottom: 35px">
+                                            <div style="padding-bottom: 10px">
+                                                <label for="firstname" style="font-weight: bold">Fornavn</label>
+                                                <input type="text" class="white-input" id="firstname" name="firstname"
+                                                       value="${sessionScope.user.firstname}">
+                                            </div>
+                                            <div>
+                                                <label for="lastname" style="font-weight: bold">Efternavn</label>
+                                                <input type="text" class="white-input" id="lastname" name="lastname"
+                                                       value="${sessionScope.user.lastname}">
+                                            </div>
+                                        </div>
+                                        <div style="padding-bottom: 35px">
+                                            <div>
+                                                <label for="email" style="font-weight: bold">E-mail</label>
+                                                <input type="text" class="white-input" id="email" name="email" value="${sessionScope.user.email}">
+                                            </div>
+                                        </div>
+                                        <div style="padding-bottom: 35px">
+                                            <div>
+                                                <label for="phonenr" style="font-weight: bold">Telefon</label>
+                                                <input type="text" class="white-input" id="phonenr" name="phonenr"
+                                                       value="${sessionScope.user.phoneNr}">
+                                            </div>
+                                        </div>
+                                        <div style="padding-bottom: 35px">
+                                            <div class="row" style="padding-bottom: 10px">
+                                                <div class="col-xs-9">
+                                                    <label for="streetname" style="font-weight: bold">Vejnavn</label>
+                                                    <input type="text" class="white-input" id="streetname" name="streetname"
+                                                           value="${sessionScope.user.streetname}">
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <label for="housenr" style="font-weight: bold">nr.</label>
+                                                    <input type="text" class="white-input" id="housenr" name="housenr"
+                                                           value="${sessionScope.user.houseNr}">
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-9">
+                                                    <label for="city" style="font-weight: bold">By</label>
+                                                    <input type="text" class="white-input" id="city" name="city"
+                                                           value="${sessionScope.user.city}">
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <label for="zipcode" style="font-weight: bold">zip</label>
+                                                    <input type="text" class="white-input" id="zipcode" name="zipcode"
+                                                           value="${sessionScope.user.zipcode}">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row" style="padding-top: 20px">
+                                            <div class="col-xs-6">
+                                                <a href="${pageContext.request.contextPath}/fc/profilepage" class="grey-button">Fortryd</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input type="submit" class="green-button" value="Gem">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="center-flex">
-                                    <div style="width: 100%; padding-right: 10px">
-                                        <label for="city" class="small-title-label">City</label><br>
-                                        <input class="border-input-text" type="text" id="city" name="city"
-                                               value="${sessionScope.user.city}"><br>
-                                    </div>
-                                    <div>
-                                        <label for="zipcode" class="small-title-label">Zip code</label><br>
-                                        <input class="border-input-text" type="text" id="zipcode" name="zipcode"
-                                               value="${sessionScope.user.zipcode}"><br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="padding-top: 35px">
-                            <div class="col-2-grid" style="gap: 10px">
-                                <a class="grey-large-button"
-                                   href="${pageContext.request.contextPath}/fc/profilepage">Cancel</a>
-                                <input type="hidden" name="admin" value="false">
-                                <input class="green-large-button" type="submit" value="Save changes  ✓">
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </section>
     </jsp:body>
 </t:genericpage>

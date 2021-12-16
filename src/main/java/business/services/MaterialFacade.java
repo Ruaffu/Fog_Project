@@ -8,34 +8,32 @@ import business.persistence.MaterialMapper;
 
 import java.util.ArrayList;
 
-public class MaterialFacade
-{
+public class MaterialFacade {
     MaterialMapper materialMapper;
     BOMMapper bomMapper;
 
-    public MaterialFacade(Database database)
-    {
+    public MaterialFacade(Database database) {
         materialMapper = new MaterialMapper(database);
         bomMapper = new BOMMapper(database);
     }
 
-    public void saveMaterial(Material material)
-    {
+    public void saveMaterialList(ArrayList<Material> materials) {
+        materialMapper.saveMaterialList(materials);
+    }
+
+    public void saveMaterial(Material material) {
         materialMapper.saveMaterial(material);
     }
 
-    public Material getMaterialByID(int id) throws UserException
-    {
-       return materialMapper.getMaterialByID(id);
+    public Material getMaterialByID(int id) throws UserException {
+        return materialMapper.getMaterialByID(id);
     }
 
-    public Material getMaterial(String name) throws UserException
-    {
+    public Material getMaterial(String name) throws UserException {
         return materialMapper.getMaterial(name);
     }
 
-    public ArrayList<Material> getMaterialByName(String name) throws UserException
-    {
+    public ArrayList<Material> getMaterialByName(String name) throws UserException {
         return materialMapper.getMaterialByName(name);
     }
 
@@ -43,9 +41,8 @@ public class MaterialFacade
         return bomMapper.getBOMMaterialByType(type);
     }
 
-    public ArrayList<Material> getAllMaterials() throws UserException
-    {
-       return materialMapper.getAllMaterials();
+    public ArrayList<Material> getAllMaterials() throws UserException {
+        return materialMapper.getAllMaterials();
     }
 
 }

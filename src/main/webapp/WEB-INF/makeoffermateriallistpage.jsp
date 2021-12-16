@@ -29,7 +29,10 @@
                         <div class="col-md-12">
                             <div class="col-xs-12">
                                 <div class="pull-right">
-                                    <input type="submit" class="green-button" style="padding-left: 20px; padding-right: 20px" value="Gem"> <!--TODO: gem-->
+                                    <form id="save" action="${pageContext.request.contextPath}/fc/updateordercommand">
+                                        <input type="submit" class="green-button"
+                                               style="padding-left: 20px; padding-right: 20px" value="Gem">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +42,8 @@
                                     <a href="${pageContext.request.contextPath}/fc/makeofferinfopage">Info</a>
                                 </li>
                                 <li style="width: 100%;">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"> Tilpasning af mål</a>
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"> Tilpasning
+                                        af mål</a>
                                 </li>
                                 <li style="width: 100%;" class="active">
                                     <a href="${pageContext.request.contextPath}/fc/makeoffermateriallistpage">Stykliste</a>
@@ -52,7 +56,8 @@
                                 </li>
 
                                 <li style="width: 100%">
-                                    <a href="${pageContext.request.contextPath}/fc/makeofferconfirmpage">Opret tilbud</a>
+                                    <a href="${pageContext.request.contextPath}/fc/makeofferconfirmpage">Opret
+                                        tilbud</a>
                                 </li>
                             </ul>
                         </div>
@@ -64,7 +69,8 @@
                                         <div class="col-xs-12" style="padding-bottom: 50px">
                                             <h3>Tilføj nyt materiale</h3>
                                             <div class="alert alert-info">
-                                                <form action="${pageContext.request.contextPath}/fc/addmaterialtolist" method="post">
+                                                <form action="${pageContext.request.contextPath}/fc/addtobomlistcommand"
+                                                      method="post">
                                                     <table style="border: none" border="0">
                                                         <tbody>
                                                         <tr>
@@ -160,7 +166,8 @@
                                                             </td>
                                                             <td>
                                                                 <strong><br></strong>
-                                                                <input type="submit" class="blue-button" style="padding: 10px" value="Tilføj">
+                                                                <input type="submit" class="blue-button"
+                                                                       style="padding: 10px" value="Tilføj">
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -190,7 +197,8 @@
                                                 </ul>
                                             </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
                                             <div class="pull-right">
-                                                <p style="font-weight: bold">${sessionScope.makeoffer.BOM.size()} Total</p>
+                                                <p style="font-weight: bold">${sessionScope.makeoffer.BOM.size()}
+                                                    Total</p>
                                             </div>
                                             <table class="white-background" border="0">
                                                 <tbody>
@@ -247,10 +255,12 @@
                                 <div class="pull-right col-xs-3">
 
                                     <div class="col-xs-6">
-                                        <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage" class="button"><i class="fa fa-chevron-left"></i> Tilbage</a>
+                                        <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"
+                                           class="button"><i class="fa fa-chevron-left"></i> Tilbage</a>
                                     </div>
                                     <div class="col-xs-6">
-                                        <a href="${pageContext.request.contextPath}/fc/makeofferpriceadjustmentpage" class="button">Næste <i class="fa fa-chevron-right"></i></a>
+                                        <a href="${pageContext.request.contextPath}/fc/makeofferpriceadjustmentpage"
+                                           class="button">Næste <i class="fa fa-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>
