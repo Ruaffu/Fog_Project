@@ -33,13 +33,14 @@
                                     <a href="${pageContext.request.contextPath}/fc/orderdetaildrawingpage">Tegninger</a>
                                 </li>
 
+                                <li style="width: 100%;" class="active">
+                                    <a href="${pageContext.request.contextPath}/fc/orderdetailmateriallistpage">Stykliste</a>
+                                </li>
+
                                 <c:if test="${sessionScope.user.role.equals('employee')}">
                                     <li style="width: 100%;">
                                         <a href="${pageContext.request.contextPath}/fc/orderdetailstatuspage">Skift
                                             status</a>
-                                    </li>
-                                    <li style="width: 100%;" class="active">
-                                        <a href="${pageContext.request.contextPath}/fc/orderdetailmateriallistpage">Stykliste</a>
                                     </li>
                                 </c:if>
                             </ul>
