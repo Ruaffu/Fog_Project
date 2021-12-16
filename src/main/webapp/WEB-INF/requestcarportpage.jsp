@@ -26,6 +26,15 @@
                     <div class="col-md-12">
                         <div class="xhtml-string">
                             <form action="${pageContext.request.contextPath}/fc/requestcommand" method="post">
+                                <c:if test="${sessionScope.failure != null}">
+                                    <div style="padding-bottom: 20px">
+
+                                        <div class="alert alert-info" style="background-color: lightcoral">
+                                            <label style="color: red; font-weight: bold">${sessionScope.failure}</label>
+                                        </div>
+                                    </div>
+                                </c:if>
+
                                 <div style="padding-bottom: 45px">
                                     <h3>Vælg model</h3>
                                     <div class="row">

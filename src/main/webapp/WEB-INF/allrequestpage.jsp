@@ -88,8 +88,6 @@
                                                 <form action="${pageContext.request.contextPath}/fc/makeoffercommand"
                                                       method="post">
                                                     <input type="hidden" name="request" value="${index = index + 1}">
-
-
                                                     <input type="submit" class="green-button"
                                                            style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
                                                            value="Lav tilbud">
@@ -98,9 +96,9 @@
                                             </c:if>
                                             <c:if test="${request.status.equals('offer')}">
                                                 <form action="${pageContext.request.contextPath}/fc/getrequestcommand" method="post">
-                                                    <input type="hidden" name="request" value="${index}">
-                                                    <input type="hidden" name="listname" value="allrequests">
 
+                                                    <input type="hidden" name="listname" value="allrequests">
+                                                    <input type="hidden" name="request" value="${index = index + 1}">
                                                     <input type="submit" class="blue-button"
                                                            style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
                                                            value="se mere">

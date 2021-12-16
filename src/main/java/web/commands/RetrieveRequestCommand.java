@@ -33,6 +33,7 @@ public class RetrieveRequestCommand extends CommandProtectedPage
             users = userFacade.getAllUsers();
             ArrayList<Order> requests = orderFacade.getAllRequests(users);
             session.setAttribute("allrequests", requests);
+
         } catch (UserException e)
         {
             e.printStackTrace();

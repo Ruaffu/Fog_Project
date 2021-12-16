@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div style="margin-bottom: 15px">
-                                                <input type="radio" id="flatroof" name="choosenroof" value="flatroof">
+                                                <input type="radio" id="flatroof" name="choosenroof" value="flatroof" checked>
                                                 <label for="flatroof">Carport med fladt tag</label>
                                             </div>
 

@@ -60,7 +60,7 @@
                                                     <label style="font-weight: bold">Fornavn: </label>
                                                 </div>
                                                 <div>
-                                                    <p>Mie </p>
+                                                    <p>${sessionScope.currentrequest.user.firstname} </p>
                                                 </div>
                                             </div>
 
@@ -70,7 +70,7 @@
                                                     <label>Efternavn: </label>
                                                 </div>
                                                 <div>
-                                                    <p>Thorberg </p>
+                                                    <p>${sessionScope.currentrequest.user.lastname} </p>
                                                 </div>
                                             </div>
 
@@ -79,7 +79,7 @@
                                                     <label>E-mail: </label>
                                                 </div>
                                                 <div>
-                                                    <p>mie@mail.com</p>
+                                                    <p>${sessionScope.currentrequest.user.email}</p>
                                                 </div>
                                             </div>
                                             <div>
@@ -87,7 +87,7 @@
                                                     <label>Telefon: </label>
                                                 </div>
                                                 <div>
-                                                    <p>11 22 33 44</p>
+                                                    <p>${sessionScope.currentrequest.user.phoneNr}</p>
                                                 </div>
                                             </div>
                                             <div>
@@ -95,7 +95,7 @@
                                                     <label>Adresse: </label>
                                                 </div>
                                                 <div>
-                                                    <p>godnatvej nr. 15, Herlev 2730</p>
+                                                    <p>${sessionScope.currentrequest.user.streetname} nr. ${sessionScope.currentrequest.user.houseNr}, ${sessionScope.currentrequest.user.city} ${sessionScope.currentrequest.user.zipcode}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div>
-                                                    <input type="text" value="${sessionScope.currentrequest.roofType}" disabled> <!--TODO: carport model bliver ikke gemt :(-->
+                                                    <input type="text" value="Carport med fladt tag" disabled> <!--TODO: carport model bliver ikke gemt :(-->
                                                 </div>
                                             </div>
                                         </div>

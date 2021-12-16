@@ -41,6 +41,11 @@ public class RequestCommand extends CommandProtectedPage
         int shedWidth = Integer.parseInt(request.getParameter("shedwidth"));
         String remarks = request.getParameter("misc");
 
+        if (length < shedLength || width < shedWidth) {
+            session.setAttribute("failure", "Fejl, vælg en gyldig længde");
+            return "requestcarportpage";
+        }
+
         if (shedLength > 0){
             MC = new FlatRoofWithShedCalc(database, width, length, shedWidth, shedLength);
         } else {

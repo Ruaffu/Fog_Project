@@ -131,7 +131,7 @@
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div>
-                                                    <input type="text" value="${sessionScope.currentrequest.roofType}"
+                                                    <input type="text" value="Carport med fladt tag"
                                                            disabled> <!--TODO: carport model bliver ikke gemt :(-->
                                                 </div>
                                             </div>
