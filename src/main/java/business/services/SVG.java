@@ -183,6 +183,11 @@ public class SVG {
         addRect(carportLength - 20, 15, shedWith, 10);
 
     }
+    public void drawShedWoodSide(int shedLength, int carportLength, int shedWidth) {
+        addRect(carportLength - shedLength - 20, 12, 10, shedLength);
+        addRect(carportLength - shedLength - 20, 12 + shedWidth, 10, shedLength);
+
+    }
 
     public void drawShedCladding(int quantity, int length, int width, int carportLength) {
         quantity = quantity/4;

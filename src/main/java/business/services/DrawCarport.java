@@ -32,6 +32,8 @@ public class DrawCarport {
         svg.drawRafter(findQuantity("spær"), order.getCarportLength(), order.getCarportWidth());
 
         svg.drawShedWood(order.getShedLength(), order.getCarportLength(), order.getShedWidth());
+        svg.drawShedWoodSide(order.getShedLength(), order.getCarportLength(), order.getShedWidth());
+
 
         int postsShedLength = svgHelper.calcPostsShedLength();
         int postsShedWidth = svgHelper.calcPostsShedWidth();
