@@ -155,13 +155,18 @@ public class SVG {
 //
 //    }
 
-    public void drawShedPosts(int quantity, int carportLength, int length, int shedWidth) {
+    public void drawShedPosts(int quantity, int quantityLength, int quantityWidth, int carportLength, int length, int shedWidth) {
+//        for (int i = 0; i < quantityLength; i++){
+//            for (int j = 0; j < quantityWidth; j++) {
+//                addRect((carportLength - length - 20) * i, (x+12) * j, 10,10);
+//            }
+//        }
+
         int offset = shedWidth / ((quantity / 2) - 1);
         for (int x = 0; x < quantity / 2; x++) {
             addRect(carportLength - length - 20, offset * x + 12, 10, 10);
             addRect(carportLength - 20, offset * x + 12, 10, 10);
         }
-
     }
 
     public void drawShedPostsSideView(int quantity, int carportLength, int length, int shedWidth) {

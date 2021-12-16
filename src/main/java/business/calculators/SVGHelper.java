@@ -42,12 +42,28 @@ public class SVGHelper {
         return quantityByWidth * quantityByLength;
     }
 
+    public int calcPostsShedLength() {
+        // quantity for shed
+        return amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2);
+    }
+    public int calcPostsShedWidth() {
+        // quantity for shed
+        int quantityByWidthShed = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0);
+
+        int shedWidthOffset = 30;
+        if (!((carportWidth - shedWidthOffset) == shedWidth)){
+            quantityByWidthShed += 1;
+        }
+
+        return quantityByWidthShed;
+    }
+
     public int calcPostsShed() {
         // quantity for shed
         int quantityByWidthShed = amountOfPosts(shedWidth, MAX_WIDTH_SHED, 0, 0);
         int quantityByLengthShed = amountOfPosts(shedLength, MAX_LENGTH, 0, OFFSET_L2);
 
-        // amount of Posts Width multiplied by amount of Posts Length
+        //
         return quantityByWidthShed * quantityByLengthShed;
     }
 

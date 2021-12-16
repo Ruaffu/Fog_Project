@@ -85,6 +85,12 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
 
         // amount of Posts Width multiplied by amount of Posts Length
         int quantityBase = quantityByWidth * quantityByLength;
+
+        int shedWidthOffset = 30;
+        if (!((carportWidth - shedWidthOffset) == shedWidth)){
+            quantityByWidthShed += 1;
+        }
+
         int quantityShed = quantityByWidthShed * quantityByLengthShed;
 
         int sharedPosts = 2;
@@ -95,7 +101,6 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         // total quantity
         int quantity = (quantityBase + quantityShed + doorPost) - sharedPosts;
 
-        System.out.println(materialList.get(0).getName());
         bom.add(newItem(quantity, materialList.get(0).getId(), description, type, materialList.get(0)));
     }
 

@@ -33,11 +33,13 @@ public class DrawCarport {
 
         svg.drawShedWood(order.getShedLength(), order.getCarportLength(), order.getShedWidth());
 
-        int postShed = svgHelper.calcPostsShed();
+        int postsShedLength = svgHelper.calcPostsShedLength();
+        int postsShedWidth = svgHelper.calcPostsShedWidth();
+        int postsShed = svgHelper.calcPostsShed();
         int postCarport = svgHelper.calcPostsCarPort();
 
         svg.drawPost(postCarport, order.getCarportLength() - order.getShedLength(), order.getCarportWidth(), true);
-        svg.drawShedPosts(postShed, order.getCarportLength(), order.getShedLength(), order.getShedWidth());
+        svg.drawShedPosts(postsShed ,postsShedLength, postsShedWidth, order.getCarportLength(), order.getShedLength(), order.getShedWidth());
 
         svg.drawMetalBand(order.getCarportLength() - order.getShedLength(), order.getCarportWidth());
 
