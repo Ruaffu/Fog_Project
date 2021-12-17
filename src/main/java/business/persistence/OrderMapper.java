@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class OrderMapper {
 
-    Database database;
+    private final Database database;
 
-    public OrderMapper(Database database) {
+    protected OrderMapper(Database database) {
         this.database = database;
     }
 

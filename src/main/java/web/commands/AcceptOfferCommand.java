@@ -28,7 +28,7 @@ public class AcceptOfferCommand extends CommandProtectedPage {
 
         Order acceptOrder = (Order) session.getAttribute("request");
 
-        acceptOrder.setStatus("accepted"); // TODO: better word?? NO ;(
+        acceptOrder.setStatus("accepted");
         acceptOrder.setOrderDate(new Timestamp(System.currentTimeMillis()));
 
         orderFacade.updateOrder(acceptOrder);

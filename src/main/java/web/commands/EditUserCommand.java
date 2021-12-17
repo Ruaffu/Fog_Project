@@ -31,9 +31,6 @@ public class EditUserCommand extends CommandUnprotectedPage {
 
         boolean isAdmin = Boolean.parseBoolean(request.getParameter("admin"));
 
-
-        user = (User) session.getAttribute("user");
-
         if (isAdmin){
             user = (User) session.getAttribute("seemoreuser");
         } else {

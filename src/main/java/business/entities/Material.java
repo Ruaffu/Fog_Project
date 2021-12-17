@@ -1,7 +1,9 @@
 package business.entities;
 
-public class Material {
+import business.persistence.MaterialMapper;
 
+public class Material {
+    // id: -1 is used for creating new material in DB
     int id = -1;
     String name;
     String type;

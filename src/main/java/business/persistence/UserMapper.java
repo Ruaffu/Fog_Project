@@ -7,9 +7,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UserMapper {
-    private Database database;
+    private final Database database;
 
-    public UserMapper(Database database) {
+    protected UserMapper(Database database) {
         this.database = database;
     }
 

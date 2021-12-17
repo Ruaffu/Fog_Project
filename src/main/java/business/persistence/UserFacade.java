@@ -1,8 +1,6 @@
 package business.persistence;
 
 import business.entities.User;
-import business.persistence.Database;
-import business.persistence.UserMapper;
 import business.exceptions.UserException;
 
 import java.util.ArrayList;
