@@ -1,9 +1,7 @@
 package web.commands;
 
 import business.entities.Material;
-import business.entities.Order;
-import business.services.MaterialFacade;
-import business.services.OrderFacade;
+import business.persistence.MaterialFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

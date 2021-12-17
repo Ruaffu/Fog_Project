@@ -1,8 +1,7 @@
 package web.commands;
 
 import business.entities.Material;
-import business.exceptions.UserException;
-import business.services.MaterialFacade;
+import business.persistence.MaterialFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

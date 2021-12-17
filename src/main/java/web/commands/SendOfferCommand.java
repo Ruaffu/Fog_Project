@@ -1,18 +1,13 @@
 package web.commands;
 
-import business.calculators.FlatRoofCalc;
-import business.calculators.FlatRoofWithShedCalc;
 import business.calculators.MaterialCalculator;
-import business.entities.Material;
 import business.entities.Order;
-import business.exceptions.UserException;
-import business.services.OrderFacade;
+import business.persistence.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 public class SendOfferCommand extends CommandProtectedPage {
 

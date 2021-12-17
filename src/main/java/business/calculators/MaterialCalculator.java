@@ -3,7 +3,7 @@ package business.calculators;
 import business.entities.Material;
 import business.exceptions.UserException;
 import business.persistence.Database;
-import business.services.MaterialFacade;
+import business.persistence.MaterialFacade;
 
 import java.util.ArrayList;
 import java.util.Collections;

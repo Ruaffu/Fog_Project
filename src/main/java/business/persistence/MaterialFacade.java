@@ -1,4 +1,4 @@
-package business.services;
+package business.persistence;
 
 import business.entities.Material;
 import business.exceptions.UserException;

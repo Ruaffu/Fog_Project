@@ -2,8 +2,7 @@ package web.commands;
 
 import business.entities.Order;
 import business.entities.User;
-import business.persistence.Database;
-import business.services.UserFacade;
+import business.persistence.UserFacade;
 import business.exceptions.UserException;
 
 import javax.servlet.http.HttpServletRequest;
