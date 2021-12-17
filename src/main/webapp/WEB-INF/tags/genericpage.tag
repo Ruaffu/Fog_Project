@@ -75,7 +75,7 @@
                                             <div class="col-xs-4"></div>
                                             <div class="col-xs-4"></div>
                                             <div class="col-xs-4">
-                                                <a href="${pageContext.request.contextPath}/fc/requestpage"
+                                                <a href="${pageContext.request.contextPath}/fc/requestcarportpage"
                                                    class="nav-button" style="text-align: right;">Lav carport</a>
                                                 <!--TODO: håndter hvis man ikke er logget ind i inden forespørgsel sendes-->
                                             </div>
@@ -147,7 +147,7 @@
                                                    class="nav-button" style="text-align: right;">Ordre</a>
                                             </div>
                                             <div class="col-xs-4">
-                                                <a href="${pageContext.request.contextPath}/fc/requestpage"
+                                                <a href="${pageContext.request.contextPath}/fc/requestcarportpage"
                                                    class="nav-button" style="text-align: right;">Lav carport</a>
                                             </div>
                                         </c:if> <!--TODO: indsæt bagde-->

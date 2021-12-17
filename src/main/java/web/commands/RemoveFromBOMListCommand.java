@@ -24,6 +24,6 @@ public class RemoveFromBOMListCommand extends CommandProtectedPage{
 
         session.setAttribute("bomlist", bomcopy);
 
-        return "makeoffermateriallistpage";
+        return pageToShow;
     }
 }

@@ -70,7 +70,7 @@
                                                             <label style="font-size: 18px">Dækningsbidrag:</label>
                                                         </div>
                                                         <div>
-                                                            <label style="font-weight: normal" id="calclabel1">Salgspris - kostpris = dækningsbidrag</label> <!--TODO: javascript til at opdater-->
+                                                            <label style="font-weight: normal" id="calclabel1">Salgspris - kostpris = dækningsbidrag</label>
 
                                                         </div>
                                                     </div>
@@ -79,7 +79,7 @@
                                                             <label style="font-size: 18px">Dækningsgrad:</label>
                                                         </div>
                                                         <div>
-                                                            <label style="font-weight: normal" id="calclabel2">Dækningsbidrag / salgspris * 100 = dækningsgrad</label> <!--TODO: javascript til at opdater-->
+                                                            <label style="font-weight: normal" id="calclabel2">Dækningsbidrag / salgspris * 100 = dækningsgrad</label>
                                                         </div>
                                                     </div>
                                                 </div>
