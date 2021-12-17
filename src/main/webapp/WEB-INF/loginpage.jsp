@@ -24,6 +24,12 @@
                                         <form name="login" action="${pageContext.request.contextPath}/fc/logincommand"
                                               method="post">
                                             <h1 style="font-weight: bold; padding-bottom: 10px">Log in</h1>
+
+                                            <c:if test="${requestScope.error != null}">
+                                                <div class="alert alert-failure" style="margin-bottom: 20px">
+                                                    <label style="font-size: 16px; font-weight: bold; text-align: center">${requestScope.error}</label>
+                                                </div>
+                                            </c:if>
                                             <div style="margin-bottom: 20px">
                                                 <label for="email" style="font-size: 16px; font-weight: bold">Indtast
                                                     e-mail</label>
@@ -44,7 +50,8 @@
                                             <div style="margin-top: 30px">
                                                 <input type="submit"
                                                        value="Login" class="blue-button" style="margin-bottom: 15px">
-                                                <a href="${pageContext.request.contextPath}/fc/registerpage" class="green-button">
+                                                <a href="${pageContext.request.contextPath}/fc/registerpage"
+                                                   class="green-button">
                                                     Opret bruger
                                                 </a>
                                             </div>

@@ -93,12 +93,13 @@ public class OrderMapper {
         ArrayList<Integer> orders = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
-            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status != ? AND status != ?";
+            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status != ? AND status != ? AND status != ?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, user_id);
                 ps.setString(2, "request");
                 ps.setString(3, "offer");
+                ps.setString(4, "rejected");
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id_order");
@@ -122,13 +123,15 @@ public class OrderMapper {
         ArrayList<Integer> orders = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
-            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status = ? OR user_id = ? AND status = ?";
+            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status = ? OR user_id = ? AND status = ? OR user_id = ? AND status = ?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, user_id);
                 ps.setString(2, "request");
                 ps.setInt(3, user_id);
                 ps.setString(4, "offer");
+                ps.setInt(5, user_id);
+                ps.setString(6, "rejected");
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id_order");

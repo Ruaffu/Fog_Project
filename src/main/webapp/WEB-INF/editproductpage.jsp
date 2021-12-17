@@ -65,7 +65,7 @@
                                                 </td>
                                                 <td>
                                                     <strong>Bredde</strong>
-                                                    <input class="white-input" type="number" name="width" value="0"
+                                                    <input class="white-input" type="number" name="width" placeholder="0"
                                                            class="white-input">
                                                 </td>
                                                 <td>
@@ -87,93 +87,102 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-xs-12" style="margin-bottom: 50px">
-
-                                <div class="clearfix  search-pagination">
-                                    <select class="pull-left search-dropdown">
-                                        <option>Vis 10</option>
-                                        <option>Vis 25</option>
-                                        <option>Vis 50</option>
-                                    </select>
-                                    <ul class="pull-right pagination-sm pagination">
-                                        <li>
-                                            <a class="fa fa-chevron-left"></a>
-                                        </li>
-                                        <li class="pagination-page active">
-                                            <a>1</a>
-                                        </li>
-                                        <li>
-                                            <a class="fa fa-chevron-right"></a>
-                                        </li>
-                                    </ul>
-                                </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
-                                <div class="pull-right">
-                                    <p style="font-weight: bold">${sessionScope.editmateriallist.size()} Total</p>
+                            <c:if test="${sessionScope.editmateriallist.size() == 0}">
+                                <div class="col-xs-12">
+                                    <div class="alert alert-info">
+                                        <label>Ingen materialer registreret</label>
+                                    </div>
                                 </div>
-                                <table class="white-background" border="0">
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>Materiale</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Kostpris</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Salgspris</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Længde</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Højde</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Bredde</strong>
-                                        </td>
-                                        <td>
-                                            <strong>Enhed</strong>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    <c:set var="index" value="-1"/>
-                                    <c:forEach var="material" items="${sessionScope.editmateriallist}">
+                            </c:if>
+                            <c:if test="${sessionScope.editmateriallist.size() > 0}">
+                                <div class="col-xs-12" style="margin-bottom: 50px">
+
+                                    <div class="clearfix  search-pagination">
+                                        <select class="pull-left search-dropdown">
+                                            <option>Vis 10</option>
+                                            <option>Vis 25</option>
+                                            <option>Vis 50</option>
+                                        </select>
+                                        <ul class="pull-right pagination-sm pagination">
+                                            <li>
+                                                <a class="fa fa-chevron-left"></a>
+                                            </li>
+                                            <li class="pagination-page active">
+                                                <a>1</a>
+                                            </li>
+                                            <li>
+                                                <a class="fa fa-chevron-right"></a>
+                                            </li>
+                                        </ul>
+                                    </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
+                                    <div class="pull-right">
+                                        <p style="font-weight: bold">${sessionScope.editmateriallist.size()} Total</p>
+                                    </div>
+                                    <table class="white-background" border="0">
+                                        <tbody>
                                         <tr>
-                                            <td>${material.name}</td>
-                                            <td>${material.cost} kr.</td>
-                                            <td>${material.price} kr.</td>
-                                            <td>${material.length} </td>
-                                            <td>${material.height}</td>
-                                            <td>${material.width}</td>
-                                            <td>${material.unit}</td>
                                             <td>
-                                                <form action="${pageContext.request.contextPath}/fc/removefrommateriallistcommand"
-                                                      method="post">
-                                                    <input type="hidden" name="materialindex"
-                                                           value="${index = index + 1}">
-                                                    <input type="submit" value="Delete" class="red-button">
-
-                                                </form>
-
+                                                <strong>Materiale</strong>
                                             </td>
+                                            <td>
+                                                <strong>Kostpris</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Salgspris</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Længde</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Højde</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Bredde</strong>
+                                            </td>
+                                            <td>
+                                                <strong>Enhed</strong>
+                                            </td>
+                                            <td></td>
                                         </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                                <div class="clearfix  search-pagination">
-                                    <ul class="pull-right pagination-sm pagination">
-                                        <li>
-                                            <a class="fa fa-chevron-left"></a>
-                                        </li>
-                                        <li class="pagination-page active">
-                                            <a>1</a>
-                                        </li>
-                                        <li>
-                                            <a class="fa fa-chevron-right"></a>
-                                        </li>
-                                    </ul>
+                                        <c:set var="index" value="-1"/>
+                                        <c:forEach var="material" items="${sessionScope.editmateriallist}">
+                                            <tr>
+                                                <td>${material.name}</td>
+                                                <td>${material.cost} kr.</td>
+                                                <td>${material.price} kr.</td>
+                                                <td>${material.length} cm</td>
+                                                <td>${material.height} cm</td>
+                                                <td>${material.width} cm</td>
+                                                <td>${material.unit}</td>
+                                                <td>
+                                                    <form action="${pageContext.request.contextPath}/fc/removefrommateriallistcommand"
+                                                          method="post">
+                                                        <input type="hidden" name="materialindex"
+                                                               value="${index = index + 1}">
+                                                        <input type="submit" value="Delete" class="red-button">
+
+                                                    </form>
+
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                    <div class="clearfix  search-pagination">
+                                        <ul class="pull-right pagination-sm pagination">
+                                            <li>
+                                                <a class="fa fa-chevron-left"></a>
+                                            </li>
+                                            <li class="pagination-page active">
+                                                <a>1</a>
+                                            </li>
+                                            <li>
+                                                <a class="fa fa-chevron-right"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>

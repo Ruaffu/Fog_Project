@@ -41,6 +41,7 @@ public class MaterialMapper
         }
     }
 
+
     public void saveMaterial(Material material) {
 
         try (Connection connection = database.connect()) {

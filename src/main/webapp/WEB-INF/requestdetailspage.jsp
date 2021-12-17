@@ -17,7 +17,7 @@
                             <c:if test="${sessionScope.request.status.equals('request')}">
                                 <h1>Forespørgsel</h1>
                             </c:if>
-                            <c:if test="${sessionScope.request.status.equals('offer')}">
+                            <c:if test="${sessionScope.request.status.equals('offer') || sessionScope.request.status.equals('rejected')}">
                                 <h1>Tilbud</h1>
                             </c:if>
                         </div>
@@ -31,179 +31,208 @@
                     <div class="article-page">
                         <div class="col-md-9">
                             <div class="xhtml-string">
-                                <c:if test="${sessionScope.request.status.equals('offer')}">
-                                    <h2>Tilbud</h2>
-                                    <div class="row" style="margin-bottom: 50px">
-                                        <div class="col-xs-12">
-
-                                            <div>
-                                                <div>
-                                                    <label style="font-weight: bold">Pris: </label>
-                                                </div>
-                                                <div>
-                                                    <p>${sessionScope.request.totalPrice} kr.</p>
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <div>
-                                                    <label style="font-weight: bold">Antal materiale: </label>
-                                                </div>
-                                                <div>
-                                                    <p>${sessionScope.request.BOM.size()}</p>
-                                                </div>
-                                            </div>
-
-                                            <c:if test="${sessionScope.role.equals('customer')}">
-                                                <div class="row"> <!--TODO: afvis et tilbud-->
-                                                    <div class="col-xs-6">
-                                                        <a class="grey-button">
-                                                            Afvis tilbud
-                                                        </a>
-                                                    </div>
-                                                    <form action="${pageContext.request.contextPath}/fc/acceptoffercommand"
-                                                          method="post">
-                                                        <div class="col-xs-6">
-                                                            <input type="submit" class="green-button"
-                                                                   value="Bekræft tilbud">
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <c:if test="${sessionScope.request.status.equals('offer') || sessionScope.request.status.equals('rejected')}">
+                                            <c:if test="${sessionScope.request.status.equals('rejected')}">
+                                                <h2>Afvist tilbud</h2>
                                             </c:if>
-                                        </div>
-                                    </div>
-                                </c:if>
+                                            <c:if test="${sessionScope.request.status.equals('offer')}">
+                                                <h2>Tilbud</h2>
+                                            </c:if>
+                                            <div class="row" style="margin-bottom: 50px">
+                                                <div class="col-xs-12">
 
-                                <c:if test="${sessionScope.user.role.equals('employee')}">
-                                    <h2>Kundeoplysninger</h2>
-                                    <div class="alert alert-info" style="margin-bottom: 50px">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div>
                                                     <div>
-                                                        <label style="font-weight: bold">Fornavn: </label>
+                                                        <div>
+                                                            <label style="font-weight: bold">Pris: </label>
+                                                        </div>
+                                                        <div>
+                                                            <p>${sessionScope.request.totalPrice} kr.</p>
+                                                        </div>
                                                     </div>
+                                                    <c:if test="${sessionScope.role.equals('employee')}">
+                                                        <div>
+                                                            <div>
+                                                                <label style="font-weight: bold">Kostpris: </label>
+                                                            </div>
+                                                            <div>
+                                                                <p>${sessionScope.request.totalCost} kr.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div>
+                                                                <label style="font-weight: bold">Dækningsgrad: </label>
+                                                            </div>
+                                                            <div>
+                                                                <p>${sessionScope.request.coverageRatio} %</p>
+                                                            </div>
+                                                        </div>
+                                                    </c:if>
                                                     <div>
-                                                        <p>${sessionScope.request.user.firstname}</p>
+                                                        <div>
+                                                            <label style="font-weight: bold">Antal materiale: </label>
+                                                        </div>
+                                                        <div>
+                                                            <p>${sessionScope.request.BOM.size()}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        <label>Efternavn: </label>
-                                                    </div>
-                                                    <div>
-                                                        <p>${sessionScope.request.user.lastname}</p>
-                                                    </div>
-                                                </div>
 
-                                                <div>
-                                                    <div>
-                                                        <label>E-mail: </label>
-                                                    </div>
-                                                    <div>
-                                                        <p>${sessionScope.request.user.email}</p>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        <label>Telefon: </label>
-                                                    </div>
-                                                    <div>
-                                                        <p>${sessionScope.request.user.phoneNr}</p>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        <label>Adresse: </label>
-                                                    </div>
-                                                    <div>
-                                                        <p>${sessionScope.request.user.streetname} nr. ${sessionScope.request.user.houseNr}, ${sessionScope.request.user.city} ${sessionScope.request.user.zipcode}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    <c:if test="${sessionScope.role.equals('customer') && sessionScope.request.status.equals('offer')}">
+                                                        <div class="row">
+                                                            <form action="${pageContext.request.contextPath}/fc/rejectoffercommand"
+                                                                  method="post">
+                                                                <div class="col-xs-6">
+                                                                    <input type="submit" class="red-button" value="Afvis tilbud">
+                                                                </div>
+                                                            </form>
 
-                                        </div>
-                                    </div>
-                                </c:if>
-                                <h2>Mål for carport</h2>
-                                <div class="alert alert-info">
-                                    <div style="padding-bottom: 45px">
-                                        <h3>model</h3>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div>
-                                                    <input type="text" value="Carport med fladt tag"
-                                                           disabled> <!--TODO: carport model bliver ikke gemt :(-->
+                                                            <form action="${pageContext.request.contextPath}/fc/acceptoffercommand"
+                                                                  method="post">
+                                                                <div class="col-xs-6">
+                                                                    <input type="submit" class="green-button"
+                                                                           value="Bekræft tilbud">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </c:if>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-bottom: 45px">
-                                        <h3>størrelse</h3>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div style="margin-bottom: 15px">
-                                                    <label>Carport bredde</label>
-                                                    <input type="text"
-                                                           value="${sessionScope.request.carportWidth} cm"
-                                                           disabled>
-                                                </div>
-                                                <div>
-                                                    <label>Carport længde</label>
-                                                    <input type="text"
-                                                           value="${sessionScope.request.carportLength} cm"
-                                                           disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-bottom: 45px">
-                                        <h3>tag</h3>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div style="margin-bottom: 15px">
-                                                    <label>Tag-materiale</label>
-                                                    <input type="text" value="${sessionScope.request.roofType}"
-                                                           disabled>
-                                                </div>
-                                                <div>
-                                                    <label>Taghældning</label>
-                                                    <input type="text"
-                                                           value="${sessionScope.currentrequest.roofAngle} grader"
-                                                           disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-bottom: 45px">
-                                        <h3>redskabsrum</h3>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div style="margin-bottom: 15px">
-                                                    <label>Redskabsrum bredde</label>
-                                                    <input type="text"
-                                                           value="${sessionScope.request.shedWidth} cm" disabled>
-                                                </div>
-                                                <div>
-                                                    <label>Redskabsrum længde</label>
-                                                    <input type="text"
-                                                           value="${sessionScope.request.shedLength} cm"
-                                                           disabled>
+                                        </c:if>
+
+                                        <c:if test="${sessionScope.user.role.equals('employee')}">
+                                            <h2>Kundeoplysninger</h2>
+                                            <div class="alert alert-info" style="margin-bottom: 50px">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div>
+                                                            <div>
+                                                                <label style="font-weight: bold">Fornavn: </label>
+                                                            </div>
+                                                            <div>
+                                                                <p>${sessionScope.request.user.firstname}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div>
+                                                                <label>Efternavn: </label>
+                                                            </div>
+                                                            <div>
+                                                                <p>${sessionScope.request.user.lastname}</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div>
+                                                                <label>E-mail: </label>
+                                                            </div>
+                                                            <div>
+                                                                <p>${sessionScope.request.user.email}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div>
+                                                                <label>Telefon: </label>
+                                                            </div>
+                                                            <div>
+                                                                <p>${sessionScope.request.user.phoneNr}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div>
+                                                                <label>Adresse: </label>
+                                                            </div>
+                                                            <div>
+                                                                <p>${sessionScope.request.user.streetname} nr. ${sessionScope.request.user.houseNr}, ${sessionScope.request.user.city} ${sessionScope.request.user.zipcode}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div style="padding-bottom: 45px">
-                                        <h3>Bemærkning</h3>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div style="margin-bottom: 15px">
-                                                    <textarea disabled>${sessionScope.request.remarks}</textarea>
+                                        </c:if>
+                                        <h2>Mål for carport</h2>
+                                        <div class="alert alert-info">
+                                            <div style="padding-bottom: 45px">
+                                                <h3>model</h3>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div>
+                                                            <input type="text" value="Carport med fladt tag"
+                                                                   disabled> <!--TODO: carport model bliver ikke gemt :(-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 45px">
+                                                <h3>størrelse</h3>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div style="margin-bottom: 15px">
+                                                            <label>Carport bredde</label>
+                                                            <input type="text"
+                                                                   value="${sessionScope.request.carportWidth} cm"
+                                                                   disabled>
+                                                        </div>
+                                                        <div>
+                                                            <label>Carport længde</label>
+                                                            <input type="text"
+                                                                   value="${sessionScope.request.carportLength} cm"
+                                                                   disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 45px">
+                                                <h3>tag</h3>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div style="margin-bottom: 15px">
+                                                            <label>Tag-materiale</label>
+                                                            <input type="text" value="${sessionScope.request.roofType}"
+                                                                   disabled>
+                                                        </div>
+                                                        <div>
+                                                            <label>Taghældning</label>
+                                                            <input type="text"
+                                                                   value="${sessionScope.currentrequest.roofAngle} grader"
+                                                                   disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 45px">
+                                                <h3>redskabsrum</h3>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div style="margin-bottom: 15px">
+                                                            <label>Redskabsrum bredde</label>
+                                                            <input type="text"
+                                                                   value="${sessionScope.request.shedWidth} cm" disabled>
+                                                        </div>
+                                                        <div>
+                                                            <label>Redskabsrum længde</label>
+                                                            <input type="text"
+                                                                   value="${sessionScope.request.shedLength} cm"
+                                                                   disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-bottom: 45px">
+                                                <h3>Bemærkning</h3>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div style="margin-bottom: 15px">
+                                                            <textarea disabled>${sessionScope.request.remarks}</textarea>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

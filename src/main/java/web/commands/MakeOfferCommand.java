@@ -21,11 +21,14 @@ public class MakeOfferCommand extends CommandProtectedPage {
         HttpSession session = request.getSession();
 
         int index = Integer.parseInt(request.getParameter("request"));
-        ArrayList<Order> requests = (ArrayList<Order>) session.getAttribute("allrequests");
+        String listname = request.getParameter("listname");
+        ArrayList<Order> requests = (ArrayList<Order>) session.getAttribute(listname);
         Order makeRequest = requests.get(index);
 
         session.setAttribute("makeoffer", makeRequest); //bruges til at ændre data af tilbuddet før det er gemt
         session.setAttribute("currentrequest", makeRequest); //Bruges til at se det nuværrende sendte forespørgsel fra kunden
+
+
 
         return pageToShow;
     }

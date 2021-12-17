@@ -806,12 +806,29 @@ button:active, button:focus, button:hover, input:active, input:focus, input:hove
 }
 
 .alert-failure {
-    background-color: #f7d9d9;
-    border-color: #f1bcc6;
-    color: #8f3131;
+    background-color: #ffe5e5;
+    border-color: #ff4d4d;
+    color: #a62e2e;
 }
 
-.alert-info input, .alert-failure {
+.failure-label {
+    color: #a62e2e;
+    font-weight: bold;
+}
+
+.nav-button .badge {
+    position: absolute;
+    top: -10px;
+    right: -30px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    z-index: 50;
+    font-size: 14px;
+}
+
+.alert-info input, .alert-failure input {
     background-color: #f8f8f8;
     width: 100%;
     padding: 3px 10px;
@@ -825,7 +842,7 @@ button:active, button:focus, button:hover, input:active, input:focus, input:hove
 
 }
 
-.alert-info label, .alert-failure {
+.alert-info label, .alert-failure label{
     font-weight: 700;
 }
 

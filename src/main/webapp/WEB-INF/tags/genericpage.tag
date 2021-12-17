@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style1.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="theme-color" content="#7952b3">
@@ -57,13 +57,16 @@
                                             <c:if test="${sessionScope.user == null }">
                                                 <a href="${pageContext.request.contextPath}/fc/loginpage"
                                                    class="nav-button"><i class="jf-icon-human-check fa fa-user"></i>
-                                                    Login</a> <!--TODO: indsæt dropdown menu-->
+                                                    Login
+                                                </a>
+
                                             </c:if>
                                             <c:if test="${sessionScope.user != null}">
                                                 <a class="nav-button"
                                                    href="${pageContext.request.contextPath}/fc/profilepage">
                                                     <h4><i class="fas">&#xf2bd;</i> Min profil</h4>
                                                 </a>
+
                                             </c:if>
                                         </c:if>
                                     </div>
@@ -73,39 +76,79 @@
                                             <div class="col-xs-4"></div>
                                             <div class="col-xs-4">
                                                 <a href="${pageContext.request.contextPath}/fc/requestpage"
-                                                   class="nav-button">Lav carport</a>
+                                                   class="nav-button" style="text-align: right;">Lav carport</a>
+                                                <!--TODO: håndter hvis man ikke er logget ind i inden forespørgsel sendes-->
                                             </div>
                                         </c:if>
                                         <c:if test="${sessionScope.user.role.equals('employee')}">
                                             <div class="col-xs-3">
                                                 <a href="${pageContext.request.contextPath}/fc/retrieverequestcommand"
-                                                   class="nav-button">Forespørgsler</a>
+                                                   class="nav-button" style="text-align: right;">Forespørgsler
+                                                    <c:set var="index" value="0"></c:set>
+                                                    <c:forEach items="${sessionScope.allrequests}" var="request">
+                                                        <c:if test="${request.status.equals('request')}">
+                                                            <input type="hidden" name="request"
+                                                                   value="${index = index + 1}">
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:if test="${index != 0}">
+                                                        <span class="badge">
+                                                                ${index}
+                                                        </span>
+                                                    </c:if>
+                                                </a>
                                             </div>
                                             <div class="col-xs-3">
                                                 <a href="${pageContext.request.contextPath}/fc/allorderpage"
-                                                   class="nav-button">Ordre</a>
+                                                   class="nav-button" style="text-align: right;">Ordre
+                                                    <c:set var="index" value="0"></c:set>
+                                                    <c:forEach items="${sessionScope.allorders}" var="accepted">
+                                                        <c:if test="${accepted.status.equals('accepted')}">
+                                                            <input type="hidden" name="request" value="${index = index + 1}">
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:if test="${index != 0}">
+                                                        <span class="badge">
+                                                                ${index}
+                                                        </span>
+                                                    </c:if>
+                                                </a>
                                             </div>
                                             <div class="col-xs-3">
                                                 <a href="${pageContext.request.contextPath}/fc/allcustomercommand"
-                                                   class="nav-button">Kunder</a>
+                                                   class="nav-button" style="text-align: right;">Kunder</a>
                                             </div>
                                             <div class="col-xs-3">
-                                                <a href="${pageContext.request.contextPath}/fc/productpage" class="nav-button">Materialer</a>
+                                                <a href="${pageContext.request.contextPath}/fc/materiallistcommand"
+                                                   class="nav-button" style="text-align: right;">Materialer</a>
                                             </div>
                                         </c:if> <!--TODO: indsæt bagde-->
 
                                         <c:if test="${sessionScope.user.role.equals('customer')}">
                                             <div class="col-xs-4">
                                                 <a href="${pageContext.request.contextPath}/fc/offerpage"
-                                                   class="nav-button">Forespørgsler</a>
+                                                   class="nav-button" style="text-align: right;">Forespørgsler
+                                                    <c:set var="index" value="0"></c:set>
+                                                    <c:forEach items="${sessionScope.customerrequests}" var="offer">
+                                                        <c:if test="${offer.status.equals('offer')}">
+                                                            <input type="hidden" name="request"
+                                                                   value="${index = index + 1}">
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:if test="${index != 0}">
+                                                    <span class="badge">
+                                                            ${index}
+                                                    </span>
+                                                    </c:if>
+                                                </a>
                                             </div>
                                             <div class="col-xs-4">
                                                 <a href="${pageContext.request.contextPath}/fc/orderpage"
-                                                   class="nav-button">Ordre</a>
+                                                   class="nav-button" style="text-align: right;">Ordre</a>
                                             </div>
                                             <div class="col-xs-4">
                                                 <a href="${pageContext.request.contextPath}/fc/requestpage"
-                                                   class="nav-button">Lav carport</a>
+                                                   class="nav-button" style="text-align: right;">Lav carport</a>
                                             </div>
                                         </c:if> <!--TODO: indsæt bagde-->
                                     </div>

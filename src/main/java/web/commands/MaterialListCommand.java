@@ -1,31 +1,32 @@
 package web.commands;
 
 import business.entities.Material;
-import business.entities.Order;
+import business.exceptions.UserException;
 import business.services.MaterialFacade;
-import business.services.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
-public class SaveMaterialListCommand extends CommandProtectedPage{
-
+public class MaterialListCommand extends CommandProtectedPage{
     private MaterialFacade materialFacade;
 
-    public SaveMaterialListCommand(String pageToShow, String role) {
+    public MaterialListCommand(String pageToShow, String role) {
         super(pageToShow, role);
         materialFacade = new MaterialFacade(database);
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
 
-        ArrayList<Material> materials = (ArrayList<Material>) session.getAttribute("editmateriallist");
-        materialFacade.saveMaterialList(materials);
-        session.setAttribute("materials", materials);
+        HttpSession session = request.getSession();
+        try {
+            ArrayList<Material> materials = materialFacade.getAllMaterials();
+            session.setAttribute("materials", materials);
+        } catch (UserException e) {
+            e.printStackTrace();
+        }
 
         return pageToShow;
     }

@@ -70,7 +70,8 @@
                                                             <label style="font-size: 18px">Dækningsbidrag:</label>
                                                         </div>
                                                         <div>
-                                                            <label style="font-weight: normal">20 - 10 = 10 kr.</label> <!--TODO: javascript til at opdater-->
+                                                            <label style="font-weight: normal" id="calclabel1">Salgspris - kostpris = dækningsbidrag</label> <!--TODO: javascript til at opdater-->
+
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12" style="margin-bottom: 30px">
@@ -78,7 +79,7 @@
                                                             <label style="font-size: 18px">Dækningsgrad:</label>
                                                         </div>
                                                         <div>
-                                                            <label style="font-weight: normal">10 / 20 * 100 = 10 %</label> <!--TODO: javascript til at opdater-->
+                                                            <label style="font-weight: normal" id="calclabel2">Dækningsbidrag / salgspris * 100 = dækningsgrad</label> <!--TODO: javascript til at opdater-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -94,14 +95,14 @@
                                                     <div class="col-xs-4">
                                                         <div style="margin-bottom: 15px">
                                                             <label for="price">Salgspris, kr.</label>
-                                                            <input type="number" name="price" id="price" form="save"
+                                                            <input onchange="changePrice()" type="number" name="price" id="price" form="save"
                                                                    value="${sessionScope.makeoffer.totalPrice}" class="white-input">
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <div style="margin-bottom: 15px">
                                                             <label for="coverageratio">Dækningsgrad, %</label>
-                                                            <input type="number" name="coverageratio" id="coverageratio"
+                                                            <input onchange="changeCoverageratio()" type="number" name="coverageratio" id="coverageratio"
                                                                    value="${sessionScope.makeoffer.coverageRatio}" class="white-input">
                                                         </div>
                                                     </div>
@@ -131,5 +132,49 @@
                 </div>
             </div>
         </section>
+        <script>
+            changecCalcLabels();
+
+            function changePrice() {
+                var costvalue = document.getElementById("cost").value;
+                var pricevalue = document.getElementById("price").value;
+
+                //Dækningsbidrag
+                var result1 = pricevalue - costvalue;
+                //Dækningsgrad
+                var result2 = result1/pricevalue*100;
+                document.getElementById("coverageratio").value = result2.toFixed(2);
+                changecCalcLabels();
+            }
+
+            function changeCoverageratio() {
+                var costvalue = document.getElementById("cost").value;
+                var coverageratiovalue = document.getElementById("coverageratio").value;
+
+                var ratio = 100 - coverageratiovalue;
+                //Salgspris
+                var result = 100 * costvalue / ratio;
+
+                document.getElementById("price").value = result.toFixed(2);
+                changecCalcLabels();
+            }
+
+
+            function changecCalcLabels() {
+                var costvalue = document.getElementById("cost").value;
+                var pricevalue = document.getElementById("price").value;
+                var coverageratiovalue = document.getElementById("coverageratio").value;
+
+                //Dækningsbidrag
+                var result1 = pricevalue - costvalue;
+
+                document.getElementById("calclabel1").innerHTML = pricevalue + " - " + costvalue + " = " + result1 + " kr.";
+
+                //Dækningsgrad
+                document.getElementById("calclabel2").innerHTML = result1 + " / " + pricevalue + " * 100 = " + coverageratiovalue + " %";
+
+            }
+
+        </script>
     </jsp:body>
 </t:genericpage>

@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="xhtml-string">
-                                <h2>Ordre</h2>
+                                <h2>Info om ordren</h2>
                                 <div style="margin-bottom: 50px">
                                     <div class="row">
                                         <div class="col-xs-12">
@@ -63,6 +63,16 @@
                                                 <label style="font-weight: bold">Total pris:</label>
                                                 <label>${sessionScope.editorder.totalPrice} kr.</label>
                                             </div>
+                                            <c:if test="${sessionScope.user.role.equals('employee')}">
+                                                <div style="padding-bottom: 10px">
+                                                    <label style="font-weight: bold">Kostpris:</label>
+                                                    <label>${sessionScope.editorder.totalCost} kr.</label>
+                                                </div>
+                                                <div style="padding-bottom: 10px">
+                                                    <label style="font-weight: bold">Dækningsgrad:</label>
+                                                    <label>${sessionScope.editorder.coverageRatio} %</label>
+                                                </div>
+                                            </c:if>
                                             <div style="padding-bottom: 10px">
                                                 <label style="font-weight: bold">Antal:</label>
                                                 <label>${sessionScope.editorder.BOM.size()}</label>
@@ -213,7 +223,7 @@
                                                 class="fa fa-chevron-left"></i> Tilbage</a>
                                     </div>
                                     <div class="col-xs-6">
-                                        <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetaildrawingpage"
                                            class="button">Næste <i class="fa fa-chevron-right"></i></a>
                                     </div>
                                 </div>

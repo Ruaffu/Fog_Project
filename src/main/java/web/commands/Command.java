@@ -95,6 +95,8 @@ public abstract class Command
         commands.put("orderdetailmateriallistpage", new CommandUnprotectedPage("orderdetailmateriallistpage"));
         commands.put("orderdetaildrawingpage", new DrawOrderSVGCommand("orderdetaildrawingpage"));
         commands.put("orderdetailstatuspage", new CommandUnprotectedPage("orderdetailstatuspage"));
+        commands.put("materiallistcommand", new MaterialListCommand("productpage", "employee"));
+        commands.put("rejectoffercommand", new RejectOfferCommand("offerpage", "customer"));
     }
 
     public static Command fromPath(

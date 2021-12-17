@@ -76,7 +76,7 @@ public class LoginCommand extends CommandUnprotectedPage {
 
             return REDIRECT_INDICATOR + pageToShow;
         } catch (UserException ex) {
-            request.setAttribute("error", "Wrong username or password!");
+            request.setAttribute("error", "Forkert e-mail eller adgangskode. Prøv igen.");
             return "loginpage";
         }
     }
