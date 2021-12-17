@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
-public class RequestCommand extends CommandProtectedPage
+public class RequestCommand extends CommandUnprotectedPage
 {
     OrderFacade orderFacade;
     MaterialCalculator MC;
 
-    public RequestCommand(String pageToShow, String role)
+    public RequestCommand(String pageToShow)
     {
-        super(pageToShow, role);
+        super(pageToShow);
         orderFacade = new OrderFacade(database);
     }
 
@@ -31,6 +31,10 @@ public class RequestCommand extends CommandProtectedPage
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user");
+
+        if (user == null){
+            return "loginpage";
+        }
 
         int length = Integer.parseInt(request.getParameter("length"));
         int width = Integer.parseInt(request.getParameter("width"));

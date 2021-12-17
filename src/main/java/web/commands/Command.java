@@ -31,7 +31,7 @@ public abstract class Command
         commands.put("editusercommand", new EditUserCommand("profilepage"));
         commands.put("logoutpage", new CommandUnprotectedPage("logoutpage"));
         commands.put("requestcarportpage", new CommandUnprotectedPage("requestcarportpage"));
-        commands.put("requestcommand", new RequestCommand("requestconfirmationpage", "customer"));
+        commands.put("requestcommand", new RequestCommand("requestconfirmationpage" ));
         commands.put("retrieverequestcommand", new RetrieveRequestCommand("allrequestpage", "employee"));
         commands.put("makeoffercommand", new MakeOfferCommand("makeofferinfopage", "employee"));
         commands.put("getrequestcommand", new GetRequestCommand("requestdetailspage"));
@@ -72,11 +72,6 @@ public abstract class Command
         commands.put("addmaterialcommand", new AddMaterialCommand("editproductpage", "employee"));
         commands.put("removefrommateriallistcommand", new RemoveFromMaterialListCommand("editproductpage", "employee"));
         commands.put("makeofferdrawingpage", new DrawSVGCommand("makeofferdrawingpage"));
-
-
-//        commands.put("orderdetailcommand", new OrderDetailCommand("orderdetailspage", "employee"));
-
-
     }
 
     public static Command fromPath(
