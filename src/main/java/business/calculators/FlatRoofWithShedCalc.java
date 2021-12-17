@@ -86,10 +86,11 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         // amount of Posts Width multiplied by amount of Posts Length
         int quantityBase = quantityByWidth * quantityByLength;
 
-        int shedWidthOffset = 30;
-        if (!((carportWidth - shedWidthOffset) == shedWidth)){
-            quantityByWidthShed += 1;
-        }
+        //todo: need to make extra calc if shed is smaller then carport
+//        int shedWidthOffset = 30;
+//        if (!((carportWidth - shedWidthOffset) == shedWidth)){
+//            quantityByWidthShed += 1;
+//        }
 
         int quantityShed = quantityByWidthShed * quantityByLengthShed;
 
@@ -105,7 +106,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
     }
 
     // løsholter
-    private void calcShedWood() throws UserException {
+    protected void calcShedWood() throws UserException {
         // Get material
         String description = "løsholter til skur gavle";
         String type = "løsholter";
@@ -135,7 +136,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         useOfMaterials(materialSizeLength, quantityOfBothSides, description, type, materialList, null);
     }
 
-    private void calcCladding() throws UserException {
+    protected void calcCladding() throws UserException {
 
         // Get material
         String description = "til beklædning af skur 1 på 2";
@@ -196,7 +197,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         }
     }
 
-    private void claddingScrews() throws UserException {
+    protected void claddingScrews() throws UserException {
         // Get materials from database
         Material material = materialFacade.getMaterial("4,5 x 70 mm. skruer 200 stk.");
         String type = "skrue";
@@ -228,7 +229,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         bom.add(newItem(quantity, material.getId(), description, type, material));
     }
 
-    private void angleBracket() throws UserException {
+    protected void angleBracket() throws UserException {
         // Get materials from database
         Material material = materialFacade.getMaterial("vinkelbeslag 35");
         String type = "vinkelbeslag";
@@ -248,7 +249,7 @@ public class FlatRoofWithShedCalc extends MaterialCalculator {
         bom.add(newItem(quantity, material.getId(), description, type, material));
     }
 
-    private void addDoorMaterials() throws UserException {
+    protected void addDoorMaterials() throws UserException {
         Material material;
 
         // batten for the backside of the door;
