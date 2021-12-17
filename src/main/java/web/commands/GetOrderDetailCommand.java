@@ -3,8 +3,8 @@ package web.commands;
 import business.entities.Order;
 import business.entities.User;
 import business.exceptions.UserException;
-import business.services.OrderFacade;
-import business.services.UserFacade;
+import business.persistence.OrderFacade;
+import business.persistence.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class GetOrderDetailCommand extends CommandUnprotectedPage {
         HttpSession session = request.getSession();
         int index = Integer.parseInt(request.getParameter("order"));
         ArrayList<Order> orders = null;
-        Order order = null;
+        Order order;
 
         User user = (User) session.getAttribute("user");
 
@@ -35,7 +35,7 @@ public class GetOrderDetailCommand extends CommandUnprotectedPage {
             if (isCustomerList) {
                 orders = (ArrayList<Order>) session.getAttribute("orderlist");
             } else {
-                ArrayList<User> users = null;
+                ArrayList<User> users;
                 try {
                     users = userFacade.getAllUsers();
                     orders = orderFacade.getAllOrders(users);

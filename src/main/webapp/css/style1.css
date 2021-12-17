@@ -16,7 +16,7 @@ body {
     font-family: 'Pathway Gothic One', sans-serif;
     letter-spacing: 1px;
     margin: 0;
-    margin-bottom: 20px; /**TODO: margin: 0 **/
+    margin-bottom: 20px;
 }
 
 .h1, .h12, .h2, .ordreflow p, .xhtml-string h1, .xhtml-string h2, h1, h12, h2 {
@@ -805,7 +805,30 @@ button:active, button:focus, button:hover, input:active, input:focus, input:hove
     color: #31708f;
 }
 
-.alert-info input {
+.alert-failure {
+    background-color: #ffe5e5;
+    border-color: #ff4d4d;
+    color: #a62e2e;
+}
+
+.failure-label {
+    color: #a62e2e;
+    font-weight: bold;
+}
+
+.nav-button .badge {
+    position: absolute;
+    top: -10px;
+    right: -30px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    z-index: 50;
+    font-size: 14px;
+}
+
+.alert-info input, .alert-failure input {
     background-color: #f8f8f8;
     width: 100%;
     padding: 3px 10px;
@@ -819,11 +842,11 @@ button:active, button:focus, button:hover, input:active, input:focus, input:hove
 
 }
 
-.alert-info label {
+.alert-info label, .alert-failure label{
     font-weight: 700;
 }
 
-.alert-info textarea{
+.alert-info textarea, .alert-failure textarea{
     background-color: #f8f8f8;
     line-height: 37px;
     border-radius: 3px;

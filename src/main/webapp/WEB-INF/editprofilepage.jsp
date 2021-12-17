@@ -29,10 +29,10 @@
                         <div class="col-md-3 article-page-menu mobile-navigation">
                             <ul class="nav nav-pills nav-stacked" style="padding-bottom: 20px">
                                 <li style="width: 100%;" class="active">
-                                    <a href="">Mine oplysninger</a>
+                                    <a href="${pageContext.request.contextPath}/fc/profilepage">Mine oplysninger</a>
                                 </li>
                                 <li style="width: 100%;">
-                                    <a href="">Log ud</a>
+                                    <a href="${pageContext.request.contextPath}/fc/logoutpage">Log ud</a>
                                 </li>
                             </ul>
                         </div>

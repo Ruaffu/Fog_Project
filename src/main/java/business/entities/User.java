@@ -94,10 +94,6 @@ public class User {
         return regionName;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
     public String getPhoneNr() {
         return phoneNr;
     }

@@ -9,15 +9,15 @@ import java.util.ArrayList;
 
 public class OrderMapper {
 
-    Database database;
+    private final Database database;
 
-    public OrderMapper(Database database) {
+    protected OrderMapper(Database database) {
         this.database = database;
     }
 
     /** insert and update in database **/
 
-    public void saveOrder(Order order) {
+    protected void saveOrder(Order order) {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO user_orders (user_id, totalprice, totalcost, orderdate, status, carport_length, carport_width, roof_type, roof_angle, shed_length, shed_width, remarks) " +
                     "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -47,7 +47,7 @@ public class OrderMapper {
         }
     }
 
-    public void updateOrder(Order order) {
+    protected void updateOrder(Order order) {
         try (Connection connection = database.connect()) {
 
             String sql = "UPDATE user_orders SET totalprice=?, totalcost=?, orderdate=?, status=?, carport_length=?, carport_width=?, roof_type=?, roof_angle=?, shed_length=?, shed_width=? " +
@@ -73,7 +73,7 @@ public class OrderMapper {
         }
     }
 
-    public void deleteOrder(Order order) {
+    protected void deleteOrder(Order order) {
         try (Connection connection = database.connect()) {
 
             String sql = "DELETE FROM user_orders WHERE id_order=?";
@@ -89,16 +89,17 @@ public class OrderMapper {
 
     /** Select from database **/
 
-    public ArrayList<Integer> getOrderId(int user_id) {
+    protected ArrayList<Integer> getOrderId(int user_id) {
         ArrayList<Integer> orders = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
-            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status != ? AND status != ?";
+            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status != ? AND status != ? AND status != ?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, user_id);
                 ps.setString(2, "request");
                 ps.setString(3, "offer");
+                ps.setString(4, "rejected");
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id_order");
@@ -118,17 +119,19 @@ public class OrderMapper {
         return orders;
     }
 
-    public ArrayList<Integer> getOfferAndRequestId(int user_id) {
+    protected ArrayList<Integer> getOfferAndRequestId(int user_id) {
         ArrayList<Integer> orders = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
-            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status = ? OR user_id = ? AND status = ?";
+            String sql = "SELECT id_order FROM user_orders WHERE user_id = ? AND status = ? OR user_id = ? AND status = ? OR user_id = ? AND status = ?";
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, user_id);
                 ps.setString(2, "request");
                 ps.setInt(3, user_id);
                 ps.setString(4, "offer");
+                ps.setInt(5, user_id);
+                ps.setString(6, "rejected");
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id_order");
@@ -148,7 +151,7 @@ public class OrderMapper {
         return orders;
     }
 
-    public Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM)  {
+    protected Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM)  {
         Order order = null;
 
         try (Connection connection = database.connect()) {

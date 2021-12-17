@@ -84,6 +84,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="pull-right col-xs-3">
+
+                                    <div class="col-xs-6">
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetailmateriallistpage" class="button"><i class="fa fa-chevron-left"></i> Tilbage</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a class="button" style="color: #b5b9be; cursor: default">Næste <i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

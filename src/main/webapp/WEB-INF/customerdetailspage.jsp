@@ -96,185 +96,212 @@
                                         <div class="col-xs-12" style="padding-bottom: 50px">
                                             <h2>Forespørgsler</h2>
                                             <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="clearfix  search-pagination">
-                                                        <select class="pull-left search-dropdown">
-                                                            <option>Vis 10</option>
-                                                            <option>Vis 25</option>
-                                                            <option>Vis 50</option>
-                                                        </select>
-                                                        <ul class="pull-right pagination-sm pagination">
-                                                            <li>
-                                                                <a class="fa fa-chevron-left"></a>
-                                                            </li>
-                                                            <li class="pagination-page active">
-                                                                <a>1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="fa fa-chevron-right"></a>
-                                                            </li>
-                                                        </ul>
+                                                <c:if test="${sessionScope.requestlist.size() == 0}">
+                                                    <div class="col-xs-12">
+                                                        <div class="alert alert-info">
+                                                            <label>Ingen forespørgsler registreret</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="pull-right">
-                                                        <p style="font-weight: bold">${sessionScope.requestlist.size()}
-                                                            Total</p>
-                                                    </div>
-                                                    <table class="white-background" border="0">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>ID</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Antal</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Total</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Dato</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Status</strong>
-                                                            </td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <c:set var="index" value="-1"></c:set>
-                                                        <c:forEach var="request" items="${sessionScope.requestlist}">
+                                                </c:if>
+                                                <c:if test="${sessionScope.requestlist.size() > 0}">
+                                                    <div class="col-xs-12">
+                                                        <div class="clearfix  search-pagination">
+                                                            <select class="pull-left search-dropdown">
+                                                                <option>Vis 10</option>
+                                                                <option>Vis 25</option>
+                                                                <option>Vis 50</option>
+                                                            </select>
+                                                            <ul class="pull-right pagination-sm pagination">
+                                                                <li>
+                                                                    <a class="fa fa-chevron-left"></a>
+                                                                </li>
+                                                                <li class="pagination-page active">
+                                                                    <a>1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="fa fa-chevron-right"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="pull-right">
+                                                            <p style="font-weight: bold">${sessionScope.requestlist.size()}
+                                                                Total</p>
+                                                        </div>
+                                                        <table class="white-background" border="0">
+                                                            <tbody>
                                                             <tr>
-                                                                <td>${request.id}</td>
-                                                                <td>${request.BOM.size()}</td>
-                                                                <td>${request.totalPrice} kr.</td>
-                                                                <td>${request.orderDate}</td>
-                                                                <td>${request.status}</td>
                                                                 <td>
-                                                                    <c:if test="${request.status.equals('request')}">
-                                                                        <form action="${pageContext.request.contextPath}/fc/makeoffercommand"
-                                                                              method="post">
-                                                                            <input type="hidden" name="request" value="${index = index + 1}">
-
-
-                                                                            <input type="submit" class="blue-button"
-                                                                                   style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
-                                                                                   value="Lav tilbud">
-
-                                                                        </form>
-                                                                    </c:if>
-                                                                    <c:if test="${request.status.equals('offer')}">
-                                                                        <form action="${pageContext.request.contextPath}/fc/getrequestcommand"
-                                                                              method="post">
-                                                                            <input type="hidden" name="request" value="${index = index + 1}">
-                                                                            <input type="hidden" name="listname" value="requestlist">
-                                                                            <input type="submit" class="blue-button"
-                                                                                   style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
-                                                                                   value="se mere">
-                                                                        </form>
-                                                                    </c:if>
+                                                                    <strong>ID</strong>
                                                                 </td>
+                                                                <td>
+                                                                    <strong>Antal</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Total</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Dato</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Status</strong>
+                                                                </td>
+                                                                <td></td>
                                                             </tr>
-                                                        </c:forEach>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="clearfix  search-pagination">
-                                                        <ul class="pull-right pagination-sm pagination">
-                                                            <li>
-                                                                <a class="fa fa-chevron-left"></a>
-                                                            </li>
-                                                            <li class="pagination-page active">
-                                                                <a>1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="fa fa-chevron-right"></a>
-                                                            </li>
-                                                        </ul>
+                                                            <c:set var="index" value="-1"></c:set>
+                                                            <c:forEach var="request" items="${sessionScope.requestlist}">
+                                                                <tr>
+                                                                    <td>${request.id}</td>
+                                                                    <td>${request.BOM.size()}</td>
+                                                                    <td>${request.totalPrice} kr.</td>
+                                                                    <td>${request.orderDate}</td>
+                                                                    <td>${request.status}</td>
+                                                                    <td>
+                                                                        <c:if test="${request.status.equals('request')}">
+                                                                            <form action="${pageContext.request.contextPath}/fc/makeoffercommand"
+                                                                                  method="post">
+                                                                                <input type="hidden" name="request" value="${index = index + 1}">
+                                                                                <input type="hidden" name="listname" value="requestlist">
+                                                                                <input type="submit" class="green-button"
+                                                                                       style="border: 0px; padding: 10px; font-weight: bold;"
+                                                                                       value="Lav tilbud">
+
+                                                                            </form>
+                                                                        </c:if>
+                                                                        <c:if test="${request.status.equals('offer')}">
+                                                                            <form action="${pageContext.request.contextPath}/fc/getrequestcommand"
+                                                                                  method="post">
+                                                                                <input type="hidden" name="request" value="${index = index + 1}">
+                                                                                <input type="hidden" name="listname" value="requestlist">
+                                                                                <input type="submit" class="blue-button"
+                                                                                       style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
+                                                                                       value="se mere">
+                                                                            </form>
+                                                                        </c:if>
+                                                                        <c:if test="${request.status.equals('rejected')}">
+                                                                            <form action="${pageContext.request.contextPath}/fc/getrequestcommand"
+                                                                                  method="post">
+                                                                                <input type="hidden" name="request" value="${index = index + 1}">
+                                                                                <input type="hidden" name="listname" value="requestlist">
+                                                                                <input type="submit" class="blue-button"
+                                                                                       style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;"
+                                                                                       value="se mere">
+                                                                            </form>
+                                                                        </c:if>
+                                                                    </td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="clearfix  search-pagination">
+                                                            <ul class="pull-right pagination-sm pagination">
+                                                                <li>
+                                                                    <a class="fa fa-chevron-left"></a>
+                                                                </li>
+                                                                <li class="pagination-page active">
+                                                                    <a>1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="fa fa-chevron-right"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </c:if>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <h2>Ordrer</h2>
+                                            <h2>Ordre</h2>
                                             <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="clearfix  search-pagination">
-                                                        <select class="pull-left search-dropdown">
-                                                            <option>Vis 10</option>
-                                                            <option>Vis 25</option>
-                                                            <option>Vis 50</option>
-                                                        </select>
-                                                        <ul class="pull-right pagination-sm pagination">
-                                                            <li>
-                                                                <a class="fa fa-chevron-left"></a>
-                                                            </li>
-                                                            <li class="pagination-page active">
-                                                                <a>1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="fa fa-chevron-right"></a>
-                                                            </li>
-                                                        </ul>
+                                                <c:if test="${sessionScope.orderlist.size() == 0}">
+                                                    <div class="col-xs-12">
+                                                        <div class="alert alert-info">
+                                                            <label>Ingen ordre registreret</label>
+                                                        </div>
                                                     </div>
-                                                    <div class="pull-right">
-                                                        <p style="font-weight: bold">${sessionScope.orderlist.size()}
-                                                            Total</p>
-                                                    </div>
-                                                    <table class="white-background" border="0">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>ID</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Antal</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Total</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Dato</strong>
-                                                            </td>
-                                                            <td>
-                                                                <strong>Status</strong>
-                                                            </td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <c:set var="index" value="-1"></c:set>
-                                                        <c:forEach var="order" items="${sessionScope.orderlist}">
+                                                </c:if>
+                                                <c:if test="${sessionScope.orderlist.size() > 0}">
+                                                    <div class="col-xs-12">
+                                                        <div class="clearfix  search-pagination">
+                                                            <select class="pull-left search-dropdown">
+                                                                <option>Vis 10</option>
+                                                                <option>Vis 25</option>
+                                                                <option>Vis 50</option>
+                                                            </select>
+                                                            <ul class="pull-right pagination-sm pagination">
+                                                                <li>
+                                                                    <a class="fa fa-chevron-left"></a>
+                                                                </li>
+                                                                <li class="pagination-page active">
+                                                                    <a>1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="fa fa-chevron-right"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="pull-right">
+                                                            <p style="font-weight: bold">${sessionScope.orderlist.size()}
+                                                                Total</p>
+                                                        </div>
+                                                        <table class="white-background" border="0">
+                                                            <tbody>
                                                             <tr>
-                                                                <td>${order.id}</td>
-                                                                <td>${order.BOM.size()}</td>
-                                                                <td>${order.totalPrice} kr.</td>
-                                                                <td>${order.orderDate}</td>
-                                                                <td>${order.status}</td>
-                                                                <form action="${pageContext.request.contextPath}/fc/getorderdetailcommand"
-                                                                      method="post">
-                                                                    <td>
-                                                                        <input type="hidden" name="order" value="${index = index + 1}">
-                                                                        <input type="hidden" name="customerorderlist" value="true">
-                                                                        <input type="submit" class="blue-button" style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;" value="se mere">
-                                                                    </td>
-                                                                </form>
-                                                                <!--TODO: delete button-->
+                                                                <td>
+                                                                    <strong>ID</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Antal</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Total</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Dato</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>Status</strong>
+                                                                </td>
+                                                                <td></td>
                                                             </tr>
-                                                        </c:forEach>
+                                                            <c:set var="index" value="-1"></c:set>
+                                                            <c:forEach var="order" items="${sessionScope.orderlist}">
+                                                                <tr>
+                                                                    <td>${order.id}</td>
+                                                                    <td>${order.BOM.size()}</td>
+                                                                    <td>${order.totalPrice} kr.</td>
+                                                                    <td>${order.orderDate}</td>
+                                                                    <td>${order.status}</td>
+                                                                    <form action="${pageContext.request.contextPath}/fc/getorderdetailcommand"
+                                                                          method="post">
+                                                                        <td>
+                                                                            <input type="hidden" name="order" value="${index = index + 1}">
+                                                                            <input type="hidden" name="customerorderlist" value="true">
+                                                                            <input type="submit" class="blue-button" style="background-color: #074a8a; color: #fff; border: 0px; padding: 10px; font-weight: bold;" value="se mere">
+                                                                        </td>
+                                                                    </form>
+                                                                    <!--TODO: delete button-->
+                                                                </tr>
+                                                            </c:forEach>
 
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="clearfix  search-pagination">
-                                                        <ul class="pull-right pagination-sm pagination">
-                                                            <li>
-                                                                <a class="fa fa-chevron-left"></a>
-                                                            </li>
-                                                            <li class="pagination-page active">
-                                                                <a>1</a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="fa fa-chevron-right"></a>
-                                                            </li>
-                                                        </ul>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="clearfix  search-pagination">
+                                                            <ul class="pull-right pagination-sm pagination">
+                                                                <li>
+                                                                    <a class="fa fa-chevron-left"></a>
+                                                                </li>
+                                                                <li class="pagination-page active">
+                                                                    <a>1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="fa fa-chevron-right"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </c:if>
                                             </div>
                                         </div>
                                     </div>

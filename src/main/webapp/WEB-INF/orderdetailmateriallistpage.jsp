@@ -118,12 +118,18 @@
                                 <div class="pull-right col-xs-3">
 
                                     <div class="col-xs-6">
-                                        <a href="${pageContext.request.contextPath}/fc/makeofferadjustmentpage"
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetaildrawingpage"
                                            class="button"><i class="fa fa-chevron-left"></i> Tilbage</a>
                                     </div>
                                     <div class="col-xs-6">
-                                        <a href="${pageContext.request.contextPath}/fc/makeofferpriceadjustmentpage"
-                                           class="button" style="color: #b5b9be; cursor: default">Næste <i class="fa fa-chevron-right"></i></a>
+                                        <c:if test="${sessionScope.user.role.equals('customer')}">
+                                            <a class="button" style="color: #b5b9be; cursor: default">Næste <i class="fa fa-chevron-right"></i></a>
+                                        </c:if>
+                                        <c:if test="${sessionScope.user.role.equals('employee')}">
+                                            <a href="${pageContext.request.contextPath}/fc/orderdetailstatuspage"
+                                               class="button">Næste <i class="fa fa-chevron-right"></i></a>
+                                        </c:if>
+
                                     </div>
                                 </div>
                             </div>

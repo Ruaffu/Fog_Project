@@ -3,9 +3,9 @@ package web.commands;
 import business.entities.Material;
 import business.entities.Order;
 import business.entities.User;
-import business.services.MaterialFacade;
-import business.services.OrderFacade;
-import business.services.UserFacade;
+import business.persistence.MaterialFacade;
+import business.persistence.OrderFacade;
+import business.persistence.UserFacade;
 import business.exceptions.UserException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +76,7 @@ public class LoginCommand extends CommandUnprotectedPage {
 
             return REDIRECT_INDICATOR + pageToShow;
         } catch (UserException ex) {
-            request.setAttribute("error", "Wrong username or password!");
+            request.setAttribute("error", "Forkert e-mail eller adgangskode. Prøv igen.");
             return "loginpage";
         }
     }

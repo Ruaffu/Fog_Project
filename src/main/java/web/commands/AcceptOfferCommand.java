@@ -1,7 +1,7 @@
 package web.commands;
 
 import business.entities.Order;
-import business.services.OrderFacade;
+import business.persistence.OrderFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +28,7 @@ public class AcceptOfferCommand extends CommandProtectedPage {
 
         Order acceptOrder = (Order) session.getAttribute("request");
 
-        acceptOrder.setStatus("accepted"); // TODO: better word?? NO ;(
+        acceptOrder.setStatus("accepted");
         acceptOrder.setOrderDate(new Timestamp(System.currentTimeMillis()));
 
         orderFacade.updateOrder(acceptOrder);

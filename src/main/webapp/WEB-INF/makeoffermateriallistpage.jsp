@@ -78,7 +78,7 @@
                                                                 <strong>Materiale</strong>
                                                                 <select type="text" name="name" class="white-input">
                                                                     <c:forEach var="material"
-                                                                               items="${sessionScope.allmaterials}">
+                                                                               items="${sessionScope.materials}">
                                                                         <option value="${material.name}">${material.name}</option>
                                                                     </c:forEach>
                                                                 </select>
@@ -176,76 +176,84 @@
 
                                             </div>
                                         </div>
-
-                                        <div class="col-xs-12">
-                                            <div class="clearfix  search-pagination">
-                                                <select class="pull-left search-dropdown">
-                                                    <option>Vis 10</option>
-                                                    <option>Vis 25</option>
-                                                    <option>Vis 50</option>
-                                                </select>
-                                                <ul class="pull-right pagination-sm pagination">
-                                                    <li>
-                                                        <a class="fa fa-chevron-left"></a>
-                                                    </li>
-                                                    <li class="pagination-page active">
-                                                        <a>1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="fa fa-chevron-right"></a>
-                                                    </li>
-                                                </ul>
-                                            </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
-                                            <div class="pull-right">
-                                                <p style="font-weight: bold">${sessionScope.makeoffer.BOM.size()}
-                                                    Total</p>
+                                        <c:if test="${sessionScope.makeoffer.BOM.size() == 0}">
+                                            <div class="col-xs-12">
+                                                <div class="alert alert-info">
+                                                    <label>Ingen materialer registreret</label>
+                                                </div>
                                             </div>
-                                            <table class="white-background" border="0">
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Materiale</strong>
-                                                    </td>
-                                                    <td>
-                                                        <strong>Beskrivelse</strong>
-                                                    </td>
-                                                    <td>
-                                                        <strong>Antal</strong>
-                                                    </td>
-                                                    <td>
-                                                        <strong>Kostpris</strong>
-                                                    </td>
-                                                    <td>
-                                                        <strong>Salgspris</strong>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <c:set var="index" value="-1"/>
-                                                <c:forEach var="material" items="${sessionScope.bomlist}">
+                                        </c:if>
+                                        <c:if test="${sessionScope.makeoffer.BOM.size() > 0}">
+                                            <div class="col-xs-12">
+                                                <div class="clearfix  search-pagination">
+                                                    <select class="pull-left search-dropdown">
+                                                        <option>Vis 10</option>
+                                                        <option>Vis 25</option>
+                                                        <option>Vis 50</option>
+                                                    </select>
+                                                    <ul class="pull-right pagination-sm pagination">
+                                                        <li>
+                                                            <a class="fa fa-chevron-left"></a>
+                                                        </li>
+                                                        <li class="pagination-page active">
+                                                            <a>1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="fa fa-chevron-right"></a>
+                                                        </li>
+                                                    </ul>
+                                                </div> <!--TODO: lav funktion til at juster antallet i tabellen-->
+                                                <div class="pull-right">
+                                                    <p style="font-weight: bold">${sessionScope.makeoffer.BOM.size()}
+                                                        Total</p>
+                                                </div>
+                                                <table class="white-background" border="0">
+                                                    <tbody>
                                                     <tr>
-                                                        <td>${material.name}</td>
-                                                        <td>${material.description}</td>
                                                         <td>
-                                                            <input name="quantity${index = index + 1}"
-                                                                   class="white-input"
-                                                                   type="number" form="save"
-                                                                   value="${material.quantity}">
+                                                            <strong>Materiale</strong>
                                                         </td>
-                                                        <td>${material.cost} kr.</td>
-                                                        <td>${material.price} kr.</td>
                                                         <td>
-                                                            <form action="${pageContext.request.contextPath}/fc/removefrombomlistcommand"
-                                                                  method="post">
-                                                                <input type="hidden" name="materialindex"
-                                                                       value="${index}">
-                                                                <input type="submit" value="Delete" class="red-button">
-                                                            </form>
+                                                            <strong>Beskrivelse</strong>
                                                         </td>
+                                                        <td>
+                                                            <strong>Antal</strong>
+                                                        </td>
+                                                        <td>
+                                                            <strong>Kostpris</strong>
+                                                        </td>
+                                                        <td>
+                                                            <strong>Salgspris</strong>
+                                                        </td>
+                                                        <td></td>
                                                     </tr>
-                                                </c:forEach>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    <c:set var="index" value="-1"/>
+                                                    <c:forEach var="material" items="${sessionScope.bomlist}">
+                                                        <tr>
+                                                            <td>${material.name}</td>
+                                                            <td>${material.description}</td>
+                                                            <td>
+                                                                <input name="quantity${index = index + 1}"
+                                                                       class="white-input"
+                                                                       type="number" form="save"
+                                                                       value="${material.quantity}">
+                                                            </td>
+                                                            <td>${material.cost} kr.</td>
+                                                            <td>${material.price} kr.</td>
+                                                            <td>
+                                                                <form action="${pageContext.request.contextPath}/fc/removefrombomlistcommand"
+                                                                      method="post">
+                                                                    <input type="hidden" name="materialindex"
+                                                                           value="${index}">
+                                                                    <input type="submit" value="Delete" class="red-button">
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>

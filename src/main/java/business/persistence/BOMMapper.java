@@ -15,7 +15,7 @@ public class BOMMapper {
         this.database = database;
     }
 
-    public void saveBOM(Order order) {
+    protected void saveBOM(Order order) {
 
         try (Connection connection = database.connect()) {
 
@@ -37,7 +37,7 @@ public class BOMMapper {
         }
     }
 
-    public void deleteBom(Order order) {
+    protected void deleteBom(Order order) {
         try (Connection connection = database.connect()) {
 
                 String sql = "DELETE FROM bom " +
@@ -56,7 +56,7 @@ public class BOMMapper {
         }
     }
 
-    public ArrayList<Material> getAllMaterials(int order_id) {
+    protected ArrayList<Material> getAllMaterials(int order_id) {
         ArrayList<Material> BOM = new ArrayList<>();
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM billofmaterial WHERE order_id = ?";
@@ -92,7 +92,7 @@ public class BOMMapper {
         return BOM;
     }
 
-    public Material getBOMMaterialByType(String type) throws UserException
+    protected Material getBOMMaterialByType(String type) throws UserException
     {
         try (Connection connection = database.connect())
         {

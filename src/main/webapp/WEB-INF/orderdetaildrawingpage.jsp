@@ -75,10 +75,10 @@
                                 <div class="pull-right col-xs-3">
 
                                     <div class="col-xs-6">
-                                        <a href="${pageContext.request.contextPath}/fc/makeofferpriceadjustmentpage" class="button"><i class="fa fa-chevron-left"></i> Tilbage</a>
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetailinfopage" class="button"><i class="fa fa-chevron-left"></i> Tilbage</a>
                                     </div>
                                     <div class="col-xs-6">
-                                        <a href="${pageContext.request.contextPath}/fc/makeofferconfirmpage" class="button">Næste <i class="fa fa-chevron-right"></i></a>
+                                        <a href="${pageContext.request.contextPath}/fc/orderdetailmateriallistpage" class="button">Næste <i class="fa fa-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>

@@ -2,8 +2,7 @@ package web.commands;
 
 import business.entities.Material;
 import business.entities.Order;
-import business.exceptions.UserException;
-import business.services.MaterialFacade;
+import business.persistence.MaterialFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,14 +25,6 @@ public class BOMCopyCommand  extends CommandProtectedPage
         Order order = (Order) session.getAttribute("makeoffer");
 
         ArrayList<Material> bom = order.getBOM();
-        try
-        {
-            ArrayList<Material> materials = materialFacade.getAllMaterials();
-            session.setAttribute("allmaterials", materials);
-        } catch (UserException e)
-        {
-            e.printStackTrace();
-        }
 
         session.setAttribute("bomlist", bom);
 

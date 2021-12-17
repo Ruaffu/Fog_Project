@@ -2,12 +2,11 @@ package web.commands;
 
 import business.entities.User;
 import business.exceptions.UserException;
-import business.services.UserFacade;
+import business.persistence.UserFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.StyledEditorKit;
 
 public class EditUserCommand extends CommandUnprotectedPage {
 
@@ -31,9 +30,6 @@ public class EditUserCommand extends CommandUnprotectedPage {
         String zipcode = request.getParameter("zipcode");
 
         boolean isAdmin = Boolean.parseBoolean(request.getParameter("admin"));
-
-
-        user = (User) session.getAttribute("user");
 
         if (isAdmin){
             user = (User) session.getAttribute("seemoreuser");

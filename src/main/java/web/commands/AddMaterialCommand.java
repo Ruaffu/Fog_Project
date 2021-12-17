@@ -1,9 +1,6 @@
 package web.commands;
 
 import business.entities.Material;
-import business.exceptions.UserException;
-import business.services.MaterialFacade;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,11 +8,8 @@ import java.util.ArrayList;
 
 public class AddMaterialCommand extends CommandProtectedPage{
 
-    private MaterialFacade materialFacade;
-
     public AddMaterialCommand(String pageToShow, String role) {
         super(pageToShow, role);
-        materialFacade = new MaterialFacade(database);
     }
 
     @Override
@@ -31,16 +25,10 @@ public class AddMaterialCommand extends CommandProtectedPage{
         String unit = request.getParameter("unit");
 
         Material material = new Material(name, cost, price, length, height, width, unit);
-        //materialFacade.saveMaterial(material);
 
         ArrayList<Material> materials = (ArrayList<Material>) session.getAttribute("editmateriallist");
         materials.add(material);
-//        ArrayList<Material> materials = null;
-//        try {
-//            materials = materialFacade.getAllMaterials();
-//        } catch (UserException e) {
-//            e.printStackTrace();
-//        }
+
         session.setAttribute("editmateriallist", materials);
 
         return pageToShow;
