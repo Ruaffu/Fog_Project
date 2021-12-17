@@ -2,7 +2,7 @@ package business.entities;
 
 public class Material {
 
-    int id;
+    int id = -1;
     String name;
     String type;
     String description;
