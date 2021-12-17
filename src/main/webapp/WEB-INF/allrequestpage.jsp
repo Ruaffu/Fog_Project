@@ -121,8 +121,6 @@
                                                     </form>
                                                 </c:if>
                                             </td>
-
-                                            <!--TODO: delete button-->
                                         </tr>
                                     </c:forEach>
 

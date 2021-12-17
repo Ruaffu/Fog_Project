@@ -16,7 +16,7 @@ body {
     font-family: 'Pathway Gothic One', sans-serif;
     letter-spacing: 1px;
     margin: 0;
-    margin-bottom: 20px; /**TODO: margin: 0 **/
+    margin-bottom: 20px;
 }
 
 .h1, .h12, .h2, .ordreflow p, .xhtml-string h1, .xhtml-string h2, h1, h12, h2 {
