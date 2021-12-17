@@ -14,7 +14,7 @@ public class MaterialMapper {
         this.database = database;
     }
 
-    public void saveMaterialList(ArrayList<Material> materials) {
+    protected void saveMaterialList(ArrayList<Material> materials) {
         try (Connection connection = database.connect()) {
 
             for (Material material : materials) {
@@ -70,7 +70,7 @@ public class MaterialMapper {
     }
 
 
-    public void saveMaterial(Material material) {
+    protected void saveMaterial(Material material) {
 
         try (Connection connection = database.connect()) {
 
@@ -95,7 +95,7 @@ public class MaterialMapper {
         }
     }
 
-    public Material getMaterialByID(int id) throws UserException {
+    protected Material getMaterialByID(int id) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM material WHERE id_material=?";
 
@@ -125,7 +125,7 @@ public class MaterialMapper {
 
     }
 
-    public Material getMaterial(String name) throws UserException {
+    protected Material getMaterial(String name) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM material WHERE name=?";
 
@@ -154,7 +154,7 @@ public class MaterialMapper {
         }
     }
 
-    public ArrayList<Material> getMaterialByName(String name) throws UserException {
+    protected ArrayList<Material> getMaterialByName(String name) throws UserException {
         ArrayList<Material> materials = new ArrayList<>();
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM material WHERE name=?";
@@ -184,7 +184,7 @@ public class MaterialMapper {
 
     }
 
-    public ArrayList<Material> getAllMaterials() throws UserException {
+    protected ArrayList<Material> getAllMaterials() throws UserException {
         ArrayList<Material> materials = new ArrayList<>();
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM material ";

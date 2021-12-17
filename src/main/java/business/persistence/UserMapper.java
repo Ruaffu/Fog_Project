@@ -13,7 +13,7 @@ public class UserMapper {
         this.database = database;
     }
 
-    public void createUser(User user) throws UserException {
+    protected void createUser(User user) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO users (email, password, role, firstname, lastname, streetname, housenr, zipcode, phonenr) VALUES (?, ?, ?, ?, ?, ?,?, ?, ?)";
 
@@ -40,7 +40,7 @@ public class UserMapper {
         }
     }
 
-    public User login(String email, String password) throws UserException {
+    protected User login(String email, String password) throws UserException {
         try (Connection connection = database.connect()) {
             String sql = "SELECT * FROM userinfo WHERE email=? AND password=?";
 
@@ -72,7 +72,7 @@ public class UserMapper {
         }
     }
 
-    public ArrayList<User> getAllUsers() throws UserException {
+    protected ArrayList<User> getAllUsers() throws UserException {
         ArrayList<User> users = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
@@ -107,7 +107,7 @@ public class UserMapper {
         }
     }
 
-    public void updateUser(User user) {
+    protected void updateUser(User user) {
         try (Connection connection = database.connect()) {
             String sql = "UPDATE users " +
                     "SET email = ?, password = ?, firstname = ?, lastname = ?, phonenr = ?, streetname = ?, housenr = ?, zipcode = ? " +

@@ -17,7 +17,7 @@ public class OrderMapper {
 
     /** insert and update in database **/
 
-    public void saveOrder(Order order) {
+    protected void saveOrder(Order order) {
         try (Connection connection = database.connect()) {
             String sql = "INSERT INTO user_orders (user_id, totalprice, totalcost, orderdate, status, carport_length, carport_width, roof_type, roof_angle, shed_length, shed_width, remarks) " +
                     "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -47,7 +47,7 @@ public class OrderMapper {
         }
     }
 
-    public void updateOrder(Order order) {
+    protected void updateOrder(Order order) {
         try (Connection connection = database.connect()) {
 
             String sql = "UPDATE user_orders SET totalprice=?, totalcost=?, orderdate=?, status=?, carport_length=?, carport_width=?, roof_type=?, roof_angle=?, shed_length=?, shed_width=? " +
@@ -73,7 +73,7 @@ public class OrderMapper {
         }
     }
 
-    public void deleteOrder(Order order) {
+    protected void deleteOrder(Order order) {
         try (Connection connection = database.connect()) {
 
             String sql = "DELETE FROM user_orders WHERE id_order=?";
@@ -89,7 +89,7 @@ public class OrderMapper {
 
     /** Select from database **/
 
-    public ArrayList<Integer> getOrderId(int user_id) {
+    protected ArrayList<Integer> getOrderId(int user_id) {
         ArrayList<Integer> orders = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
@@ -119,7 +119,7 @@ public class OrderMapper {
         return orders;
     }
 
-    public ArrayList<Integer> getOfferAndRequestId(int user_id) {
+    protected ArrayList<Integer> getOfferAndRequestId(int user_id) {
         ArrayList<Integer> orders = new ArrayList<>();
 
         try (Connection connection = database.connect()) {
@@ -151,7 +151,7 @@ public class OrderMapper {
         return orders;
     }
 
-    public Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM)  {
+    protected Order getAllOrdersUser(int order_id, User user, ArrayList<Material> BOM)  {
         Order order = null;
 
         try (Connection connection = database.connect()) {
