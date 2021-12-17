@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class OrderMapper {
 
-    private final Database database;
+    private Database database;
 
     protected OrderMapper(Database database) {
         this.database = database;

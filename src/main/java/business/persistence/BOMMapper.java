@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class BOMMapper {
 
-    Database database;
+    private Database database;
 
     public BOMMapper(Database database) {
         this.database = database;
