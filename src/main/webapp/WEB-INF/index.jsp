@@ -17,7 +17,7 @@
             <div class="container pagetitelblock titlesearch" style="margin-top: 54px">
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="${pageContext.request.contextPath}/fc/requestpage">
+                        <a href="${pageContext.request.contextPath}/fc/requestcarportpage">
                             <img style="width: 100%" src="${pageContext.request.contextPath}/images/carport_quickbyg.jpg">
                         </a>
                     </div>

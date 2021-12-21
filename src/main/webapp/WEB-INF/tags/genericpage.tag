@@ -83,7 +83,7 @@
                                             <div class="col-xs-3">
                                                 <a href="${pageContext.request.contextPath}/fc/retrieverequestcommand"
                                                    class="nav-button" style="text-align: right;">Forespørgsler
-                                                    <c:set var="index" value="0"></c:set>
+                                                    <c:set var="index" value="0"/>
                                                     <c:forEach items="${sessionScope.allrequests}" var="request">
                                                         <c:if test="${request.status.equals('request')}">
                                                             <input type="hidden" name="request"
@@ -100,7 +100,7 @@
                                             <div class="col-xs-3">
                                                 <a href="${pageContext.request.contextPath}/fc/allorderpage"
                                                    class="nav-button" style="text-align: right;">Ordre
-                                                    <c:set var="index" value="0"></c:set>
+                                                    <c:set var="index" value="0"/>
                                                     <c:forEach items="${sessionScope.allorders}" var="accepted">
                                                         <c:if test="${accepted.status.equals('accepted')}">
                                                             <input type="hidden" name="request"

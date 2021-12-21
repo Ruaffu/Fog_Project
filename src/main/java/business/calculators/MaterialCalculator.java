@@ -211,7 +211,8 @@ public abstract class MaterialCalculator {
 
         // uses Pythagoras to find the needed distance
         int tapeRollLength = material.getLength();
-        int quantityOfTapeRolls = (int) ceil((Math.sqrt(Math.pow(carportLength,2) + Math.pow(carportWidth, 2))) / tapeRollLength) * 2;
+        int quantityOfTapeRolls = (int) ceil((Math.sqrt(Math.pow(carportLength,2)
+                + Math.pow(carportWidth, 2))) / tapeRollLength) * 2;
 
         bom.add(newItem(quantityOfTapeRolls, material.getId(), description, type, material));
     }
