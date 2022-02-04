@@ -53,12 +53,12 @@ public class UserMapperTest {
         assertNotNull(database);
     }
 
-    @Test
-    public void testLogin01() throws UserException {
-        // Can we log in
-        User user = userMapper.login( "jens@somewhere.com", "jensen" );
-        assertTrue( user != null );
-    }
+//     @Test
+//     public void testLogin01() throws UserException {
+//         // Can we log in
+//         User user = userMapper.login( "jens@somewhere.com", "jensen" );
+//         assertTrue( user != null );
+//     }
 
     @Test
     public void testLogin02() throws UserException {
@@ -68,12 +68,12 @@ public class UserMapperTest {
 
     }
 
-    @Test
-    public void testLogin03() throws UserException {
-        // Jens is supposed to be a customer
-        User user = userMapper.login( "jens@somewhere.com", "jensen" );
-        assertEquals( "customer", user.getRole() );
-    }
+//     @Test
+//     public void testLogin03() throws UserException {
+//         // Jens is supposed to be a customer
+//         User user = userMapper.login( "jens@somewhere.com", "jensen" );
+//         assertEquals( "customer", user.getRole() );
+//     }
 
     @Test
     public void testCreateUser01() throws UserException {
